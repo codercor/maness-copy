@@ -14,6 +14,9 @@ export class User {
     @Prop()
     picture?: string;
 
+    @Prop()
+    password?: string;
+
     @Prop({ required: true })
     googleId: string;
 

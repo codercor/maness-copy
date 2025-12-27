@@ -47,7 +47,7 @@ export default function AdminGalleryPage() {
 
         fetch(api.auth.verify, {
             method: "GET",
-            headers: { Authorization: `Basic ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => {
                 if (!res.ok) {
@@ -83,7 +83,7 @@ export default function AdminGalleryPage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify(newItem),
             });
@@ -117,7 +117,7 @@ export default function AdminGalleryPage() {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify(editItem),
             });
@@ -142,7 +142,7 @@ export default function AdminGalleryPage() {
         try {
             const response = await fetch(api.gallery.delete(id), {
                 method: "DELETE",
-                headers: { Authorization: `Basic ${adminToken}` },
+                headers: { Authorization: `Bearer ${adminToken}` },
             });
 
             if (response.ok) {
@@ -166,7 +166,7 @@ export default function AdminGalleryPage() {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify({ ...item, featured: newFeatured }),
             });
@@ -200,7 +200,7 @@ export default function AdminGalleryPage() {
         try {
             const response = await fetch(api.upload.image, {
                 method: "POST",
-                headers: { Authorization: `Basic ${adminToken}` },
+                headers: { Authorization: `Bearer ${adminToken}` },
                 body: formData,
             });
 

@@ -102,20 +102,6 @@ export function Footer({
                         <li>
                             <Link href="/legal/privacy">{copy.footer.privacy}</Link>
                         </li>
-                        <li>
-                            <a href="#">{copy.footer.cleaning}</a>
-                        </li>
-                        <li>
-                            <Link
-                                href="/admin"
-                                className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)] hover:text-[var(--gold)] transition-colors"
-                            >
-                                <span className="material-symbols-outlined text-base">
-                                    admin_panel_settings
-                                </span>
-                                Admin Panel
-                            </Link>
-                        </li>
                     </ul>
                 </div>
             </div>

@@ -334,6 +334,34 @@ async function seed() {
     else {
         console.log(`💬 Testimonials already exist (${testimonialCount}). Skipping.`);
     }
+    const UserSchema = new mongoose.Schema({
+        email: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
+        picture: String,
+        googleId: { type: String, required: true },
+        role: { type: String, default: 'user' },
+        password: { type: String },
+    }, { timestamps: true });
+    const User = mongoose.models.User || mongoose.model('User', UserSchema);
+    const adminEmail = process.env.ADMIN_USERNAME || 'admin@menescape.com';
+    const adminExists = await User.findOne({ email: adminEmail });
+    if (!adminExists) {
+        console.log('🌱 Seeding admin user...');
+        const passwordHash = '$2a$10$wH6.r/wH6.r/wH6.r/wH6.O1O1O1O1O1O1O1O1O1O1O1O1O1O1O1O';
+        const bcrypt = require('bcryptjs');
+        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'menescape', 10);
+        await User.create({
+            email: adminEmail,
+            name: 'Admin User',
+            googleId: 'admin_placeholder',
+            role: 'admin',
+            password: hashedPassword,
+        });
+        console.log(`   ✅ Created admin user: ${adminEmail}`);
+    }
+    else {
+        console.log(`👤 Admin user already exists. Skipping.`);
+    }
     console.log('🎉 Seed completed successfully!');
     await mongoose.disconnect();
 }

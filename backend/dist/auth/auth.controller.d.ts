@@ -11,6 +11,13 @@ export declare class AuthController {
     constructor(authService: AuthService);
     login(loginDto: LoginDto): Promise<{
         access_token: string;
+        user: any;
+    }>;
+    changePassword(body: {
+        oldPass: string;
+        newPass: string;
+    }, authHeader: string): Promise<{
+        success: boolean;
     }>;
     googleLogin(googleLoginDto: GoogleLoginDto): Promise<{
         access_token: string;

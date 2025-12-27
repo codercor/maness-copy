@@ -9,6 +9,11 @@ export const api = {
         google: `${API_URL}/auth/google`,
         verify: `${API_URL}/auth/verify`,
         me: `${API_URL}/auth/me`,
+        changePassword: `${API_URL}/auth/change-password`,
+    },
+    // Users endpoints
+    users: {
+        list: `${API_URL}/users`,
     },
     // Packages endpoints
     packages: {

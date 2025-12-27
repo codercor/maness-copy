@@ -38,14 +38,55 @@ let AuthService = class AuthService {
         this.googleClient = new google_auth_library_1.OAuth2Client(clientId, clientSecret, 'postmessage');
     }
     async validateAdmin(username, password) {
-        const adminUsername = this.configService.get('ADMIN_USERNAME') || 'admin';
-        const adminPassword = this.configService.get('ADMIN_PASSWORD') || 'menescape';
-        return username === adminUsername && password === adminPassword;
+        const user = await this.userModel.findOne({ email: username }).exec();
+        if (!user || user.role !== 'admin') {
+            return false;
+        }
+        if (user.password) {
+            const bcrypt = require('bcryptjs');
+            return bcrypt.compare(password, user.password);
+        }
+        return false;
     }
-    async login(username) {
-        const payload = { username, sub: 'admin', role: 'admin' };
+    async changePassword(userId, newPass) {
+        const user = await this.userModel.findById(userId).exec();
+        if (!user)
+            return false;
+        const bcrypt = require('bcryptjs');
+        const hashed = await bcrypt.hash(newPass, 10);
+        user.password = hashed;
+        await user.save();
+        return true;
+    }
+    async login(user) {
+        let payload;
+        if (typeof user === 'string') {
+            const adminUser = await this.userModel.findOne({ email: user }).exec();
+            if (!adminUser)
+                throw new Error('User not found');
+            payload = {
+                sub: adminUser._id.toString(),
+                email: adminUser.email,
+                name: adminUser.name,
+                role: adminUser.role
+            };
+        }
+        else {
+            payload = {
+                sub: user._id?.toString() || user.sub || 'admin',
+                email: user.email || user.username,
+                name: user.name || 'Admin',
+                role: user.role || 'admin'
+            };
+        }
         return {
             access_token: this.jwtService.sign(payload),
+            user: {
+                id: payload.sub,
+                email: payload.email,
+                name: payload.name,
+                role: payload.role
+            }
         };
     }
     verifyToken(token) {

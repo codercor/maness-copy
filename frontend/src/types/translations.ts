@@ -7,6 +7,7 @@ export interface LanguageOption {
 
 export interface NavTranslations {
     destinations: string;
+    packages: string;
     experience: string;
     community: string;
     about: string;
@@ -60,6 +61,7 @@ export interface GalleryTranslations {
     quickLook: string;
     startingFrom: string;
     viewDetails: string;
+    viewAll: string;
 }
 
 export interface ServiceItem {

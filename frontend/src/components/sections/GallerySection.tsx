@@ -49,25 +49,33 @@ export function GallerySection({
     return (
         <section className="py-24 scroll-mt-24 snap-start" id="destination-gallery">
             <div className="mx-auto w-[min(1200px,92vw)]">
-                <motion.div className="mb-10" {...sectionHeaderMotion}>
-                    <div className="flex items-center gap-3">
-                        <span className="header-symbol">
-                            <span className="material-symbols-outlined text-sm text-white">
-                                auto_awesome
+                <motion.div
+                    className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+                    {...sectionHeaderMotion}
+                >
+                    <div>
+                        <div className="flex items-center gap-3">
+                            <span className="header-symbol">
+                                <span className="material-symbols-outlined text-sm text-white">
+                                    auto_awesome
+                                </span>
                             </span>
-                        </span>
-                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--gold)]">
-                            {copy.gallery.label}
-                        </p>
+                            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--gold)]">
+                                {copy.gallery.label}
+                            </p>
+                        </div>
+                        <h2 className="display-title mt-4 text-3xl font-bold md:text-4xl">
+                            {copy.gallery.title}
+                        </h2>
+                        <div className="section-rule mt-4" />
+                        <svg className="section-motif" viewBox="0 0 160 18" aria-hidden="true">
+                            <path d="M0 10 C 20 4, 40 4, 60 10 S 100 16, 120 10 S 150 4, 160 10" />
+                        </svg>
+                        <p className="mt-2 text-slate-500">{copy.gallery.subtitle}</p>
                     </div>
-                    <h2 className="display-title mt-4 text-3xl font-bold md:text-4xl">
-                        {copy.gallery.title}
-                    </h2>
-                    <div className="section-rule mt-4" />
-                    <svg className="section-motif" viewBox="0 0 160 18" aria-hidden="true">
-                        <path d="M0 10 C 20 4, 40 4, 60 10 S 100 16, 120 10 S 150 4, 160 10" />
-                    </svg>
-                    <p className="mt-2 text-slate-500">{copy.gallery.subtitle}</p>
+                    <Link className="text-sm font-bold text-[var(--navy)] shrink-0" href="/destinations">
+                        {copy.gallery.viewAll}
+                    </Link>
                 </motion.div>
                 <div className="relative">
                     <div className="columns-1 md:columns-2 lg:columns-3 gap-6 [column-fill:_balance]">

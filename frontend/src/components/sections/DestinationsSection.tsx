@@ -83,9 +83,9 @@ export function DestinationsSection({
                             <path d="M0 10 C 20 4, 40 4, 60 10 S 100 16, 120 10 S 150 4, 160 10" />
                         </svg>
                     </div>
-                    <a className="text-sm font-bold text-[var(--navy)]" href="#destination-gallery">
+                    <Link className="text-sm font-bold text-[var(--navy)]" href="/packages">
                         {copy.destinations.viewAll}
-                    </a>
+                    </Link>
                 </motion.div>
                 <div className="flex items-center gap-4 reveal" data-reveal>
                     <button
@@ -117,7 +117,7 @@ export function DestinationsSection({
                                             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                                             style={{ backgroundImage: `url(${pkg.image || pkg.destination?.image || ''})` }}
                                         />
-                                        {selectedPackage === packageId && (
+                                        {pkg.isSelected && (
                                             <span className="absolute left-4 top-4 lux-badge lux-badge--gold">
                                                 {copy.destinations.selected}
                                             </span>

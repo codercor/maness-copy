@@ -2,6 +2,7 @@
     "en": {
         "nav": {
             "destinations": "Destinations",
+            "packages": "Packages",
             "experience": "The Experience",
             "community": "Community",
             "about": "About",
@@ -43,8 +44,8 @@
         },
         "destinations": {
             "label": "Upcoming Trips",
-            "title": "Exclusive Destinations",
-            "viewAll": "View all destinations",
+            "title": "Signature Packages",
+            "viewAll": "View all packages",
             "quickLook": "Quick Look",
             "description": "Discover hidden beaches and private villas on the beautiful island.",
             "startingAt": "Starting at",
@@ -53,11 +54,12 @@
         },
         "gallery": {
             "label": "Curated Escapes",
-            "title": "Destination Gallery",
+            "title": "Our Destinations",
             "subtitle": "Exclusive destinations designed for connection, adventure, and unparalleled luxury.",
             "quickLook": "Quick Look",
             "startingFrom": "Starting from",
-            "viewDetails": "View Details"
+            "viewDetails": "View Details",
+            "viewAll": "View all destinations"
         },
         "itinerary": {
             "label": "The Itinerary",
@@ -123,7 +125,7 @@
             "cleaning": "Cleaning Fees",
             "brandLine": "Let's create the perfect MenEscape together.",
             "phase4": "Phase 4 is about community building, private circles, and destination-first connection.",
-            "join": "Join Phase 4",
+            "join": "Join Newsletter",
             "rights": "© 2024 MenEscape. All rights reserved.",
             "closing": "Let's create the perfect MenEscape together."
         },
@@ -192,6 +194,7 @@
     "de": {
         "nav": {
             "destinations": "Reiseziele",
+            "packages": "Pakete",
             "experience": "Das Erlebnis",
             "community": "Community",
             "about": "Über uns",
@@ -233,8 +236,8 @@
         },
         "destinations": {
             "label": "Kommende Trips",
-            "title": "Exklusive Reiseziele",
-            "viewAll": "Alle Reiseziele ansehen",
+            "title": "Kuratierte Pakete",
+            "viewAll": "Alle Pakete ansehen",
             "quickLook": "Kurzblick",
             "description": "Entdecke versteckte Strände und private Villen auf einer traumhaften Insel.",
             "startingAt": "Ab",
@@ -243,11 +246,12 @@
         },
         "gallery": {
             "label": "Kuratierten Escapes",
-            "title": "Destination Gallery",
+            "title": "Unsere Reiseziele",
             "subtitle": "Exklusive Ziele für Verbindung, Abenteuer und unvergleichlichen Luxus.",
             "quickLook": "Kurzblick",
             "startingFrom": "Ab",
-            "viewDetails": "Details ansehen"
+            "viewDetails": "Details ansehen",
+            "viewAll": "Alle Reiseziele ansehen"
         },
         "itinerary": {
             "label": "Der Reiseplan",
@@ -313,7 +317,7 @@
             "cleaning": "Reinigungsgebühren",
             "brandLine": "Lasst uns gemeinsam den perfekten MenEscape schaffen.",
             "phase4": "Phase 4 steht für Community-Aufbau, private Circles und destination-first Verbindung.",
-            "join": "Phase 4 beitreten",
+            "join": "Newsletter beitreten",
             "rights": "© 2024 MenEscape. Alle Rechte vorbehalten.",
             "closing": "Lasst uns gemeinsam den perfekten MenEscape schaffen."
         },
@@ -382,6 +386,7 @@
     "el": {
         "nav": {
             "destinations": "Προορισμοί",
+            "packages": "Πακέτα",
             "experience": "Η Εμπειρία",
             "community": "Κοινότητα",
             "about": "Σχετικά",
@@ -423,8 +428,8 @@
         },
         "destinations": {
             "label": "Επερχόμενα Ταξίδια",
-            "title": "Αποκλειστικοί Προορισμοί",
-            "viewAll": "Δες όλους τους προορισμούς",
+            "title": "Υπογραφή Πακέτα",
+            "viewAll": "Δες όλα τα πακέτα",
             "quickLook": "Μια ματιά",
             "description": "Ανακάλυψε κρυφές παραλίες και ιδιωτικές βίλες σε ένα υπέροχο νησί.",
             "startingAt": "Από",
@@ -433,11 +438,12 @@
         },
         "gallery": {
             "label": "Επιλεγμένες Αποδράσεις",
-            "title": "Gallery Προορισμών",
+            "title": "Οι Προορισμοί Μας",
             "subtitle": "Αποκλειστικοί προορισμοί για σύνδεση, περιπέτεια και απαράμιλλη πολυτέλεια.",
             "quickLook": "Μια ματιά",
             "startingFrom": "Από",
-            "viewDetails": "Δες λεπτομέρειες"
+            "viewDetails": "Δες λεπτομέρειες",
+            "viewAll": "Δες όλους τους προορισμούς"
         },
         "itinerary": {
             "label": "Το Πρόγραμμα",
@@ -503,7 +509,7 @@
             "cleaning": "Χρεώσεις Καθαρισμού",
             "brandLine": "Ας δημιουργήσουμε μαζί την τέλεια MenEscape εμπειρία.",
             "phase4": "Το Phase 4 αφορά την κοινότητα, ιδιωτικούς κύκλους και συνδέσεις με βάση τον προορισμό.",
-            "join": "Γίνε μέρος του Phase 4",
+            "join": "Γίνε μέρος του Newsletter",
             "rights": "© 2024 MenEscape. Όλα τα δικαιώματα κατοχυρωμένα.",
             "closing": "Ας δημιουργήσουμε μαζί την τέλεια MenEscape εμπειρία."
         },

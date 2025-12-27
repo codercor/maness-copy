@@ -361,8 +361,15 @@ export default function Home() {
           }
           setPackagesState(nextPackages);
           const keys = Object.keys(nextPackages) as PackageId[];
+
+          // Find if any package is selected (featured)
+          const featuredPackageId = keys.find(key => nextPackages[key].isSelected);
+
           if (keys.length && !keys.includes(selectedPackage)) {
-            setSelectedPackage(keys[0]);
+            setSelectedPackage(featuredPackageId || keys[0]);
+          } else if (featuredPackageId && selectedPackage === "mykonos" && nextPackages["mykonos"]?.isSelected !== true) {
+            // If currently on default/placeholder but a featured one exists (and default isn't it), switch to featured
+            setSelectedPackage(featuredPackageId);
           }
         }
 

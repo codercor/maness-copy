@@ -16,6 +16,7 @@ const newsletter_module_1 = require("./newsletter/newsletter.module");
 const gallery_module_1 = require("./gallery/gallery.module");
 const testimonials_module_1 = require("./testimonials/testimonials.module");
 const upload_module_1 = require("./upload/upload.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -39,6 +40,7 @@ exports.AppModule = AppModule = __decorate([
             gallery_module_1.GalleryModule,
             testimonials_module_1.TestimonialsModule,
             upload_module_1.UploadModule,
+            users_module_1.UsersModule,
         ],
     })
 ], AppModule);

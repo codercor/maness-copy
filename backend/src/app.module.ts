@@ -7,6 +7,7 @@ import { NewsletterModule } from './newsletter/newsletter.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { TestimonialsModule } from './testimonials/testimonials.module';
 import { UploadModule } from './upload/upload.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UploadModule } from './upload/upload.module';
     GalleryModule,
     TestimonialsModule,
     UploadModule,
+    UsersModule,
   ],
 })
 export class AppModule { }

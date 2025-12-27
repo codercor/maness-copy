@@ -50,6 +50,21 @@ let AuthController = class AuthController {
         }
         return this.authService.login(loginDto.username);
     }
+    async changePassword(body, authHeader) {
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            throw new common_1.UnauthorizedException('No authorization header');
+        }
+        const token = authHeader.slice(7);
+        const payload = this.authService.verifyToken(token);
+        if (!payload || payload.role !== 'admin') {
+            throw new common_1.UnauthorizedException('Unauthorized');
+        }
+        const success = await this.authService.changePassword(payload.sub, body.newPass);
+        if (!success) {
+            throw new common_1.UnauthorizedException('Could not change password');
+        }
+        return { success: true };
+    }
     async googleLogin(googleLoginDto) {
         const result = await this.authService.googleLogin(googleLoginDto.code);
         if (!result) {
@@ -120,6 +135,15 @@ __decorate([
     __metadata("design:paramtypes", [LoginDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('change-password'),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('authorization')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "changePassword", null);
 __decorate([
     (0, common_1.Post)('google'),
     (0, common_1.HttpCode)(200),

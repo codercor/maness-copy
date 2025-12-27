@@ -18,22 +18,22 @@ export default function AdminLoginPage() {
         setLoading(true);
 
         try {
-            const basicToken = btoa(`${username}:${password}`);
-            const response = await fetch(api.auth.verify, {
-                method: "GET",
-                headers: {
-                    Authorization: `Basic ${basicToken}`,
-                },
+
+            const res = await fetch(api.auth.login, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
             });
 
-            if (!response.ok) {
+            if (!res.ok) {
                 setError("Invalid username or password");
                 setLoading(false);
                 return;
             }
 
-            // Store token and redirect to admin panel
-            sessionStorage.setItem("menescape-admin-token", basicToken);
+            const data = await res.json();
+            // Store JWT token and redirect to admin panel
+            sessionStorage.setItem("menescape-admin-token", data.access_token);
             router.push("/admin");
         } catch {
             setError("Login failed. Please try again.");

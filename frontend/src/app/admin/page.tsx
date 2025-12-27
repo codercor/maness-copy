@@ -57,7 +57,7 @@ export default function AdminPage() {
         // Verify token is still valid
         fetch(api.auth.verify, {
             method: "GET",
-            headers: { Authorization: `Basic ${token}` },
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => {
                 if (!res.ok) {
@@ -116,7 +116,7 @@ export default function AdminPage() {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify({ packages }),
             });
@@ -227,7 +227,7 @@ export default function AdminPage() {
             const response = await fetch(api.upload.image, {
                 method: "POST",
                 headers: {
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: formData,
             });
@@ -373,7 +373,7 @@ export default function AdminPage() {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Basic ${adminToken}`,
+                    Authorization: `Bearer ${adminToken}`,
                 },
                 body: JSON.stringify({ ...pkg, showOnHomepage: newValue }),
             });
@@ -413,7 +413,7 @@ export default function AdminPage() {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Basic ${adminToken}`,
+                            Authorization: `Bearer ${adminToken}`,
                         },
                         body: JSON.stringify({ ...packages[id], isSelected: id === packageId }),
                     });
@@ -423,7 +423,7 @@ export default function AdminPage() {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Basic ${adminToken}`,
+                        Authorization: `Bearer ${adminToken}`,
                     },
                     body: JSON.stringify({ ...pkg, isSelected: false }),
                 });
@@ -499,47 +499,9 @@ export default function AdminPage() {
     const packageImage = currentPackage.image || currentPackage.destination?.image || "";
 
     return (
-        <div className="min-h-screen bg-[var(--bg)]">
-            {/* Header */}
-            <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur">
-                <div className="mx-auto flex h-16 w-[min(1400px,95vw)] items-center justify-between">
-                    <div className="flex items-center gap-3 text-[var(--navy)]">
-                        <div className="grid h-10 w-10 place-items-center rounded-full bg-transparent overflow-hidden">
-                            <Image
-                                src="/Logo_Sade.svg"
-                                alt="MenEscape logo"
-                                width={40}
-                                height={40}
-                                className="h-10 w-10 object-contain scale-[1.6]"
-                            />
-                        </div>
-                        <span className="font-bold">Admin Panel</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <a
-                            href="/admin/gallery"
-                            className="rounded-full border border-[var(--navy)] px-4 py-2 text-xs font-bold text-[var(--navy)] hover:bg-slate-50 transition-colors"
-                        >
-                            Gallery Management
-                        </a>
-                        <a
-                            href="/"
-                            className="text-sm text-slate-500 hover:text-[var(--navy)] transition-colors"
-                        >
-                            View Website
-                        </a>
-                        <button
-                            onClick={handleLogout}
-                            className="rounded-full border border-red-300 px-4 py-2 text-xs font-bold text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                            Logout
-                        </button>
-                    </div>
-                </div>
-            </header>
-
+        <div className="bg-[var(--bg)] min-h-full">
             {/* Main Content - Two Column Layout */}
-            <main className="mx-auto w-[min(1400px,95vw)] py-8">
+            <div className="mx-auto max-w-[1400px]">
                 <div className="mb-6">
                     <h1 className="text-3xl font-bold text-[var(--navy)]">Edit Packages</h1>
                     <p className="mt-2 text-slate-500">
@@ -1059,7 +1021,7 @@ export default function AdminPage() {
                         </button>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

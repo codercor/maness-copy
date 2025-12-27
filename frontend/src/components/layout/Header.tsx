@@ -21,9 +21,8 @@ interface HeaderProps {
 }
 
 const navItems = [
-    { id: "destinations", key: "destinations" as const, href: "/#destinations" },
-    { id: "experience", key: "experience" as const, href: "/#experience" },
-    { id: "community", key: "community" as const, href: "/#community" },
+    { id: "destinations", key: "destinations" as const, href: "/destinations" },
+    { id: "packages", key: "packages" as const, href: "/packages" },
     { id: "about", key: "about" as const, href: "/about" },
     { id: "contact", key: "contact" as const, href: "/contact" },
 ];

@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { GalleryItem, Package } from "@/types";
 import { api } from "@/config/api";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { PackageCard } from "@/components/ui/PackageCard";
 
 interface DestinationWithId extends GalleryItem {
     _id: string;
@@ -219,66 +220,7 @@ export default function DestinationDetailPage() {
                         </div>
                     </div>
                 </section>
-            </div>
-        </SiteLayout>
-    );
-}
-
-// Package Card Component
-function PackageCard({ pkg }: { pkg: Package }) {
-    const price = pkg.price || pkg.destination?.price || "Price TBD";
-    const dates = pkg.dates || pkg.destination?.dates || "";
-    const title = pkg.translations?.en?.title || pkg.destination?.title || pkg.name;
-    const quickLook = pkg.translations?.en?.quickLook || pkg.destination?.quickLook || "";
-
-    return (
-        <article className="group lux-card rounded-3xl bg-white overflow-hidden hover:shadow-xl transition-shadow">
-            {/* Image */}
-            <div className="relative h-48 overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${pkg.image || pkg.destination?.image || ''})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                {/* Spots Badge */}
-                {pkg.spots && pkg.spots < 5 && (
-                    <span className="absolute top-3 right-3 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white">
-                        Only {pkg.spots} spots left!
-                    </span>
-                )}
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-                <p className="text-xs text-slate-500 flex items-center gap-1 mb-2">
-                    <span className="material-symbols-outlined text-sm">calendar_month</span>
-                    {dates}
-                </p>
-
-                <h3 className="text-lg font-bold text-[var(--navy)] mb-2 line-clamp-2">
-                    {title}
-                </h3>
-
-                <p className="text-sm text-slate-500 line-clamp-2 mb-4">
-                    {quickLook}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                    <div>
-                        <p className="text-xs uppercase tracking-wider text-slate-400">Starting at</p>
-                        <p className="text-xl font-bold text-[var(--navy)]">{price}</p>
-                    </div>
-
-                    <Link
-                        href={`/packages/${pkg.id}`}
-                        className="inline-flex items-center gap-2 rounded-full bg-[var(--navy)] px-5 py-2.5 text-xs font-bold text-white hover:opacity-90 transition-opacity"
-                    >
-                        View Package
-                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </Link>
-                </div>
-            </div>
-        </article>
+            </div >
+        </SiteLayout >
     );
 }

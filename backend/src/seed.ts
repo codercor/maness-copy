@@ -332,6 +332,46 @@ async function seed() {
         console.log(`💬 Testimonials already exist (${testimonialCount}). Skipping.`);
     }
 
+    // Seed admin user
+    const UserSchema = new mongoose.Schema({
+        email: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
+        picture: String,
+        googleId: { type: String, required: true },
+        role: { type: String, default: 'user' },
+        password: { type: String }, // Hashed password
+    }, { timestamps: true });
+
+    // We need to re-compile model here since we are not importing the full app context
+    // Check if model exists to avoid OverwriteModelError
+    const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
+    const adminEmail = process.env.ADMIN_USERNAME || 'admin@menescape.com';
+    const adminExists = await User.findOne({ email: adminEmail });
+
+    if (!adminExists) {
+        console.log('🌱 Seeding admin user...');
+        // Hash for "menescape"
+        // Generated with bcryptjs.hashSync("menescape", 10)
+        // Hardcoded here to avoid importing bcrypt in seed script context issues, 
+        // but typically you'd import bcrypt.
+        const passwordHash = '$2a$10$wH6.r/wH6.r/wH6.r/wH6.O1O1O1O1O1O1O1O1O1O1O1O1O1O1O1O'; // Placeholder/Mock hash is risky, let's use a known hash from online generator or simple import if supported.
+        // Actually, let's just use a simple bcrypt import since it is in dependencies.
+        const bcrypt = require('bcryptjs');
+        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'menescape', 10);
+
+        await User.create({
+            email: adminEmail,
+            name: 'Admin User',
+            googleId: 'admin_placeholder',
+            role: 'admin',
+            password: hashedPassword,
+        });
+        console.log(`   ✅ Created admin user: ${adminEmail}`);
+    } else {
+        console.log(`👤 Admin user already exists. Skipping.`);
+    }
+
     console.log('🎉 Seed completed successfully!');
     await mongoose.disconnect();
 }

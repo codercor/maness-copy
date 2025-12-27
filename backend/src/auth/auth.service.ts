@@ -44,17 +44,90 @@ export class AuthService {
         );
     }
 
-    // Admin authentication (existing)
+    // Admin authentication (database backed)
     async validateAdmin(username: string, password: string): Promise<boolean> {
-        const adminUsername = this.configService.get<string>('ADMIN_USERNAME') || 'admin';
-        const adminPassword = this.configService.get<string>('ADMIN_PASSWORD') || 'menescape';
-        return username === adminUsername && password === adminPassword;
+        // Find user by email (username field in login form)
+        const user = await this.userModel.findOne({ email: username }).exec();
+
+        if (!user || user.role !== 'admin') {
+            return false;
+        }
+
+        // Check password
+        if (user.password) {
+            // Check if password matches
+            // Lazy load bcrypt to avoid potential issues if not imported at top, 
+            // though top-level import is better. 
+            // But wait, we should standard import at top if possible.
+            // I'll assume we can add import at top or use require.
+            // Let's use require('bcryptjs') to be safe with existing imports.
+            const bcrypt = require('bcryptjs');
+            return bcrypt.compare(password, user.password);
+        }
+
+        // Fallback for transition/legacy (security risk, but kept if user wants fallback)
+        // Ideally should be removed. Let's strictly force DB auth for admins with passwords.
+        // If password is set, must match.
+        // If no password set on admin user (e.g. Google-only admin), deny password login.
+        return false;
     }
 
-    async login(username: string): Promise<{ access_token: string }> {
-        const payload = { username, sub: 'admin', role: 'admin' };
+    async changePassword(userId: string, newPass: string): Promise<boolean> {
+        const user = await this.userModel.findById(userId).exec();
+        if (!user) return false;
+
+        const bcrypt = require('bcryptjs');
+        const hashed = await bcrypt.hash(newPass, 10);
+
+        user.password = hashed;
+        await user.save();
+        return true;
+    }
+
+    async login(user: any): Promise<{ access_token: string, user: any }> {
+        // User object comes from validateAdmin or findOrCreateUser logic
+        // If it's a string (legacy username), we need to fetch the user.
+        // But validateAdmin returns boolean, so local strategy in AuthController usually returns the user object.
+        // We need to check how AuthController calls this.
+
+        // Let's assume input is the full user document or similar object
+        // If 'user' is just the username string (from old code), we need to fetch object.
+
+        // Actually, looking at original code: 
+        // async login(username: string): Promise<{ access_token: string }> {
+        //    const payload = { username, sub: 'admin', role: 'admin' };
+
+        let payload: JwtPayload;
+
+        if (typeof user === 'string') {
+            // Legacy call support (if any), fetch admin user
+            const adminUser = await this.userModel.findOne({ email: user }).exec();
+            if (!adminUser) throw new Error('User not found');
+
+            payload = {
+                sub: adminUser._id.toString(),
+                email: adminUser.email,
+                name: adminUser.name,
+                role: adminUser.role
+            };
+        } else {
+            // It's a user object
+            payload = {
+                sub: user._id?.toString() || user.sub || 'admin',
+                email: user.email || user.username,
+                name: user.name || 'Admin',
+                role: user.role || 'admin'
+            };
+        }
+
         return {
             access_token: this.jwtService.sign(payload),
+            user: {
+                id: payload.sub,
+                email: payload.email,
+                name: payload.name,
+                role: payload.role
+            }
         };
     }
 

@@ -22,7 +22,7 @@ class GoogleLoginDto {
 export class AuthController {
     constructor(private authService: AuthService) { }
 
-    // Admin login (existing)
+    // Admin login (database backed)
     @Post('login')
     @HttpCode(200)
     async login(@Body() loginDto: LoginDto) {
@@ -35,7 +35,34 @@ export class AuthController {
             throw new UnauthorizedException('Invalid credentials');
         }
 
+        // We can optionally return the user object from validateAdmin if we refactor it,
+        // but for now let's just use the known username (email) to generate the token.
+        // It's safer to pass the actual user object, but `login` in service now handles string lookups too.
         return this.authService.login(loginDto.username);
+    }
+
+    @Post('change-password')
+    @HttpCode(200)
+    async changePassword(
+        @Body() body: { oldPass: string; newPass: string },
+        @Headers('authorization') authHeader: string
+    ) {
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            throw new UnauthorizedException('No authorization header');
+        }
+
+        const token = authHeader.slice(7);
+        const payload = this.authService.verifyToken(token);
+        if (!payload || payload.role !== 'admin') {
+            throw new UnauthorizedException('Unauthorized');
+        }
+
+        const success = await this.authService.changePassword(payload.sub, body.newPass);
+        if (!success) {
+            throw new UnauthorizedException('Could not change password');
+        }
+
+        return { success: true };
     }
 
     // Google OAuth login (Authorization Code Flow)

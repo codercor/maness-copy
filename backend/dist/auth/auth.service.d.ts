@@ -21,8 +21,10 @@ export declare class AuthService {
     private googleClient;
     constructor(jwtService: JwtService, configService: ConfigService, userModel: Model<UserDocument>);
     validateAdmin(username: string, password: string): Promise<boolean>;
-    login(username: string): Promise<{
+    changePassword(userId: string, newPass: string): Promise<boolean>;
+    login(user: any): Promise<{
         access_token: string;
+        user: any;
     }>;
     verifyToken(token: string): JwtPayload | null;
     findOrCreateUser(googleUser: GoogleUserPayload): Promise<UserDocument>;
