@@ -64,6 +64,12 @@ export class Package {
 
     @Prop({ type: [ItineraryDay], required: true })
     itinerary: ItineraryDay[];
+
+    @Prop({ default: true })
+    showOnHomepage: boolean;
+
+    @Prop({ default: false })
+    isSelected: boolean;
 }
 
 export const PackageSchema = SchemaFactory.createForClass(Package);

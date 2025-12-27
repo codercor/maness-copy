@@ -19,6 +19,7 @@ let GalleryItem = class GalleryItem {
     image;
     quickLook;
     featured;
+    packageId;
 };
 exports.GalleryItem = GalleryItem;
 __decorate([
@@ -49,6 +50,10 @@ __decorate([
     (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], GalleryItem.prototype, "featured", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], GalleryItem.prototype, "packageId", void 0);
 exports.GalleryItem = GalleryItem = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], GalleryItem);

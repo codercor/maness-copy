@@ -12,6 +12,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const gallery_controller_1 = require("./gallery.controller");
 const gallery_service_1 = require("./gallery.service");
 const gallery_item_schema_1 = require("./schemas/gallery-item.schema");
+const auth_module_1 = require("../auth/auth.module");
 let GalleryModule = class GalleryModule {
 };
 exports.GalleryModule = GalleryModule;
@@ -19,6 +20,7 @@ exports.GalleryModule = GalleryModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: gallery_item_schema_1.GalleryItem.name, schema: gallery_item_schema_1.GalleryItemSchema }]),
+            auth_module_1.AuthModule,
         ],
         controllers: [gallery_controller_1.GalleryController],
         providers: [gallery_service_1.GalleryService],

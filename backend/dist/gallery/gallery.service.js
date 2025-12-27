@@ -25,6 +25,30 @@ let GalleryService = class GalleryService {
     async findAll() {
         return this.galleryModel.find().exec();
     }
+    async findOne(id) {
+        const item = await this.galleryModel.findById(id).exec();
+        if (!item) {
+            throw new common_1.NotFoundException(`Gallery item with ID ${id} not found`);
+        }
+        return item;
+    }
+    async create(data) {
+        const created = new this.galleryModel(data);
+        return created.save();
+    }
+    async update(id, data) {
+        const updated = await this.galleryModel.findByIdAndUpdate(id, data, { new: true }).exec();
+        if (!updated) {
+            throw new common_1.NotFoundException(`Gallery item with ID ${id} not found`);
+        }
+        return updated;
+    }
+    async delete(id) {
+        const result = await this.galleryModel.findByIdAndDelete(id).exec();
+        if (!result) {
+            throw new common_1.NotFoundException(`Gallery item with ID ${id} not found`);
+        }
+    }
     async seed(items) {
         const count = await this.galleryModel.countDocuments().exec();
         if (count === 0 && items.length > 0) {

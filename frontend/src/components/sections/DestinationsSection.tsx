@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Translations, PackageDetails, PackageId, DestinationContentTranslation } from "@/types";
@@ -49,7 +50,12 @@ export function DestinationsSection({
         }
         : { initial: false as const };
 
-    const packageIds = Object.keys(packages) as PackageId[];
+    // Filter to only show packages with showOnHomepage enabled
+    const packageIds = useMemo(() => {
+        return (Object.keys(packages) as PackageId[]).filter(
+            (id) => packages[id]?.showOnHomepage !== false
+        );
+    }, [packages]);
 
     return (
         <section className="sunset-wash py-24 scroll-mt-24 snap-start" id="destinations">

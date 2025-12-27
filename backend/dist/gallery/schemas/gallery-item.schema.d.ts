@@ -8,6 +8,7 @@ export declare class GalleryItem {
     image: string;
     quickLook: string;
     featured: boolean;
+    packageId: string;
 }
 export declare const GalleryItemSchema: import("mongoose").Schema<GalleryItem, import("mongoose").Model<GalleryItem, any, any, any, Document<unknown, any, GalleryItem, any, import("mongoose").DefaultSchemaOptions> & GalleryItem & {
     _id: import("mongoose").Types.ObjectId;
@@ -77,6 +78,15 @@ export declare const GalleryItemSchema: import("mongoose").Schema<GalleryItem, i
         id: string;
     }> | undefined;
     featured?: import("mongoose").SchemaDefinitionProperty<boolean, GalleryItem, Document<unknown, {}, GalleryItem, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    packageId?: import("mongoose").SchemaDefinitionProperty<string, GalleryItem, Document<unknown, {}, GalleryItem, {
         id: string;
     }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
         _id: import("mongoose").Types.ObjectId;

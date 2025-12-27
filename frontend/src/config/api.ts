@@ -20,6 +20,10 @@ export const api = {
     // Gallery endpoints
     gallery: {
         list: `${API_URL}/gallery`,
+        get: (id: string) => `${API_URL}/gallery/${id}`,
+        create: `${API_URL}/gallery`,
+        update: (id: string) => `${API_URL}/gallery/${id}`,
+        delete: (id: string) => `${API_URL}/gallery/${id}`,
     },
     // Testimonials endpoints
     testimonials: {

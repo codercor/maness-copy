@@ -25,6 +25,8 @@ export interface Package {
     spots: number;
     partner: Partner;
     itinerary: ItineraryDay[];
+    showOnHomepage?: boolean;
+    isSelected?: boolean;
 }
 
 export type PackageId = 'mykonos' | 'crete' | 'sitges' | 'telaviv' | 'grancanaria';

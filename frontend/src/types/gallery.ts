@@ -6,6 +6,7 @@ export interface GalleryItem {
     image: string;
     quickLook: string;
     featured?: boolean;
+    packageId?: string;
 }
 
 export interface Testimonial {

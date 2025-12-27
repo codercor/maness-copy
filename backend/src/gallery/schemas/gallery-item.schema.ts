@@ -25,6 +25,9 @@ export class GalleryItem {
 
     @Prop({ default: false })
     featured: boolean;
+
+    @Prop()
+    packageId: string;
 }
 
 export const GalleryItemSchema = SchemaFactory.createForClass(GalleryItem);

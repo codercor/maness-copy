@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Translations, GalleryItem, GalleryContentTranslation } from "@/types";
 
@@ -27,6 +29,10 @@ export function GallerySection({
     getGalleryText,
     motionEnabled,
 }: GallerySectionProps) {
+    // Show only featured items on homepage
+    const displayedGallery = useMemo(() => {
+        return gallery.filter(item => item.featured);
+    }, [gallery]);
     const sectionHeaderMotion = motionEnabled
         ? {
             initial: "hidden" as const,
@@ -60,49 +66,18 @@ export function GallerySection({
                     <p className="mt-2 text-slate-500">{copy.gallery.subtitle}</p>
                 </motion.div>
                 <div className="relative">
-                    {motionEnabled ? (
-                        <motion.div
-                            className="gallery-mask"
-                            aria-hidden="true"
-                            initial={{ x: "0%" }}
-                            whileInView={{ x: "110%" }}
-                            viewport={{ once: true, amount: 0.25 }}
-                            transition={{ duration: 1.2, ease: motionEase }}
-                        />
-                    ) : null}
-                    <motion.div
-                        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-                        {...(motionEnabled
-                            ? {
-                                initial: "hidden",
-                                whileInView: "show",
-                                viewport: { once: true, amount: 0.25 },
-                                variants: {
-                                    show: { transition: { staggerChildren: 0.08 } },
-                                },
-                            }
-                            : { initial: false })}
-                    >
-                        {gallery.map((item, index) => {
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-6 [column-fill:_balance]">
+                        {displayedGallery.map((item, index) => {
                             const galleryText = getGalleryText(item.title);
+                            // Vary heights for masonry effect
+                            const heights = ['h-64', 'h-80', 'h-72', 'h-96', 'h-56'];
+                            const heightClass = heights[index % heights.length];
                             return (
-                                <motion.article
-                                    key={item.title}
-                                    {...(motionEnabled
-                                        ? {
-                                            variants: {
-                                                hidden: { opacity: 0, y: 18 },
-                                                show: {
-                                                    opacity: 1,
-                                                    y: 0,
-                                                    transition: { duration: 0.7, ease: motionEase },
-                                                },
-                                            },
-                                        }
-                                        : {})}
-                                    className={`gallery-card lux-card group overflow-hidden rounded-3xl bg-white ${item.featured ? "lg:col-span-2" : ""}`}
+                                <article
+                                    key={`${item.title}-${index}`}
+                                    className="gallery-card lux-card group overflow-hidden rounded-3xl bg-white mb-6 break-inside-avoid"
                                 >
-                                    <div className="curtain-reveal relative h-64 overflow-hidden">
+                                    <div className={`curtain-reveal relative ${heightClass} overflow-hidden`}>
                                         <div
                                             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                                             style={{ backgroundImage: `url(${item.image})` }}
@@ -140,20 +115,32 @@ export function GallerySection({
                                                     {item.price}
                                                 </strong>
                                             </div>
-                                            <button
-                                                className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ${item.featured
-                                                    ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
-                                                    : "border border-[var(--navy)] text-[var(--navy)]"
-                                                    }`}
-                                            >
-                                                {copy.gallery.viewDetails}
-                                            </button>
+                                            {item.packageId ? (
+                                                <Link
+                                                    href={`/packages/${item.packageId}`}
+                                                    className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ${item.featured
+                                                        ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
+                                                        : "border border-[var(--navy)] text-[var(--navy)]"
+                                                        }`}
+                                                >
+                                                    {copy.gallery.viewDetails}
+                                                </Link>
+                                            ) : (
+                                                <button
+                                                    className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ${item.featured
+                                                        ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
+                                                        : "border border-[var(--navy)] text-[var(--navy)]"
+                                                        }`}
+                                                >
+                                                    {copy.gallery.viewDetails}
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
-                                </motion.article>
+                                </article>
                             );
                         })}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

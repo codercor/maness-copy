@@ -87,6 +87,8 @@ let Package = class Package {
     spots;
     partner;
     itinerary;
+    showOnHomepage;
+    isSelected;
 };
 exports.Package = Package;
 __decorate([
@@ -117,6 +119,14 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [ItineraryDay], required: true }),
     __metadata("design:type", Array)
 ], Package.prototype, "itinerary", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: true }),
+    __metadata("design:type", Boolean)
+], Package.prototype, "showOnHomepage", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], Package.prototype, "isSelected", void 0);
 exports.Package = Package = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Package);
