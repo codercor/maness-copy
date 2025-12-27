@@ -6,7 +6,9 @@ export const api = {
     // Auth endpoints
     auth: {
         login: `${API_URL}/auth/login`,
+        google: `${API_URL}/auth/google`,
         verify: `${API_URL}/auth/verify`,
+        me: `${API_URL}/auth/me`,
     },
     // Packages endpoints
     packages: {
@@ -21,6 +23,7 @@ export const api = {
     gallery: {
         list: `${API_URL}/gallery`,
         get: (id: string) => `${API_URL}/gallery/${id}`,
+        packages: (id: string) => `${API_URL}/gallery/${id}/packages`,
         create: `${API_URL}/gallery`,
         update: (id: string) => `${API_URL}/gallery/${id}`,
         delete: (id: string) => `${API_URL}/gallery/${id}`,

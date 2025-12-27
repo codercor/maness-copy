@@ -9,39 +9,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PackageSchema = exports.Package = exports.ItineraryDay = exports.Partner = exports.DestinationInfo = void 0;
+exports.PackageSchema = exports.Package = exports.DestinationInfo = exports.ItineraryDay = exports.Partner = exports.PackageTranslationsSchema = exports.PackageTranslations = exports.TranslatedContentSchema = exports.TranslatedContent = exports.DEFAULT_LANGUAGE = exports.SUPPORTED_LANGUAGES = void 0;
+exports.getTranslatedContent = getTranslatedContent;
 const mongoose_1 = require("@nestjs/mongoose");
-let DestinationInfo = class DestinationInfo {
+exports.SUPPORTED_LANGUAGES = ['en', 'de', 'el'];
+exports.DEFAULT_LANGUAGE = 'en';
+let TranslatedContent = class TranslatedContent {
     title;
-    dates;
-    price;
-    image;
+    description;
     quickLook;
 };
-exports.DestinationInfo = DestinationInfo;
+exports.TranslatedContent = TranslatedContent;
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], DestinationInfo.prototype, "title", void 0);
+], TranslatedContent.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ default: '' }),
     __metadata("design:type", String)
-], DestinationInfo.prototype, "dates", void 0);
+], TranslatedContent.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ default: '' }),
     __metadata("design:type", String)
-], DestinationInfo.prototype, "price", void 0);
+], TranslatedContent.prototype, "quickLook", void 0);
+exports.TranslatedContent = TranslatedContent = __decorate([
+    (0, mongoose_1.Schema)({ _id: false })
+], TranslatedContent);
+exports.TranslatedContentSchema = mongoose_1.SchemaFactory.createForClass(TranslatedContent);
+let PackageTranslations = class PackageTranslations {
+    en;
+    de;
+    el;
+};
+exports.PackageTranslations = PackageTranslations;
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], DestinationInfo.prototype, "image", void 0);
+    (0, mongoose_1.Prop)({ type: exports.TranslatedContentSchema, required: true }),
+    __metadata("design:type", TranslatedContent)
+], PackageTranslations.prototype, "en", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], DestinationInfo.prototype, "quickLook", void 0);
-exports.DestinationInfo = DestinationInfo = __decorate([
-    (0, mongoose_1.Schema)()
-], DestinationInfo);
+    (0, mongoose_1.Prop)({ type: exports.TranslatedContentSchema }),
+    __metadata("design:type", TranslatedContent)
+], PackageTranslations.prototype, "de", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: exports.TranslatedContentSchema }),
+    __metadata("design:type", TranslatedContent)
+], PackageTranslations.prototype, "el", void 0);
+exports.PackageTranslations = PackageTranslations = __decorate([
+    (0, mongoose_1.Schema)({ _id: false })
+], PackageTranslations);
+exports.PackageTranslationsSchema = mongoose_1.SchemaFactory.createForClass(PackageTranslations);
 let Partner = class Partner {
     name;
     url;
@@ -79,9 +95,47 @@ __decorate([
 exports.ItineraryDay = ItineraryDay = __decorate([
     (0, mongoose_1.Schema)()
 ], ItineraryDay);
+let DestinationInfo = class DestinationInfo {
+    title;
+    dates;
+    price;
+    image;
+    quickLook;
+};
+exports.DestinationInfo = DestinationInfo;
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DestinationInfo.prototype, "title", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DestinationInfo.prototype, "dates", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DestinationInfo.prototype, "price", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DestinationInfo.prototype, "image", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], DestinationInfo.prototype, "quickLook", void 0);
+exports.DestinationInfo = DestinationInfo = __decorate([
+    (0, mongoose_1.Schema)()
+], DestinationInfo);
 let Package = class Package {
     id;
     name;
+    translations;
+    dates;
+    price;
+    image;
+    destinationId;
+    destinationIds;
+    includedServices;
     destination;
     departures;
     spots;
@@ -100,7 +154,35 @@ __decorate([
     __metadata("design:type", String)
 ], Package.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: DestinationInfo, required: true }),
+    (0, mongoose_1.Prop)({ type: exports.PackageTranslationsSchema }),
+    __metadata("design:type", PackageTranslations)
+], Package.prototype, "translations", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Package.prototype, "dates", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Package.prototype, "price", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Package.prototype, "image", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Package.prototype, "destinationId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [String], default: [] }),
+    __metadata("design:type", Array)
+], Package.prototype, "destinationIds", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [String], default: [] }),
+    __metadata("design:type", Array)
+], Package.prototype, "includedServices", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: DestinationInfo }),
     __metadata("design:type", DestinationInfo)
 ], Package.prototype, "destination", void 0);
 __decorate([
@@ -131,4 +213,18 @@ exports.Package = Package = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Package);
 exports.PackageSchema = mongoose_1.SchemaFactory.createForClass(Package);
+function getTranslatedContent(pkg, language = 'en') {
+    if (!pkg.translations) {
+        if (pkg.destination) {
+            return {
+                title: pkg.destination.title,
+                description: pkg.destination.quickLook,
+                quickLook: pkg.destination.quickLook,
+            };
+        }
+        return null;
+    }
+    const content = pkg.translations[language] || pkg.translations.en;
+    return content || null;
+}
 //# sourceMappingURL=package.schema.js.map

@@ -3,12 +3,12 @@ export type GalleryItemDocument = GalleryItem & Document;
 export declare class GalleryItem {
     title: string;
     description: string;
-    price: string;
     duration: string;
     image: string;
     quickLook: string;
     featured: boolean;
-    packageId: string;
+    price?: string;
+    packageId?: string;
 }
 export declare const GalleryItemSchema: import("mongoose").Schema<GalleryItem, import("mongoose").Model<GalleryItem, any, any, any, Document<unknown, any, GalleryItem, any, import("mongoose").DefaultSchemaOptions> & GalleryItem & {
     _id: import("mongoose").Types.ObjectId;
@@ -33,15 +33,6 @@ export declare const GalleryItemSchema: import("mongoose").Schema<GalleryItem, i
         id: string;
     }> | undefined;
     description?: import("mongoose").SchemaDefinitionProperty<string, GalleryItem, Document<unknown, {}, GalleryItem, {
-        id: string;
-    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }> | undefined;
-    price?: import("mongoose").SchemaDefinitionProperty<string, GalleryItem, Document<unknown, {}, GalleryItem, {
         id: string;
     }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
         _id: import("mongoose").Types.ObjectId;
@@ -86,7 +77,16 @@ export declare const GalleryItemSchema: import("mongoose").Schema<GalleryItem, i
     }, "id"> & {
         id: string;
     }> | undefined;
-    packageId?: import("mongoose").SchemaDefinitionProperty<string, GalleryItem, Document<unknown, {}, GalleryItem, {
+    price?: import("mongoose").SchemaDefinitionProperty<string | undefined, GalleryItem, Document<unknown, {}, GalleryItem, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    packageId?: import("mongoose").SchemaDefinitionProperty<string | undefined, GalleryItem, Document<unknown, {}, GalleryItem, {
         id: string;
     }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<GalleryItem & {
         _id: import("mongoose").Types.ObjectId;

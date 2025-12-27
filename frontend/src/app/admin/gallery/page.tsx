@@ -31,12 +31,10 @@ export default function AdminGalleryPage() {
     const [newItem, setNewItem] = useState<Partial<GalleryItem>>({
         title: "",
         description: "",
-        price: "",
         duration: "",
         image: "",
         quickLook: "",
         featured: false,
-        packageId: "",
     });
 
     // Check auth on mount
@@ -97,12 +95,10 @@ export default function AdminGalleryPage() {
                 setNewItem({
                     title: "",
                     description: "",
-                    price: "",
                     duration: "",
                     image: "",
                     quickLook: "",
                     featured: false,
-                    packageId: "",
                 });
             }
         } catch (error) {
@@ -320,10 +316,17 @@ export default function AdminGalleryPage() {
                                 </p>
                                 <div className="flex items-center justify-between mt-3">
                                     <div className="text-sm">
-                                        <span className="font-bold text-[var(--navy)]">{item.price}</span>
-                                        <span className="text-slate-400 ml-2">{item.duration}</span>
+                                        <span className="inline-flex items-center gap-1 text-[var(--navy)] font-medium">
+                                            <span className="material-symbols-outlined text-sm">schedule</span>
+                                            {item.duration}
+                                        </span>
                                     </div>
-                                    <span className="text-xs text-slate-400">{item.packageId}</span>
+                                    {item.featured && (
+                                        <span className="inline-flex items-center gap-1 text-xs text-[var(--gold)] font-semibold">
+                                            <span className="material-symbols-outlined text-sm">star</span>
+                                            Featured
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="flex gap-2 mt-4">
                                     <button
@@ -365,22 +368,13 @@ export default function AdminGalleryPage() {
                                 value={newItem.description}
                                 onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
                             />
-                            <div className="grid grid-cols-2 gap-3">
-                                <input
-                                    type="text"
-                                    placeholder="Price (e.g., €2,499)"
-                                    className="lux-field px-3 py-2 text-sm"
-                                    value={newItem.price}
-                                    onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Duration (e.g., 7 nights)"
-                                    className="lux-field px-3 py-2 text-sm"
-                                    value={newItem.duration}
-                                    onChange={(e) => setNewItem({ ...newItem, duration: e.target.value })}
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                placeholder="Duration (e.g., 7 nights)"
+                                className="lux-field w-full px-3 py-2 text-sm"
+                                value={newItem.duration}
+                                onChange={(e) => setNewItem({ ...newItem, duration: e.target.value })}
+                            />
                             <input
                                 type="text"
                                 placeholder="Quick Look"
@@ -388,17 +382,7 @@ export default function AdminGalleryPage() {
                                 value={newItem.quickLook}
                                 onChange={(e) => setNewItem({ ...newItem, quickLook: e.target.value })}
                             />
-                            <select
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={newItem.packageId}
-                                onChange={(e) => setNewItem({ ...newItem, packageId: e.target.value })}
-                            >
-                                <option value="">Select Package</option>
-                                <option value="mykonos">Mykonos</option>
-                                <option value="ibiza">Ibiza</option>
-                                <option value="santorini">Santorini</option>
-                                <option value="barcelona">Barcelona</option>
-                            </select>
+
                             <div>
                                 <label className="block text-xs font-semibold text-slate-500 mb-1">Image</label>
                                 <div className="flex gap-2">
@@ -474,22 +458,13 @@ export default function AdminGalleryPage() {
                                 value={editItem.description}
                                 onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
                             />
-                            <div className="grid grid-cols-2 gap-3">
-                                <input
-                                    type="text"
-                                    placeholder="Price"
-                                    className="lux-field px-3 py-2 text-sm"
-                                    value={editItem.price}
-                                    onChange={(e) => setEditItem({ ...editItem, price: e.target.value })}
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Duration"
-                                    className="lux-field px-3 py-2 text-sm"
-                                    value={editItem.duration}
-                                    onChange={(e) => setEditItem({ ...editItem, duration: e.target.value })}
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                placeholder="Duration"
+                                className="lux-field w-full px-3 py-2 text-sm"
+                                value={editItem.duration}
+                                onChange={(e) => setEditItem({ ...editItem, duration: e.target.value })}
+                            />
                             <input
                                 type="text"
                                 placeholder="Quick Look"
@@ -497,17 +472,7 @@ export default function AdminGalleryPage() {
                                 value={editItem.quickLook}
                                 onChange={(e) => setEditItem({ ...editItem, quickLook: e.target.value })}
                             />
-                            <select
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={editItem.packageId || ""}
-                                onChange={(e) => setEditItem({ ...editItem, packageId: e.target.value })}
-                            >
-                                <option value="">Select Package</option>
-                                <option value="mykonos">Mykonos</option>
-                                <option value="ibiza">Ibiza</option>
-                                <option value="santorini">Santorini</option>
-                                <option value="barcelona">Barcelona</option>
-                            </select>
+
                             <div>
                                 <label className="block text-xs font-semibold text-slate-500 mb-1">Image</label>
                                 {editItem.image && (

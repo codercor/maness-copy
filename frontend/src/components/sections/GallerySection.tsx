@@ -5,9 +5,13 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import type { Translations, GalleryItem, GalleryContentTranslation } from "@/types";
 
+interface GalleryItemWithId extends GalleryItem {
+    _id?: string;
+}
+
 interface GallerySectionProps {
     copy: Translations;
-    gallery: GalleryItem[];
+    gallery: GalleryItemWithId[];
     getGalleryText: (title: string) => GalleryContentTranslation | null;
     motionEnabled: boolean;
 }
@@ -72,6 +76,12 @@ export function GallerySection({
                             // Vary heights for masonry effect
                             const heights = ['h-64', 'h-80', 'h-72', 'h-96', 'h-56'];
                             const heightClass = heights[index % heights.length];
+
+                            // Use _id for destination link, fallback to index
+                            const destinationLink = item._id
+                                ? `/destinations/${item._id}`
+                                : `#destination-gallery`;
+
                             return (
                                 <article
                                     key={`${item.title}-${index}`}
@@ -93,48 +103,38 @@ export function GallerySection({
                                         </div>
                                     </div>
                                     <div className="p-6">
-                                        {item.featured && (
-                                            <span className="lux-badge lux-badge--navy">
-                                                {galleryText?.duration ?? item.duration}
-                                            </span>
-                                        )}
+                                        {/* Duration badge instead of price */}
+                                        <span className="lux-badge lux-badge--navy inline-flex items-center gap-1">
+                                            <span className="material-symbols-outlined text-xs">schedule</span>
+                                            {galleryText?.duration ?? item.duration}
+                                        </span>
+
                                         <h3 className="mt-3 text-xl font-bold">
                                             {galleryText?.title ?? item.title}
                                         </h3>
-                                        <p className="mt-2 text-sm text-slate-500">
+                                        <p className="mt-2 text-sm text-slate-500 line-clamp-2">
                                             {galleryText?.description ?? item.description}
                                         </p>
+
                                         <div className="mt-6 flex items-center justify-between">
-                                            <div>
-                                                <span className="block text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">
-                                                    {item.featured
-                                                        ? copy.gallery.startingFrom
-                                                        : galleryText?.duration ?? item.duration}
+                                            {/* Featured badge instead of price */}
+                                            {item.featured && (
+                                                <span className="inline-flex items-center gap-1 text-xs text-[var(--gold)] font-semibold">
+                                                    <span className="material-symbols-outlined text-sm">star</span>
+                                                    Featured
                                                 </span>
-                                                <strong className="text-lg text-[var(--navy)]">
-                                                    {item.price}
-                                                </strong>
-                                            </div>
-                                            {item.packageId ? (
-                                                <Link
-                                                    href={`/packages/${item.packageId}`}
-                                                    className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ${item.featured
-                                                        ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
-                                                        : "border border-[var(--navy)] text-[var(--navy)]"
-                                                        }`}
-                                                >
-                                                    {copy.gallery.viewDetails}
-                                                </Link>
-                                            ) : (
-                                                <button
-                                                    className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ${item.featured
-                                                        ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
-                                                        : "border border-[var(--navy)] text-[var(--navy)]"
-                                                        }`}
-                                                >
-                                                    {copy.gallery.viewDetails}
-                                                </button>
                                             )}
+
+                                            {/* Always link to destination detail page */}
+                                            <Link
+                                                href={destinationLink}
+                                                className={`gallery-cta rounded-full px-4 py-2 text-xs font-bold ml-auto ${item.featured
+                                                    ? "gallery-cta--featured bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] text-white shadow-lg shadow-blue-500/30"
+                                                    : "border border-[var(--navy)] text-[var(--navy)]"
+                                                    }`}
+                                            >
+                                                {copy.gallery.viewDetails}
+                                            </Link>
                                         </div>
                                     </div>
                                 </article>

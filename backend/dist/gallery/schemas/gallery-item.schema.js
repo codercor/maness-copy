@@ -14,11 +14,11 @@ const mongoose_1 = require("@nestjs/mongoose");
 let GalleryItem = class GalleryItem {
     title;
     description;
-    price;
     duration;
     image;
     quickLook;
     featured;
+    price;
     packageId;
 };
 exports.GalleryItem = GalleryItem;
@@ -30,10 +30,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], GalleryItem.prototype, "description", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], GalleryItem.prototype, "price", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
@@ -50,6 +46,10 @@ __decorate([
     (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], GalleryItem.prototype, "featured", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], GalleryItem.prototype, "price", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)

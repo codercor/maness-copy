@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Package, PackageDocument } from './schemas/package.schema';
+import { Package, PackageDocument, SupportedLanguage } from './schemas/package.schema';
 export declare class PackagesService {
     private packageModel;
     constructor(packageModel: Model<PackageDocument>);
@@ -10,4 +10,7 @@ export declare class PackagesService {
     remove(id: string): Promise<void>;
     bulkUpdate(packages: Record<string, Package>): Promise<Record<string, Package>>;
     seed(packages: Record<string, Package>): Promise<void>;
+    private migratePackage;
+    private ensureTranslations;
+    getTranslatedContent(pkg: Package, language?: SupportedLanguage): import("./schemas/package.schema").TranslatedContent | null;
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { useReducedMotion } from "framer-motion";
-import { useSession } from "next-auth/react";
 
 // Components
 import {
@@ -76,8 +75,25 @@ export default function Home() {
   const lastFocusedRef = useRef<HTMLElement | null>(null);
   const heroBgRef = useRef<HTMLDivElement | null>(null);
 
-  // Auth
-  const { data: session } = useSession();
+  // Auth state
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    // Check for existing session
+    const userStr = localStorage.getItem("menescape-user");
+    if (userStr) {
+      try {
+        setSession({ user: JSON.parse(userStr) });
+      } catch (e) {
+        localStorage.removeItem("menescape-user");
+      }
+    }
+  }, []);
+
+  const handleLogin = (user: any) => {
+    setSession({ user });
+    setUserAuthOpen(false);
+  };
 
   // State
   const [carouselState, setCarouselState] = useState({ canPrev: false, canNext: false });
@@ -537,10 +553,16 @@ export default function Home() {
     };
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("menescape-token");
+    localStorage.removeItem("menescape-user");
+    setSession(null);
+  };
+
   return (
     <div className="bg-[var(--bg)] text-[var(--ink)]">
       <Header
-        session={session}
+        session={session?.user}
         language={language}
         setLanguage={setLanguage}
         languageOptions={languageOptions}
@@ -551,6 +573,7 @@ export default function Home() {
         setNavOpen={setNavOpen}
         headerRef={headerRef}
         onUserAuthOpen={handleUserOpen}
+        onLogout={handleLogout}
       />
 
       <main className="relative z-10 snap-y snap-proximity md:snap-none">
@@ -629,6 +652,7 @@ export default function Home() {
           copy={copy}
           userModalRef={userModalRef}
           onClose={() => setUserAuthOpen(false)}
+          onLogin={handleLogin}
         />
       )}
 

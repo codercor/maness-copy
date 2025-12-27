@@ -17,10 +17,13 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const gallery_item_schema_1 = require("./schemas/gallery-item.schema");
+const packages_service_1 = require("../packages/packages.service");
 let GalleryService = class GalleryService {
     galleryModel;
-    constructor(galleryModel) {
+    packagesService;
+    constructor(galleryModel, packagesService) {
         this.galleryModel = galleryModel;
+        this.packagesService = packagesService;
     }
     async findAll() {
         return this.galleryModel.find().exec();
@@ -55,11 +58,32 @@ let GalleryService = class GalleryService {
             await this.galleryModel.insertMany(items);
         }
     }
+    async getPackagesForDestination(destinationId) {
+        const destination = await this.galleryModel.findById(destinationId).exec();
+        if (!destination) {
+            throw new common_1.NotFoundException(`Destination with ID ${destinationId} not found`);
+        }
+        const allPackages = await this.packagesService.findAll();
+        const packages = [];
+        for (const pkgId of Object.keys(allPackages)) {
+            const pkg = allPackages[pkgId];
+            if (pkg.destinationId === destinationId) {
+                packages.push(pkg);
+                continue;
+            }
+            if (pkg.destinationIds && pkg.destinationIds.includes(destinationId)) {
+                packages.push(pkg);
+            }
+        }
+        return packages;
+    }
 };
 exports.GalleryService = GalleryService;
 exports.GalleryService = GalleryService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(gallery_item_schema_1.GalleryItem.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => packages_service_1.PackagesService))),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        packages_service_1.PackagesService])
 ], GalleryService);
 //# sourceMappingURL=gallery.service.js.map

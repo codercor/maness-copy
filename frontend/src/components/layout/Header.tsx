@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { signIn, signOut } from "next-auth/react";
-import type { Session } from "next-auth";
+import { useRef } from "react";
 import type { Language, LanguageOption, Translations } from "@/types";
 
 interface HeaderProps {
-    session: Session | null;
+    session: any; // Can be user object or null
     language: Language;
     setLanguage: (lang: Language) => void;
     languageOptions: LanguageOption[];
@@ -18,6 +17,7 @@ interface HeaderProps {
     setNavOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
     headerRef: React.RefObject<HTMLElement | null>;
     onUserAuthOpen: () => void;
+    onLogout?: () => void;
 }
 
 const navItems = [
@@ -38,6 +38,7 @@ export function Header({
     setNavOpen,
     headerRef,
     onUserAuthOpen,
+    onLogout,
 }: HeaderProps) {
     return (
         <header
@@ -77,18 +78,38 @@ export function Header({
                 </nav>
                 <div className="ml-auto flex items-center gap-3">
                     {session ? (
-                        <button
-                            type="button"
-                            onClick={() => signOut()}
-                            className="hidden rounded-full border border-[var(--navy)] px-4 py-2 text-xs font-bold text-[var(--navy)] sm:inline-flex"
-                        >
-                            {copy.header.signOut}
-                        </button>
+                        <div className="flex items-center gap-3 pl-4 border-l border-black/10">
+                            {session.picture ? (
+                                <div className="relative h-8 w-8 overflow-hidden rounded-full border border-black/10">
+                                    <Image
+                                        src={session.picture}
+                                        alt={session.name || "User"}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--navy)] text-xs font-bold text-white">
+                                    {session.name?.[0]?.toUpperCase() || session.email?.[0]?.toUpperCase() || "U"}
+                                </div>
+                            )}
+                            <div className="hidden flex-col md:flex">
+                                <span className="text-xs font-bold text-[var(--navy)]">
+                                    {session.name?.split(" ")[0] || "User"}
+                                </span>
+                                <button
+                                    onClick={() => onLogout?.()}
+                                    className="text-[10px] font-semibold text-slate-500 hover:text-[var(--gold)] text-left transition-colors"
+                                >
+                                    {copy.header.signOut}
+                                </button>
+                            </div>
+                        </div>
                     ) : (
                         <button
                             type="button"
                             onClick={onUserAuthOpen}
-                            className="hidden rounded-full border border-[var(--navy)] px-4 py-2 text-xs font-bold text-[var(--navy)] sm:inline-flex"
+                            className="hidden rounded-full border border-[var(--navy)] px-6 py-2.5 text-sm font-bold text-[var(--navy)] transition-colors hover:bg-[var(--navy)] hover:text-white sm:inline-flex"
                         >
                             {copy.header.signIn}
                         </button>
@@ -111,12 +132,6 @@ export function Header({
                             ))}
                         </select>
                     </label>
-                    <a
-                        href="#booking"
-                        className="header-cta cta-luxe hidden rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/30 sm:inline-flex"
-                    >
-                        {copy.header.findEscape}
-                    </a>
                     <button
                         className="md:hidden"
                         onClick={() => setNavOpen((open) => !open)}
@@ -153,7 +168,7 @@ export function Header({
                                 type="button"
                                 onClick={() => {
                                     setNavOpen(false);
-                                    signOut();
+                                    onLogout?.();
                                 }}
                                 className="text-left text-sm font-semibold text-[var(--navy)]"
                             >

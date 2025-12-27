@@ -27,6 +27,9 @@ let GalleryController = class GalleryController {
     async findOne(id) {
         return this.galleryService.findOne(id);
     }
+    async getPackagesForDestination(id) {
+        return this.galleryService.getPackagesForDestination(id);
+    }
     async create(data) {
         return this.galleryService.create(data);
     }
@@ -51,6 +54,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], GalleryController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)(':id/packages'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], GalleryController.prototype, "getPackagesForDestination", null);
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),

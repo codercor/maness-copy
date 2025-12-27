@@ -13,6 +13,7 @@ const gallery_controller_1 = require("./gallery.controller");
 const gallery_service_1 = require("./gallery.service");
 const gallery_item_schema_1 = require("./schemas/gallery-item.schema");
 const auth_module_1 = require("../auth/auth.module");
+const packages_module_1 = require("../packages/packages.module");
 let GalleryModule = class GalleryModule {
 };
 exports.GalleryModule = GalleryModule;
@@ -21,6 +22,7 @@ exports.GalleryModule = GalleryModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: gallery_item_schema_1.GalleryItem.name, schema: gallery_item_schema_1.GalleryItemSchema }]),
             auth_module_1.AuthModule,
+            (0, common_1.forwardRef)(() => packages_module_1.PackagesModule),
         ],
         controllers: [gallery_controller_1.GalleryController],
         providers: [gallery_service_1.GalleryService],

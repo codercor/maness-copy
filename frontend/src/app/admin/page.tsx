@@ -3,13 +3,26 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import type { PackageDetails, PackageId, Package, ItineraryDay, DestinationInfo } from "@/types";
+import type {
+    PackageDetails,
+    PackageId,
+    Package,
+    ItineraryDay,
+    SupportedLanguage,
+    TranslatedContent,
+    GalleryItem,
+} from "@/types";
+import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES, DEFAULT_LANGUAGE, INCLUDED_SERVICES } from "@/types";
 import { api, UPLOADS_URL } from "@/config/api";
 
 // Import initial data
 import initialPackageDetailsData from "@/data/packages.json";
 
 const initialPackages = initialPackageDetailsData as unknown as PackageDetails;
+
+interface GalleryItemWithId extends GalleryItem {
+    _id: string;
+}
 
 export default function AdminPage() {
     const router = useRouter();
@@ -26,8 +39,12 @@ export default function AdminPage() {
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    // Language state
+    const [activeLanguage, setActiveLanguage] = useState<SupportedLanguage>("en");
+
     // Data state
     const [packages, setPackages] = useState<PackageDetails>(initialPackages);
+    const [galleryItems, setGalleryItems] = useState<GalleryItemWithId[]>([]);
 
     // Check auth on mount
     useEffect(() => {
@@ -61,17 +78,16 @@ export default function AdminPage() {
     useEffect(() => {
         if (!isAuthed) return;
 
+        // Load packages
         fetch(api.packages.list, { cache: "no-store" })
             .then((res) => res.json())
             .then((data: { packages?: PackageDetails }) => {
                 if (data.packages && Object.keys(data.packages).length) {
-                    // Check if the loaded data has the new destination structure
                     const packageIds = Object.keys(data.packages) as PackageId[];
                     const firstPkg = data.packages[packageIds[0]];
-                    if (firstPkg && firstPkg.destination) {
-                        // New structure - use it
+                    // Use the data regardless of structure - service handles migration
+                    if (firstPkg) {
                         setPackages(data.packages);
-                        // Set editPackageId to first available package
                         if (!packageIds.includes(editPackageId)) {
                             setEditPackageId(packageIds[0]);
                         }
@@ -81,6 +97,14 @@ export default function AdminPage() {
             .catch(() => {
                 // Keep initial data
             });
+
+        // Load gallery items for destination selection
+        fetch(api.gallery.list, { cache: "no-store" })
+            .then((res) => res.json())
+            .then((data: GalleryItemWithId[]) => {
+                setGalleryItems(data);
+            })
+            .catch(console.error);
     }, [isAuthed]);
 
     const handleSave = async () => {
@@ -132,21 +156,63 @@ export default function AdminPage() {
         }));
     };
 
-    const updateDestinationField = (
+    // Update translation for a specific language
+    const updateTranslation = (
         packageId: PackageId,
-        field: keyof DestinationInfo,
+        language: SupportedLanguage,
+        field: keyof TranslatedContent,
         value: string
     ) => {
-        setPackages((prev) => ({
-            ...prev,
-            [packageId]: {
-                ...prev[packageId],
-                destination: {
-                    ...prev[packageId].destination,
-                    [field]: value,
+        setPackages((prev) => {
+            const pkg = prev[packageId];
+            const currentTranslations = pkg.translations || {
+                en: { title: pkg.name, description: "", quickLook: "" },
+            };
+            const currentLangContent = currentTranslations[language] || {
+                title: "",
+                description: "",
+                quickLook: "",
+            };
+
+            return {
+                ...prev,
+                [packageId]: {
+                    ...pkg,
+                    translations: {
+                        ...currentTranslations,
+                        [language]: {
+                            ...currentLangContent,
+                            [field]: value,
+                        },
+                    },
                 },
-            },
-        }));
+            };
+        });
+    };
+
+    // Get translation for display (with fallback to English)
+    const getTranslation = (pkg: Package, language: SupportedLanguage): TranslatedContent => {
+        if (pkg.translations) {
+            // Try requested language, then fallback to English
+            const content = pkg.translations[language] || pkg.translations.en;
+            if (content) return content;
+        }
+        // Fallback to legacy destination or defaults
+        if (pkg.destination) {
+            return {
+                title: pkg.destination.title,
+                description: pkg.destination.quickLook || "",
+                quickLook: pkg.destination.quickLook || "",
+            };
+        }
+        return { title: pkg.name, description: "", quickLook: "" };
+    };
+
+    // Check if a language has content (for indicators)
+    const hasLanguageContent = (pkg: Package, language: SupportedLanguage): boolean => {
+        if (!pkg.translations) return language === "en";
+        const content = pkg.translations[language];
+        return !!(content && content.title && content.title.trim());
     };
 
     const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +238,7 @@ export default function AdminPage() {
 
             const data = await response.json();
             const imageUrl = `${UPLOADS_URL}${data.url}`;
-            updateDestinationField(editPackageId, "image", imageUrl);
+            updatePackageField(editPackageId, "image", imageUrl);
         } catch (error) {
             setSaveStatus("Image upload failed");
         } finally {
@@ -209,13 +275,17 @@ export default function AdminPage() {
         const newPackage: Package = {
             id: id as PackageId,
             name: `New Package: ${newPackageId}`,
-            destination: {
-                title: newPackageId,
-                dates: "TBD",
-                price: "€0",
-                image: "https://via.placeholder.com/400x300",
-                quickLook: "Description coming soon...",
+            translations: {
+                en: {
+                    title: newPackageId,
+                    description: "Description coming soon...",
+                    quickLook: "Quick look description",
+                },
             },
+            dates: "TBD",
+            price: "€0",
+            image: "https://via.placeholder.com/400x300",
+            destinationIds: [],
             departures: [new Date().toISOString().split("T")[0]],
             spots: 10,
             partner: {
@@ -363,6 +433,39 @@ export default function AdminPage() {
         }
     };
 
+    // Set single destination
+    const handleSetDestination = (packageId: PackageId, destinationId: string) => {
+        setPackages((prev) => {
+            const pkg = prev[packageId];
+            return {
+                ...prev,
+                [packageId]: {
+                    ...pkg,
+                    destinationId: destinationId || undefined,
+                },
+            };
+        });
+    };
+
+    // Toggle included service
+    const handleToggleService = (packageId: PackageId, serviceId: string) => {
+        setPackages((prev) => {
+            const pkg = prev[packageId];
+            const currentServices = pkg.includedServices || [];
+            const newServices = currentServices.includes(serviceId)
+                ? currentServices.filter((id) => id !== serviceId)
+                : [...currentServices, serviceId];
+
+            return {
+                ...prev,
+                [packageId]: {
+                    ...pkg,
+                    includedServices: newServices,
+                },
+            };
+        });
+    };
+
     if (isLoading) {
         return (
             <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center">
@@ -380,8 +483,8 @@ export default function AdminPage() {
 
     const currentPackage = packages[editPackageId];
 
-    // Handle case where package or destination is not loaded yet
-    if (!currentPackage || !currentPackage.destination) {
+    // Handle case where package is not loaded yet
+    if (!currentPackage) {
         return (
             <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center">
                 <div className="text-center">
@@ -391,6 +494,9 @@ export default function AdminPage() {
             </div>
         );
     }
+
+    const currentTranslation = getTranslation(currentPackage, activeLanguage);
+    const packageImage = currentPackage.image || currentPackage.destination?.image || "";
 
     return (
         <div className="min-h-screen bg-[var(--bg)]">
@@ -437,7 +543,7 @@ export default function AdminPage() {
                 <div className="mb-6">
                     <h1 className="text-3xl font-bold text-[var(--navy)]">Edit Packages</h1>
                     <p className="mt-2 text-slate-500">
-                        Manage packages, destinations, and itineraries
+                        Manage packages, translations, destinations, and itineraries
                     </p>
                 </div>
 
@@ -461,6 +567,8 @@ export default function AdminPage() {
                                     {(Object.keys(packages) as PackageId[]).map((pkgId) => {
                                         const pkg = packages[pkgId];
                                         const isActive = editPackageId === pkgId;
+                                        const pkgImage = pkg?.image || pkg?.destination?.image;
+                                        const pkgPrice = pkg?.price || pkg?.destination?.price;
                                         return (
                                             <button
                                                 key={pkgId}
@@ -474,10 +582,10 @@ export default function AdminPage() {
                                                 <div className="flex items-center gap-3">
                                                     {/* Thumbnail */}
                                                     <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-slate-200">
-                                                        {pkg?.destination?.image && (
+                                                        {pkgImage && (
                                                             <div
                                                                 className="w-full h-full bg-cover bg-center"
-                                                                style={{ backgroundImage: `url(${pkg.destination.image})` }}
+                                                                style={{ backgroundImage: `url(${pkgImage})` }}
                                                             />
                                                         )}
                                                     </div>
@@ -486,17 +594,20 @@ export default function AdminPage() {
                                                             {pkg?.name || pkgId}
                                                         </p>
                                                         <div className="flex items-center gap-2 mt-1">
-                                                            {/* Status Dots */}
-                                                            <span
-                                                                className={`w-2 h-2 rounded-full ${pkg?.showOnHomepage !== false ? 'bg-green-400' : 'bg-slate-300'}`}
-                                                                title={pkg?.showOnHomepage !== false ? 'Visible on homepage' : 'Hidden'}
-                                                            />
-                                                            <span
-                                                                className={`w-2 h-2 rounded-full ${pkg?.isSelected ? 'bg-[var(--gold)]' : 'bg-slate-300'}`}
-                                                                title={pkg?.isSelected ? 'Selected' : 'Not selected'}
-                                                            />
+                                                            {/* Language Indicators */}
+                                                            {SUPPORTED_LANGUAGES.map((lang) => (
+                                                                <span
+                                                                    key={lang}
+                                                                    className={`text-[9px] font-bold uppercase px-1 rounded ${hasLanguageContent(pkg, lang)
+                                                                        ? isActive ? 'bg-white/30 text-white' : 'bg-green-100 text-green-700'
+                                                                        : isActive ? 'bg-white/10 text-white/50' : 'bg-slate-100 text-slate-400'
+                                                                        }`}
+                                                                >
+                                                                    {lang}
+                                                                </span>
+                                                            ))}
                                                             <span className={`text-xs ${isActive ? 'text-white/70' : 'text-slate-400'}`}>
-                                                                {pkg?.destination?.price}
+                                                                {pkgPrice}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -600,10 +711,10 @@ export default function AdminPage() {
                             {/* Basic Info */}
                             <div className="lux-card rounded-3xl bg-white p-6">
                                 <h2 className="text-xl font-bold text-[var(--navy)] mb-4">Package Info</h2>
-                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                    <div className="sm:col-span-2 lg:col-span-3">
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                    <div className="sm:col-span-2">
                                         <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                            Package Name
+                                            Package Name (Internal)
                                         </label>
                                         <input
                                             className="lux-field w-full px-3 py-2 text-sm"
@@ -611,6 +722,19 @@ export default function AdminPage() {
                                             onChange={(e) =>
                                                 updatePackageField(editPackageId, "name", e.target.value)
                                             }
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                            Price
+                                        </label>
+                                        <input
+                                            className="lux-field w-full px-3 py-2 text-sm"
+                                            value={currentPackage.price || currentPackage.destination?.price || ""}
+                                            onChange={(e) =>
+                                                updatePackageField(editPackageId, "price", e.target.value)
+                                            }
+                                            placeholder="€2,499"
                                         />
                                     </div>
                                     <div>
@@ -630,65 +754,35 @@ export default function AdminPage() {
                                             }
                                         />
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Destination Info */}
-                            <div className="lux-card rounded-3xl bg-white p-6">
-                                <h2 className="text-xl font-bold text-[var(--navy)] mb-4">Destination Info</h2>
-                                <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="sm:col-span-2">
-                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                            Destination Title
-                                        </label>
-                                        <input
-                                            className="lux-field w-full px-3 py-2 text-sm"
-                                            value={currentPackage.destination.title}
-                                            onChange={(e) =>
-                                                updateDestinationField(editPackageId, "title", e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div>
                                         <label className="block text-xs font-semibold text-slate-500 mb-1">
                                             Dates
                                         </label>
                                         <input
                                             className="lux-field w-full px-3 py-2 text-sm"
-                                            value={currentPackage.destination.dates}
+                                            value={currentPackage.dates || currentPackage.destination?.dates || ""}
                                             onChange={(e) =>
-                                                updateDestinationField(editPackageId, "dates", e.target.value)
+                                                updatePackageField(editPackageId, "dates", e.target.value)
                                             }
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                            Price
-                                        </label>
-                                        <input
-                                            className="lux-field w-full px-3 py-2 text-sm"
-                                            value={currentPackage.destination.price}
-                                            onChange={(e) =>
-                                                updateDestinationField(editPackageId, "price", e.target.value)
-                                            }
+                                            placeholder="June 15-22, 2025"
                                         />
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label className="block text-xs font-semibold text-slate-500 mb-2">
-                                            Destination Image
+                                            Package Image
                                         </label>
                                         <div className="flex gap-4 items-start">
                                             {/* Image Preview */}
-                                            <div className="relative w-32 h-24 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0">
-                                                {currentPackage.destination.image ? (
+                                            <div className="relative w-24 h-18 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0">
+                                                {packageImage ? (
                                                     <img
-                                                        src={currentPackage.destination.image}
+                                                        src={packageImage}
                                                         alt="Preview"
                                                         className="w-full h-full object-cover"
                                                     />
                                                 ) : (
                                                     <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
-                                                        <span className="material-symbols-outlined text-3xl">image</span>
+                                                        <span className="material-symbols-outlined text-2xl">image</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -704,36 +798,214 @@ export default function AdminPage() {
                                                 />
                                                 <label
                                                     htmlFor="image-upload"
-                                                    className={`inline-flex items-center gap-2 rounded-full border border-[var(--navy)] px-4 py-2 text-sm font-bold text-[var(--navy)] hover:bg-slate-50 transition-colors cursor-pointer ${uploading ? "opacity-50 pointer-events-none" : ""}`}
+                                                    className={`inline-flex items-center gap-2 rounded-full border border-[var(--navy)] px-3 py-1.5 text-xs font-bold text-[var(--navy)] hover:bg-slate-50 transition-colors cursor-pointer ${uploading ? "opacity-50 pointer-events-none" : ""}`}
                                                 >
-                                                    <span className="material-symbols-outlined text-base">upload</span>
-                                                    {uploading ? "Uploading..." : "Upload Image"}
+                                                    <span className="material-symbols-outlined text-sm">upload</span>
+                                                    {uploading ? "Uploading..." : "Upload"}
                                                 </label>
-                                                <p className="text-xs text-slate-400">Max 5MB. Supports JPG, PNG, GIF, WebP</p>
                                                 <input
-                                                    className="lux-field w-full px-3 py-2 text-xs text-slate-500"
+                                                    className="lux-field w-full px-2 py-1.5 text-xs text-slate-500"
                                                     placeholder="Or enter image URL..."
-                                                    value={currentPackage.destination.image}
+                                                    value={packageImage}
                                                     onChange={(e) =>
-                                                        updateDestinationField(editPackageId, "image", e.target.value)
+                                                        updatePackageField(editPackageId, "image", e.target.value)
                                                     }
                                                 />
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2">
+                                </div>
+                            </div>
+
+                            {/* Multi-Language Content */}
+                            <div className="lux-card rounded-3xl bg-white p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h2 className="text-xl font-bold text-[var(--navy)]">Content Translations</h2>
+                                    {/* Language Tabs */}
+                                    <div className="flex gap-1 bg-slate-100 rounded-full p-1">
+                                        {SUPPORTED_LANGUAGES.map((lang) => {
+                                            const hasContent = hasLanguageContent(currentPackage, lang);
+                                            const isActive = activeLanguage === lang;
+                                            return (
+                                                <button
+                                                    key={lang}
+                                                    onClick={() => setActiveLanguage(lang)}
+                                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all relative ${isActive
+                                                        ? 'bg-[var(--navy)] text-white'
+                                                        : 'text-slate-600 hover:bg-slate-200'
+                                                        }`}
+                                                >
+                                                    {LANGUAGE_NAMES[lang]}
+                                                    {!hasContent && lang !== 'en' && (
+                                                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-orange-400 rounded-full" title="Missing translation" />
+                                                    )}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* Translation Warning */}
+                                {activeLanguage !== 'en' && !hasLanguageContent(currentPackage, activeLanguage) && (
+                                    <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-3">
+                                        <span className="material-symbols-outlined text-amber-500">warning</span>
+                                        <p className="text-sm text-amber-800">
+                                            <strong>{LANGUAGE_NAMES[activeLanguage]}</strong> translation is missing. English will be used as fallback.
+                                        </p>
+                                    </div>
+                                )}
+
+                                <div className="grid gap-4">
+                                    <div>
                                         <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                            Quick Look
+                                            Title ({LANGUAGE_NAMES[activeLanguage]})
+                                        </label>
+                                        <input
+                                            className="lux-field w-full px-3 py-2 text-sm"
+                                            value={currentTranslation.title}
+                                            onChange={(e) =>
+                                                updateTranslation(editPackageId, activeLanguage, "title", e.target.value)
+                                            }
+                                            placeholder={activeLanguage === 'en' ? 'Enter title...' : `Enter ${LANGUAGE_NAMES[activeLanguage]} translation...`}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                            Description ({LANGUAGE_NAMES[activeLanguage]})
                                         </label>
                                         <textarea
                                             className="lux-field w-full resize-none rounded-2xl px-3 py-2 text-sm"
-                                            rows={2}
-                                            value={currentPackage.destination.quickLook}
+                                            rows={3}
+                                            value={currentTranslation.description}
                                             onChange={(e) =>
-                                                updateDestinationField(editPackageId, "quickLook", e.target.value)
+                                                updateTranslation(editPackageId, activeLanguage, "description", e.target.value)
                                             }
+                                            placeholder={activeLanguage === 'en' ? 'Enter description...' : `Enter ${LANGUAGE_NAMES[activeLanguage]} translation...`}
                                         />
                                     </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                            Quick Look ({LANGUAGE_NAMES[activeLanguage]})
+                                        </label>
+                                        <input
+                                            className="lux-field w-full px-3 py-2 text-sm"
+                                            value={currentTranslation.quickLook}
+                                            onChange={(e) =>
+                                                updateTranslation(editPackageId, activeLanguage, "quickLook", e.target.value)
+                                            }
+                                            placeholder="Short tagline for quick preview..."
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Destination Selection */}
+                            <div className="lux-card rounded-3xl bg-white p-6">
+                                <h2 className="text-xl font-bold text-[var(--navy)] mb-4">
+                                    Destination
+                                </h2>
+                                <p className="text-sm text-slate-500 mb-4">
+                                    Select the destination for this package.
+                                </p>
+
+                                {galleryItems.length === 0 ? (
+                                    <div className="text-center py-8 text-slate-400">
+                                        <span className="material-symbols-outlined text-4xl mb-2">photo_library</span>
+                                        <p>No gallery items found. Add some in Gallery Management.</p>
+                                    </div>
+                                ) : (
+                                    <select
+                                        className="lux-field w-full px-4 py-3 text-sm rounded-xl"
+                                        value={currentPackage.destinationId || currentPackage.destinationIds?.[0] || ""}
+                                        onChange={(e) => handleSetDestination(editPackageId, e.target.value)}
+                                    >
+                                        <option value="">-- Select a destination --</option>
+                                        {galleryItems.map((item) => (
+                                            <option key={item._id} value={item._id}>
+                                                {item.title} - {item.duration}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
+
+                                {/* Selected destination preview */}
+                                {(currentPackage.destinationId || currentPackage.destinationIds?.[0]) && (
+                                    <div className="mt-4 p-3 rounded-xl border border-slate-200 flex items-center gap-3">
+                                        {(() => {
+                                            const selectedItem = galleryItems.find(
+                                                (item) => item._id === (currentPackage.destinationId || currentPackage.destinationIds?.[0])
+                                            );
+                                            if (!selectedItem) return null;
+                                            return (
+                                                <>
+                                                    <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100">
+                                                        {selectedItem.image && (
+                                                            <div
+                                                                className="w-full h-full bg-cover bg-center"
+                                                                style={{ backgroundImage: `url(${selectedItem.image})` }}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="font-semibold text-[var(--navy)] truncate">{selectedItem.title}</p>
+                                                        <p className="text-xs text-slate-500">{selectedItem.duration}</p>
+                                                    </div>
+                                                </>
+                                            );
+                                        })()}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Included Services */}
+                            <div className="lux-card rounded-3xl bg-white p-6">
+                                <h2 className="text-xl font-bold text-[var(--navy)] mb-4">
+                                    Included Services
+                                    {currentPackage.includedServices && currentPackage.includedServices.length > 0 && (
+                                        <span className="ml-2 text-sm font-normal text-slate-500">
+                                            ({currentPackage.includedServices.length} selected)
+                                        </span>
+                                    )}
+                                </h2>
+                                <p className="text-sm text-slate-500 mb-4">
+                                    Select the services included in this package.
+                                </p>
+
+                                <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+                                    {INCLUDED_SERVICES.map((service) => {
+                                        const isSelected = currentPackage.includedServices?.includes(service.id) || false;
+                                        return (
+                                            <button
+                                                key={service.id}
+                                                type="button"
+                                                onClick={() => handleToggleService(editPackageId, service.id)}
+                                                className={`flex items-center gap-2 p-3 rounded-xl border text-left transition-all min-w-0 ${isSelected
+                                                    ? 'border-green-500 bg-green-50'
+                                                    : 'border-slate-200 hover:border-slate-300'
+                                                    }`}
+                                            >
+                                                {/* Checkbox */}
+                                                <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-green-500' : 'border-2 border-slate-300'
+                                                    }`}>
+                                                    {isSelected && (
+                                                        <span className="material-symbols-outlined text-white text-sm">check</span>
+                                                    )}
+                                                </div>
+
+                                                {/* Icon */}
+                                                <span className={`material-symbols-outlined text-lg flex-shrink-0 ${isSelected ? 'text-green-600' : 'text-slate-400'
+                                                    }`}>
+                                                    {service.icon}
+                                                </span>
+
+                                                {/* Label */}
+                                                <span className={`text-xs font-medium truncate ${isSelected ? 'text-green-700' : 'text-slate-600'
+                                                    }`}>
+                                                    {service.label}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
 

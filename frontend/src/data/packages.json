@@ -2,13 +2,27 @@
     "mykonos": {
         "id": "mykonos",
         "name": "Mykonos Escape: The Aegean Dream",
-        "destination": {
-            "title": "Mykonos: The Party Edition",
-            "dates": "Aug 05 - Aug 12, 2024",
-            "price": "€3,200",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDFwXZkWV8A_tns06bYDCc6DjmVuoLLQOB7nBPWvRmfWHw25-CpIswyozBiYcxSFNFbTAhbHxLfyWhnigefEbYKkOyt0k8AtCsYZBY790KijtrNAKuH-GkXlnHmirva9c-ZQb3RWSpR468SqxbV91HordCKTALFhe6xuqDA_OFnwlSmjF6keJH7mpwSA-izEuexK-X9zM5ShP_hF3RRRVx69DURiqqP5HAiLgYRVAgoYvJpJajI6DAjXN8h7q9FAIL_Gj5G0mfcXiw",
-            "quickLook": "VIP nightlife access, beach club suites, sunrise recovery."
+        "translations": {
+            "en": {
+                "title": "Mykonos: The Party Edition",
+                "description": "Experience the iconic white-washed buildings and vibrant nightlife of this legendary Greek island. Explore beautiful beaches, charming streets, and unforgettable sunsets.",
+                "quickLook": "VIP nightlife access, beach club suites, sunrise recovery."
+            },
+            "de": {
+                "title": "Mykonos: Die Party Edition",
+                "description": "Erleben Sie die ikonischen weißgetünchten Gebäude und das pulsierende Nachtleben dieser legendären griechischen Insel. Entdecken Sie wunderschöne Strände, charmante Straßen und unvergessliche Sonnenuntergänge.",
+                "quickLook": "VIP-Nachtlebenzugang, Strandclub-Suiten, Sonnenaufgangserholung."
+            },
+            "el": {
+                "title": "Μύκονος: Η Έκδοση του Πάρτι",
+                "description": "Ζήστε τα εμβληματικά ασβεστωμένα κτίρια και τη ζωντανή νυχτερινή ζωή αυτού του θρυλικού ελληνικού νησιού. Εξερευνήστε όμορφες παραλίες, γραφικά σοκάκια και αξέχαστα ηλιοβασιλέματα.",
+                "quickLook": "VIP πρόσβαση στη νυχτερινή ζωή, σουίτες beach club, ξεκούραση στην ανατολή."
+            }
         },
+        "dates": "Aug 05 - Aug 12, 2024",
+        "price": "€3,200",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDFwXZkWV8A_tns06bYDCc6DjmVuoLLQOB7nBPWvRmfWHw25-CpIswyozBiYcxSFNFbTAhbHxLfyWhnigefEbYKkOyt0k8AtCsYZBY790KijtrNAKuH-GkXlnHmirva9c-ZQb3RWSpR468SqxbV91HordCKTALFhe6xuqDA_OFnwlSmjF6keJH7mpwSA-izEuexK-X9zM5ShP_hF3RRRVx69DURiqqP5HAiLgYRVAgoYvJpJajI6DAjXN8h7q9FAIL_Gj5G0mfcXiw",
+        "destinationIds": [],
         "departures": [
             "2024-10-12",
             "2024-10-19",
@@ -61,13 +75,27 @@
     "crete": {
         "id": "crete",
         "name": "Authentic Crete: Coastal Explorer",
-        "destination": {
-            "title": "Authentic Crete: Coastal Explorer",
-            "dates": "Sep 12 - Sep 19, 2024",
-            "price": "€2,450",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBXBBqRBeqfLqAz2iX2QNL7_uPudu_oaID2KCp1ZMjrpbicqQxOodosMQAv1B6ydNs3Znt8s0rYqlbMSolaxueepCUBTQ9TL2xNdyyODQYFopX0a9ZFKGDz7mx5t0kjztzKfmhFdbx_xCFlqrWqnDSayatpYaIXrx6xUTdOaxcleNrZkEngSzgqCnJC3XvMgsAI3LyecMN4sb5KehX1299xvswwlwN_AGlvFAE03-SJpvUveI_pkFPX7ICF8DNHn-gDs2LbOaJgAL8",
-            "quickLook": "Private coves, chef-led dinners, and discreet villa hosts."
+        "translations": {
+            "en": {
+                "title": "Authentic Crete: Coastal Explorer",
+                "description": "Discover the authentic charm of Crete with private coves, chef-led dinners, and discreet villa hosts. Experience the island's rich culture and stunning coastline.",
+                "quickLook": "Private coves, chef-led dinners, and discreet villa hosts."
+            },
+            "de": {
+                "title": "Authentisches Kreta: Küstenentdecker",
+                "description": "Entdecken Sie den authentischen Charme Kretas mit privaten Buchten, von Köchen geleiteten Abendessen und diskreten Villagastgebern. Erleben Sie die reiche Kultur und die atemberaubende Küste der Insel.",
+                "quickLook": "Private Buchten, Gourmet-Dinner, diskrete Villagastgeber."
+            },
+            "el": {
+                "title": "Αυθεντική Κρήτη: Παράκτιος Εξερευνητής",
+                "description": "Ανακαλύψτε την αυθεντική γοητεία της Κρήτης με ιδιωτικούς όρμους, δείπνα με σεφ και διακριτικούς οικοδεσπότες βίλας. Ζήστε τον πλούσιο πολιτισμό και την εκπληκτική ακτογραμμή του νησιού.",
+                "quickLook": "Ιδιωτικοί όρμοι, δείπνα με σεφ, διακριτικοί οικοδεσπότες."
+            }
         },
+        "dates": "Sep 12 - Sep 19, 2024",
+        "price": "€2,450",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBXBBqRBeqfLqAz2iX2QNL7_uPudu_oaID2KCp1ZMjrpbicqQxOodosMQAv1B6ydNs3Znt8s0rYqlbMSolaxueepCUBTQ9TL2xNdyyODQYFopX0a9ZFKGDz7mx5t0kjztzKfmhFdbx_xCFlqrWqnDSayatpYaIXrx6xUTdOaxcleNrZkEngSzgqCnJC3XvMgsAI3LyecMN4sb5KehX1299xvswwlwN_AGlvFAE03-SJpvUveI_pkFPX7ICF8DNHn-gDs2LbOaJgAL8",
+        "destinationIds": [],
         "departures": [
             "2024-09-12",
             "2024-09-19",
@@ -119,13 +147,27 @@
     "sitges": {
         "id": "sitges",
         "name": "Sitges: Pride & Villa",
-        "destination": {
-            "title": "Sitges: Pride & Villa",
-            "dates": "Jun 15 - Jun 22, 2024",
-            "price": "€1,950",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDNn1snnRG7WDxZdW0R-LIKC9t0tvl4hbjoN3ygNspI4nFKV2CYzHm85U2CwBitOZ1ZeBKlkld86-oxp81FOv7GMpC8iR4ONkLBDHIQfGZ00BgL7rmRSkwfx-GDJpxBqgKHdiAe4gHrWl2jfw9tqJskgnZ1aUP3Y4sS5rijwFpKN0cqMTVNMUyQ6fLM8aaAqVnKE-psmPAOitgUa4ixBm7rJ2e1DfrswsoNSmnCy7aX_VRHQhLFY2L8OqzPNglso28BOO8zM1G75rQ",
-            "quickLook": "Pride villa, open-air breakfasts, sunset cocktails."
+        "translations": {
+            "en": {
+                "title": "Sitges: Pride & Villa",
+                "description": "Celebrate Pride in style with an exclusive villa experience in beautiful Sitges. Open-air breakfasts, sunset cocktails, and unforgettable celebrations await.",
+                "quickLook": "Pride villa, open-air breakfasts, sunset cocktails."
+            },
+            "de": {
+                "title": "Sitges: Pride & Villa",
+                "description": "Feiern Sie Pride stilvoll mit einem exklusiven Villa-Erlebnis im wunderschönen Sitges. Frühstück im Freien, Cocktails bei Sonnenuntergang und unvergessliche Feiern erwarten Sie.",
+                "quickLook": "Pride-Villa, Frühstück im Freien, Sonnenuntergangs-Cocktails."
+            },
+            "el": {
+                "title": "Sitges: Pride & Villa",
+                "description": "Γιορτάστε το Pride με στυλ με μια αποκλειστική εμπειρία βίλας στο όμορφο Sitges. Πρωινά στον αέρα, κοκτέιλ στο ηλιοβασίλεμα και αξέχαστες γιορτές σας περιμένουν.",
+                "quickLook": "Pride villa, πρωινά υπαίθρια, κοκτέιλ ηλιοβασιλέματος."
+            }
         },
+        "dates": "Jun 15 - Jun 22, 2024",
+        "price": "€1,950",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDNn1snnRG7WDxZdW0R-LIKC9t0tvl4hbjoN3ygNspI4nFKV2CYzHm85U2CwBitOZ1ZeBKlkld86-oxp81FOv7GMpC8iR4ONkLBDHIQfGZ00BgL7rmRSkwfx-GDJpxBqgKHdiAe4gHrWl2jfw9tqJskgnZ1aUP3Y4sS5rijwFpKN0cqMTVNMUyQ6fLM8aaAqVnKE-psmPAOitgUa4ixBm7rJ2e1DfrswsoNSmnCy7aX_VRHQhLFY2L8OqzPNglso28BOO8zM1G75rQ",
+        "destinationIds": [],
         "departures": [
             "2024-06-15",
             "2024-06-22",
@@ -177,13 +219,27 @@
     "telaviv": {
         "id": "telaviv",
         "name": "Tel Aviv: Coastal Nights",
-        "destination": {
-            "title": "Tel Aviv: Coastal Nights",
-            "dates": "Oct 20 - Oct 27, 2024",
-            "price": "€2,750",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA8YSOQBYTEExgbkaWbJuiU3IPZEhXC2e9LCS3f2JKgIl-E6xpom7ZI-VvFR8FLLOcZpJTseAUj_jdocbv9i5OFGs0tkZ1DfPymxWotxcwsI7sttzfDlOMTcvqemRAcerSZ8zeJu5urbhDbTQwC9xWlK-4p8_8J1506SDfmGP32CcBv5UzJMmCuffQmYnVFPAvQpJPr8kn10Uq81E8krDI1LgSWWIjWh-W6KPwp5K6MnBNxZ6KXTsTJI_NQNSj9RVlJALjTDm56k7o",
-            "quickLook": "Beach mornings, rooftop dinners, and late-night parties."
+        "translations": {
+            "en": {
+                "title": "Tel Aviv: Coastal Nights",
+                "description": "Experience the vibrant energy of Tel Aviv with beach mornings, rooftop dinners, and late-night parties. Discover the White City's unique blend of culture and nightlife.",
+                "quickLook": "Beach mornings, rooftop dinners, and late-night parties."
+            },
+            "de": {
+                "title": "Tel Aviv: Küstennächte",
+                "description": "Erleben Sie die pulsierende Energie Tel Avivs mit Strandvormittagen, Rooftop-Dinners und Late-Night-Partys. Entdecken Sie die einzigartige Mischung aus Kultur und Nachtleben der Weißen Stadt.",
+                "quickLook": "Strandvormittage, Rooftop-Dinner, Late-Night-Partys."
+            },
+            "el": {
+                "title": "Τελ Αβίβ: Παραθαλάσσιες Νύχτες",
+                "description": "Ζήστε τη ζωντανή ενέργεια του Τελ Αβίβ με πρωινά στην παραλία, δείπνα σε ταράτσες και πάρτι αργά τη νύχτα. Ανακαλύψτε τον μοναδικό συνδυασμό πολιτισμού και νυχτερινής ζωής της Λευκής Πόλης.",
+                "quickLook": "Πρωινά παραλίας, δείπνα ταράτσας, late-night πάρτι."
+            }
         },
+        "dates": "Oct 20 - Oct 27, 2024",
+        "price": "€2,750",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA8YSOQBYTEExgbkaWbJuiU3IPZEhXC2e9LCS3f2JKgIl-E6xpom7ZI-VvFR8FLLOcZpJTseAUj_jdocbv9i5OFGs0tkZ1DfPymxWotxcwsI7sttzfDlOMTcvqemRAcerSZ8zeJu5urbhDbTQwC9xWlK-4p8_8J1506SDfmGP32CcBv5UzJMmCuffQmYnVFPAvQpJPr8kn10Uq81E8krDI1LgSWWIjWh-W6KPwp5K6MnBNxZ6KXTsTJI_NQNSj9RVlJALjTDm56k7o",
+        "destinationIds": [],
         "departures": [
             "2024-10-20",
             "2024-10-27",
@@ -235,13 +291,27 @@
     "grancanaria": {
         "id": "grancanaria",
         "name": "Gran Canaria: Dune Rituals",
-        "destination": {
-            "title": "Gran Canaria: Dune Rituals",
-            "dates": "Nov 04 - Nov 11, 2024",
-            "price": "€2,180",
-            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC1oHqeVZ979CXY0NIWeEIEVPGlAPNHHVyBkcZ4rs3qUxdXIN5OES-z9HMn6iPIAVifcuW3PNLlmWCJrT9y7mQhCcHuQKxfk-d_zYMEE19_n_JuzecKLv6yGh1KJgsSnmeaCS60CxkU1E4YQC9MBrFJwvTjuwjKlbuaBlAtyhCGWfbqW04csDZbeDWbeHl6mtYwmDIHU4hjGkeBpiT11M-ykNQqM933mCe7qLJfoUaZ2CpX_60L7NQVt8fIwQfh3EKVxWgeu9BxKeU",
-            "quickLook": "Dune walks, discreet villas, and sunset sound baths."
+        "translations": {
+            "en": {
+                "title": "Gran Canaria: Dune Rituals",
+                "description": "Escape to Gran Canaria for dune walks, discreet villas, and sunset sound baths. Experience the unique landscape and tranquil atmosphere of this Canary Island paradise.",
+                "quickLook": "Dune walks, discreet villas, and sunset sound baths."
+            },
+            "de": {
+                "title": "Gran Canaria: Dünenrituale",
+                "description": "Entfliehen Sie nach Gran Canaria für Dünenwanderungen, diskrete Villen und Klangbäder bei Sonnenuntergang. Erleben Sie die einzigartige Landschaft und die ruhige Atmosphäre dieses kanarischen Inselparadieses.",
+                "quickLook": "Dünenwanderungen, diskrete Villen, Sonnenuntergangs-Klangbäder."
+            },
+            "el": {
+                "title": "Γκραν Κανάρια: Τελετουργίες στους Αμμόλοφους",
+                "description": "Αποδράστε στη Γκραν Κανάρια για περιπάτους στους αμμόλοφους, διακριτικές βίλες και ηχητικά λουτρά στο ηλιοβασίλεμα. Ζήστε το μοναδικό τοπίο και την ήρεμη ατμόσφαιρα αυτού του παραδείσου των Καναρίων Νήσων.",
+                "quickLook": "Περίπατοι αμμολόφων, διακριτικές βίλες, ηχητικά λουτρά."
+            }
         },
+        "dates": "Nov 04 - Nov 11, 2024",
+        "price": "€2,180",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC1oHqeVZ979CXY0NIWeEIEVPGlAPNHHVyBkcZ4rs3qUxdXIN5OES-z9HMn6iPIAVifcuW3PNLlmWCJrT9y7mQhCcHuQKxfk-d_zYMEE19_n_JuzecKLv6yGh1KJgsSnmeaCS60CxkU1E4YQC9MBrFJwvTjuwjKlbuaBlAtyhCGWfbqW04csDZbeDWbeHl6mtYwmDIHU4hjGkeBpiT11M-ykNQqM933mCe7qLJfoUaZ2CpX_60L7NQVt8fIwQfh3EKVxWgeu9BxKeU",
+        "destinationIds": [],
         "departures": [
             "2024-11-04",
             "2024-11-11",

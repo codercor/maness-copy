@@ -147,7 +147,6 @@
             "title": "Sign in to MenEscape",
             "subtitle": "Continue with a trusted provider to manage bookings and unlock member-only travel perks.",
             "google": "Continue with Google",
-            "apple": "Continue with Apple",
             "note": "We only use your email to confirm bookings and send itinerary updates."
         }
     },
@@ -299,7 +298,6 @@
             "title": "Bei MenEscape anmelden",
             "subtitle": "Melde dich mit einem vertrauenswürdigen Anbieter an, um Buchungen zu verwalten.",
             "google": "Mit Google fortfahren",
-            "apple": "Mit Apple fortfahren",
             "note": "Wir nutzen deine E-Mail nur für Buchungsbestätigung und Updates."
         }
     },
@@ -451,7 +449,6 @@
             "title": "Σύνδεση στο MenEscape",
             "subtitle": "Συνδέσου με έναν αξιόπιστο πάροχο για κρατήσεις και προνόμια.",
             "google": "Συνέχεια με Google",
-            "apple": "Συνέχεια με Apple",
             "note": "Χρησιμοποιούμε το email μόνο για επιβεβαιώσεις και ενημερώσεις."
         }
     }

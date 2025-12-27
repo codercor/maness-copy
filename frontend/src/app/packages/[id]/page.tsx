@@ -100,8 +100,8 @@ export default function PackageDetailsPage() {
             ...packageData,
             destination: {
                 ...packageData.destination,
-                title: destTrans.title ?? packageData.destination.title,
-                quickLook: destTrans.quickLook ?? packageData.destination.quickLook,
+                title: destTrans.title ?? packageData.destination?.title ?? packageData.name,
+                quickLook: destTrans.quickLook ?? packageData.destination?.quickLook ?? '',
             },
             itinerary: packageData.itinerary.map((day, i) => ({
                 ...day,
@@ -199,7 +199,7 @@ export default function PackageDetailsPage() {
             <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${packageData.destination.image})` }}
+                    style={{ backgroundImage: `url(${packageData.image || packageData.destination?.image || ''})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -212,10 +212,10 @@ export default function PackageDetailsPage() {
                             Back to Home
                         </Link>
                         <h1 className="text-4xl md:text-5xl font-bold text-white">
-                            {localizedPackage.destination.title}
+                            {localizedPackage.destination?.title || localizedPackage.translations?.en?.title || localizedPackage.name}
                         </h1>
                         <p className="mt-2 text-lg text-white/80">
-                            {packageData.destination.dates} • {packageData.destination.price}
+                            {packageData.dates || packageData.destination?.dates || ''} • {packageData.price || packageData.destination?.price || ''}
                         </p>
                     </div>
                 </div>

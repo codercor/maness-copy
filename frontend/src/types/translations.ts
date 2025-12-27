@@ -139,7 +139,6 @@ export interface UserAuthTranslations {
     title: string;
     subtitle: string;
     google: string;
-    apple: string;
     note: string;
 }
 

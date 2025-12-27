@@ -11,9 +11,7 @@ export class GalleryItem {
     @Prop({ required: true })
     description: string;
 
-    @Prop({ required: true })
-    price: string;
-
+    // Duration of typical trip to this destination
     @Prop({ required: true })
     duration: string;
 
@@ -26,8 +24,14 @@ export class GalleryItem {
     @Prop({ default: false })
     featured: boolean;
 
+    // Legacy field - kept for backward compatibility
+    // Prices are now on packages, not destinations
     @Prop()
-    packageId: string;
+    price?: string;
+
+    // Legacy field - kept for backward compatibility
+    @Prop()
+    packageId?: string;
 }
 
 export const GalleryItemSchema = SchemaFactory.createForClass(GalleryItem);

@@ -26,7 +26,7 @@ let PackagesService = class PackagesService {
         const packages = await this.packageModel.find().exec();
         const result = {};
         for (const pkg of packages) {
-            result[pkg.id] = pkg.toObject();
+            result[pkg.id] = this.migratePackage(pkg.toObject());
         }
         return result;
     }
@@ -35,15 +35,17 @@ let PackagesService = class PackagesService {
         if (!pkg) {
             throw new common_1.NotFoundException(`Package ${id} not found`);
         }
-        return pkg;
+        return this.migratePackage(pkg);
     }
     async create(packageData) {
-        const created = new this.packageModel(packageData);
+        const migrated = this.ensureTranslations(packageData);
+        const created = new this.packageModel(migrated);
         return created.save();
     }
     async update(id, packageData) {
+        const migrated = this.ensureTranslations(packageData);
         const updated = await this.packageModel
-            .findOneAndUpdate({ id }, packageData, { new: true })
+            .findOneAndUpdate({ id }, migrated, { new: true })
             .exec();
         if (!updated) {
             throw new common_1.NotFoundException(`Package ${id} not found`);
@@ -59,7 +61,7 @@ let PackagesService = class PackagesService {
     async bulkUpdate(packages) {
         await this.packageModel.deleteMany({}).exec();
         const packageArray = Object.entries(packages).map(([id, pkg]) => ({
-            ...pkg,
+            ...this.ensureTranslations(pkg),
             id,
         }));
         if (packageArray.length > 0) {
@@ -72,6 +74,66 @@ let PackagesService = class PackagesService {
         if (count === 0) {
             await this.bulkUpdate(packages);
         }
+    }
+    migratePackage(pkg) {
+        if (pkg.translations?.en) {
+            return pkg;
+        }
+        if (pkg.destination) {
+            return {
+                ...pkg,
+                translations: {
+                    en: {
+                        title: pkg.destination.title,
+                        description: pkg.destination.quickLook || '',
+                        quickLook: pkg.destination.quickLook || '',
+                    },
+                },
+                dates: pkg.destination.dates || pkg.dates,
+                price: pkg.destination.price || pkg.price,
+                image: pkg.destination.image || pkg.image,
+                destinationIds: pkg.destinationIds || [],
+            };
+        }
+        return pkg;
+    }
+    ensureTranslations(pkg) {
+        if (pkg.translations?.en) {
+            return {
+                ...pkg,
+                destinationIds: pkg.destinationIds || [],
+            };
+        }
+        if (pkg.destination) {
+            return {
+                ...pkg,
+                translations: {
+                    en: {
+                        title: pkg.destination.title,
+                        description: pkg.destination.quickLook || '',
+                        quickLook: pkg.destination.quickLook || '',
+                    },
+                },
+                dates: pkg.destination.dates || pkg.dates,
+                price: pkg.destination.price || pkg.price,
+                image: pkg.destination.image || pkg.image,
+                destinationIds: pkg.destinationIds || [],
+            };
+        }
+        return {
+            ...pkg,
+            translations: pkg.translations || {
+                en: {
+                    title: pkg.name || 'Untitled',
+                    description: '',
+                    quickLook: '',
+                },
+            },
+            destinationIds: pkg.destinationIds || [],
+        };
+    }
+    getTranslatedContent(pkg, language = package_schema_1.DEFAULT_LANGUAGE) {
+        return (0, package_schema_1.getTranslatedContent)(pkg, language);
     }
 };
 exports.PackagesService = PackagesService;

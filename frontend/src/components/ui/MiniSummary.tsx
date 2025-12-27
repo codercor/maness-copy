@@ -29,7 +29,7 @@ export function MiniSummary({
                 <div className="text-right">
                     <p className="text-xs text-slate-500">{copy.miniSummary.from}</p>
                     <p className="text-lg font-bold text-[var(--navy)]">
-                        {currentPackage.destination.price}
+                        {currentPackage.price || currentPackage.destination?.price || ''}
                     </p>
                 </div>
                 <button

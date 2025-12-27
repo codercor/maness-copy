@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { GalleryService } from './gallery.service';
 import { GalleryItem } from './schemas/gallery-item.schema';
+import { Package } from '../packages/schemas/package.schema';
 import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('gallery')
@@ -15,6 +16,15 @@ export class GalleryController {
     @Get(':id')
     async findOne(@Param('id') id: string): Promise<GalleryItem> {
         return this.galleryService.findOne(id);
+    }
+
+    /**
+     * Get packages that feature this destination.
+     * Used by destination detail pages to show related packages.
+     */
+    @Get(':id/packages')
+    async getPackagesForDestination(@Param('id') id: string): Promise<Package[]> {
+        return this.galleryService.getPackagesForDestination(id);
     }
 
     @Post()

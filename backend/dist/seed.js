@@ -36,13 +36,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = __importStar(require("mongoose"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const DestinationInfoSchema = new mongoose.Schema({
+const TranslatedContentSchema = new mongoose.Schema({
     title: String,
-    dates: String,
-    price: String,
-    image: String,
+    description: String,
     quickLook: String,
-});
+}, { _id: false });
+const PackageTranslationsSchema = new mongoose.Schema({
+    en: { type: TranslatedContentSchema, required: true },
+    de: TranslatedContentSchema,
+    el: TranslatedContentSchema,
+}, { _id: false });
 const PartnerSchema = new mongoose.Schema({
     name: String,
     url: String,
@@ -55,7 +58,11 @@ const ItineraryDaySchema = new mongoose.Schema({
 const PackageSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
     name: String,
-    destination: DestinationInfoSchema,
+    translations: PackageTranslationsSchema,
+    dates: String,
+    price: String,
+    image: String,
+    destinationIds: { type: [String], default: [] },
     departures: [String],
     spots: Number,
     partner: PartnerSchema,
@@ -84,13 +91,27 @@ const initialPackages = {
     mykonos: {
         id: "mykonos",
         name: "Mykonos Adventure",
-        destination: {
-            title: "Mykonos, Greece",
-            dates: "June 15-22, 2025",
-            price: "€2,499",
-            image: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800",
-            quickLook: "Experience the iconic white-washed buildings and vibrant nightlife of this legendary Greek island."
+        translations: {
+            en: {
+                title: "Mykonos, Greece",
+                description: "Experience the iconic white-washed buildings and vibrant nightlife of this legendary Greek island. Explore beautiful beaches, charming streets, and unforgettable sunsets.",
+                quickLook: "Paradise beaches & legendary nightlife"
+            },
+            de: {
+                title: "Mykonos, Griechenland",
+                description: "Erleben Sie die ikonischen weißgetünchten Gebäude und das pulsierende Nachtleben dieser legendären griechischen Insel. Entdecken Sie wunderschöne Strände, charmante Straßen und unvergessliche Sonnenuntergänge.",
+                quickLook: "Paradiesische Strände & legendäres Nachtleben"
+            },
+            el: {
+                title: "Μύκονος, Ελλάδα",
+                description: "Ζήστε τα εμβληματικά ασβεστωμένα κτίρια και τη ζωντανή νυχτερινή ζωή αυτού του θρυλικού ελληνικού νησιού. Εξερευνήστε όμορφες παραλίες, γραφικά σοκάκια και αξέχαστα ηλιοβασιλέματα.",
+                quickLook: "Παραδεισένιες παραλίες & θρυλική νυχτερινή ζωή"
+            }
         },
+        dates: "June 15-22, 2025",
+        price: "€2,499",
+        image: "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=800",
+        destinationIds: [],
         departures: ["2025-06-15", "2025-07-20", "2025-08-10"],
         spots: 12,
         partner: { name: "Greek Escapes", url: "https://example.com/mykonos" },
@@ -107,13 +128,27 @@ const initialPackages = {
     ibiza: {
         id: "ibiza",
         name: "Ibiza Experience",
-        destination: {
-            title: "Ibiza, Spain",
-            dates: "July 5-12, 2025",
-            price: "€2,799",
-            image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800",
-            quickLook: "Discover the magic of Ibiza with world-famous clubs and stunning beaches."
+        translations: {
+            en: {
+                title: "Ibiza, Spain",
+                description: "Discover the magic of Ibiza with world-famous clubs, stunning beaches, and breathtaking sunsets. Experience the ultimate Mediterranean party destination.",
+                quickLook: "World-class clubs & crystal waters"
+            },
+            de: {
+                title: "Ibiza, Spanien",
+                description: "Entdecken Sie die Magie Ibizas mit weltberühmten Clubs, atemberaubenden Stränden und unvergesslichen Sonnenuntergängen. Erleben Sie das ultimative Partyziel im Mittelmeer.",
+                quickLook: "Weltklasse-Clubs & kristallklares Wasser"
+            },
+            el: {
+                title: "Ίμπιζα, Ισπανία",
+                description: "Ανακαλύψτε τη μαγεία της Ίμπιζα με τα παγκοσμίως φημισμένα κλαμπ, τις εκπληκτικές παραλίες και τα μαγευτικά ηλιοβασιλέματα. Ζήστε τον απόλυτο μεσογειακό προορισμό διασκέδασης.",
+                quickLook: "Κλαμπ παγκόσμιας κλάσης & κρυστάλλινα νερά"
+            }
         },
+        dates: "July 5-12, 2025",
+        price: "€2,799",
+        image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800",
+        destinationIds: [],
         departures: ["2025-07-05", "2025-08-02", "2025-09-06"],
         spots: 15,
         partner: { name: "Ibiza Ventures", url: "https://example.com/ibiza" },
@@ -130,13 +165,27 @@ const initialPackages = {
     santorini: {
         id: "santorini",
         name: "Santorini Dreams",
-        destination: {
-            title: "Santorini, Greece",
-            dates: "September 1-8, 2025",
-            price: "€2,899",
-            image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800",
-            quickLook: "Witness breathtaking sunsets and explore the romantic beauty of this volcanic paradise."
+        translations: {
+            en: {
+                title: "Santorini, Greece",
+                description: "Witness breathtaking sunsets and explore the romantic beauty of this volcanic paradise. Blue-domed churches, incredible wine, and unforgettable caldera views await.",
+                quickLook: "Breathtaking sunsets & volcanic beauty"
+            },
+            de: {
+                title: "Santorini, Griechenland",
+                description: "Erleben Sie atemberaubende Sonnenuntergänge und erkunden Sie die romantische Schönheit dieses vulkanischen Paradieses. Blau gekuppelte Kirchen, unglaublicher Wein und unvergessliche Caldera-Aussichten erwarten Sie.",
+                quickLook: "Atemberaubende Sonnenuntergänge & vulkanische Schönheit"
+            },
+            el: {
+                title: "Σαντορίνη, Ελλάδα",
+                description: "Θαυμάστε μαγευτικά ηλιοβασιλέματα και εξερευνήστε τη ρομαντική ομορφιά αυτού του ηφαιστειακού παραδείσου. Γαλάζιοι τρούλοι, εξαιρετικό κρασί και αξέχαστη θέα στην καλντέρα σας περιμένουν.",
+                quickLook: "Μαγευτικά ηλιοβασιλέματα & ηφαιστειακή ομορφιά"
+            }
         },
+        dates: "September 1-8, 2025",
+        price: "€2,899",
+        image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800",
+        destinationIds: [],
         departures: ["2025-09-01", "2025-09-15", "2025-10-05"],
         spots: 10,
         partner: { name: "Aegean Tours", url: "https://example.com/santorini" },
@@ -154,13 +203,27 @@ const initialPackages = {
     barcelona: {
         id: "barcelona",
         name: "Barcelona Nights",
-        destination: {
-            title: "Barcelona, Spain",
-            dates: "October 10-17, 2025",
-            price: "€2,199",
-            image: "https://images.unsplash.com/photo-1583422409516-2895a77ef2c9?w=800",
-            quickLook: "Experience Gaudí's masterpieces, vibrant tapas culture, and Mediterranean beaches."
+        translations: {
+            en: {
+                title: "Barcelona, Spain",
+                description: "Experience Gaudí's masterpieces, vibrant tapas culture, and Mediterranean beaches. Discover the perfect blend of art, architecture, and nightlife.",
+                quickLook: "Art, architecture & Mediterranean flair"
+            },
+            de: {
+                title: "Barcelona, Spanien",
+                description: "Erleben Sie Gaudís Meisterwerke, lebhafte Tapas-Kultur und mediterrane Strände. Entdecken Sie die perfekte Mischung aus Kunst, Architektur und Nachtleben.",
+                quickLook: "Kunst, Architektur & mediterranes Flair"
+            },
+            el: {
+                title: "Βαρκελώνη, Ισπανία",
+                description: "Ζήστε τα αριστουργήματα του Γκαουντί, τη ζωντανή κουλτούρα τάπας και τις μεσογειακές παραλίες. Ανακαλύψτε τον τέλειο συνδυασμό τέχνης, αρχιτεκτονικής και νυχτερινής ζωής.",
+                quickLook: "Τέχνη, αρχιτεκτονική & μεσογειακό στυλ"
+            }
         },
+        dates: "October 10-17, 2025",
+        price: "€2,199",
+        image: "https://images.unsplash.com/photo-1583422409516-2895a77ef2c9?w=800",
+        destinationIds: [],
         departures: ["2025-10-10", "2025-11-07", "2025-04-15"],
         spots: 18,
         partner: { name: "Barcelona Experiences", url: "https://example.com/barcelona" },
@@ -244,7 +307,7 @@ async function seed() {
     }
     const pkgCount = await Package.countDocuments();
     if (pkgCount === 0) {
-        console.log('🌱 Seeding packages...');
+        console.log('🌱 Seeding packages with multi-language support...');
         for (const [id, pkg] of Object.entries(initialPackages)) {
             await Package.create({ ...pkg, id });
             console.log(`   ✅ Created package: ${id}`);

@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import type { Translations, Package, ServiceItem, Language } from "@/types";
+import { INCLUDED_SERVICES } from "@/types";
 
 interface ItinerarySectionProps {
     copy: Translations;
@@ -57,7 +58,16 @@ const timelineItemVariants: Variants = {
     },
 };
 
-const serviceIcons = ["restaurant", "directions_car", "auto_awesome"];
+// Map service IDs to icons
+const getServiceIcon = (serviceId: string): string => {
+    const service = INCLUDED_SERVICES.find(s => s.id === serviceId);
+    return service?.icon || 'check_circle';
+};
+
+const getServiceLabel = (serviceId: string): string => {
+    const service = INCLUDED_SERVICES.find(s => s.id === serviceId);
+    return service?.label || serviceId;
+};
 
 export function ItinerarySection({
     copy,
@@ -170,19 +180,34 @@ export function ItinerarySection({
                         <h3 className="text-xl font-bold text-[var(--navy)]">
                             {copy.itinerary.includedTitle}
                         </h3>
-                        <div className="mt-6 grid gap-4 md:grid-cols-3">
-                            {itineraryServices.map((service, index) => (
-                                <div
-                                    key={service.title}
-                                    className="lux-card rounded-2xl bg-white p-5"
-                                >
-                                    <span className="material-symbols-outlined text-3xl text-[var(--navy)]">
-                                        {serviceIcons[index]}
-                                    </span>
-                                    <h4 className="mt-3 text-lg font-bold">{service.title}</h4>
-                                    <p className="mt-2 text-sm text-slate-500">{service.text}</p>
-                                </div>
-                            ))}
+                        <div className="mt-6 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            {/* Use package's includedServices if available, otherwise fallback to static */}
+                            {currentPackage.includedServices && currentPackage.includedServices.length > 0 ? (
+                                currentPackage.includedServices.map((serviceId) => (
+                                    <div
+                                        key={serviceId}
+                                        className="lux-card rounded-2xl bg-white p-4 flex flex-col items-center text-center"
+                                    >
+                                        <span className="material-symbols-outlined text-3xl text-[var(--navy)]">
+                                            {getServiceIcon(serviceId)}
+                                        </span>
+                                        <h4 className="mt-2 text-sm font-bold text-[var(--navy)]">{getServiceLabel(serviceId)}</h4>
+                                    </div>
+                                ))
+                            ) : (
+                                itineraryServices.map((service, index) => (
+                                    <div
+                                        key={service.title}
+                                        className="lux-card rounded-2xl bg-white p-5"
+                                    >
+                                        <span className="material-symbols-outlined text-3xl text-[var(--navy)]">
+                                            {INCLUDED_SERVICES[index]?.icon || 'check_circle'}
+                                        </span>
+                                        <h4 className="mt-3 text-lg font-bold">{service.title}</h4>
+                                        <p className="mt-2 text-sm text-slate-500">{service.text}</p>
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
                 </div>
@@ -194,7 +219,7 @@ export function ItinerarySection({
                         <div className="bg-[var(--navy)] px-6 py-5 text-white">
                             <p className="text-sm text-white/70">{copy.booking.total}</p>
                             <div className="mt-1 text-3xl font-bold">
-                                {currentPackage.destination.price}{" "}
+                                {currentPackage.price || currentPackage.destination?.price || ''}{" "}
                                 <span className="text-sm font-normal text-white/70">
                                     {copy.booking.perPerson}
                                 </span>
@@ -219,7 +244,7 @@ export function ItinerarySection({
                                 </select>
                             </div>
                             <p className="text-xs text-slate-500">
-                                {copy.booking.tripWindow}: {currentPackage.destination.dates}
+                                {copy.booking.tripWindow}: {currentPackage.dates || currentPackage.destination?.dates || ''}
                             </p>
                             <div className="lux-field flex items-center gap-2 px-4 py-3 text-sm">
                                 <span className="material-symbols-outlined text-base text-slate-500">
@@ -245,18 +270,30 @@ export function ItinerarySection({
                                 </button>
                                 <div
                                     id="included-panel"
-                                    className={`overflow-hidden text-xs text-slate-500 transition-all duration-300 ${includedOpen ? "max-h-40 pt-3" : "max-h-0"
+                                    className={`overflow-hidden text-xs text-slate-500 transition-all duration-300 ${includedOpen ? "max-h-60 pt-3" : "max-h-0"
                                         }`}
                                 >
                                     <ul className="space-y-2">
-                                        {itineraryServices.map((service, index) => (
-                                            <li key={service.title} className="flex items-center gap-2">
-                                                <span className="material-symbols-outlined text-sm text-[var(--gold)]">
-                                                    {serviceIcons[index]}
-                                                </span>
-                                                {service.text}
-                                            </li>
-                                        ))}
+                                        {/* Use package's includedServices if available */}
+                                        {currentPackage.includedServices && currentPackage.includedServices.length > 0 ? (
+                                            currentPackage.includedServices.map((serviceId) => (
+                                                <li key={serviceId} className="flex items-center gap-2">
+                                                    <span className="material-symbols-outlined text-sm text-[var(--gold)]">
+                                                        {getServiceIcon(serviceId)}
+                                                    </span>
+                                                    {getServiceLabel(serviceId)}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            itineraryServices.map((service, index) => (
+                                                <li key={service.title} className="flex items-center gap-2">
+                                                    <span className="material-symbols-outlined text-sm text-[var(--gold)]">
+                                                        {INCLUDED_SERVICES[index]?.icon || 'check_circle'}
+                                                    </span>
+                                                    {service.text}
+                                                </li>
+                                            ))
+                                        )}
                                     </ul>
                                 </div>
                             </div>

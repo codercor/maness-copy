@@ -115,7 +115,7 @@ export function DestinationsSection({
                                     <div className="curtain-reveal relative h-56 overflow-hidden">
                                         <div
                                             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                            style={{ backgroundImage: `url(${pkg.destination.image})` }}
+                                            style={{ backgroundImage: `url(${pkg.image || pkg.destination?.image || ''})` }}
                                         />
                                         {selectedPackage === packageId && (
                                             <span className="absolute left-4 top-4 lux-badge lux-badge--gold">
@@ -128,7 +128,7 @@ export function DestinationsSection({
                                                 {copy.destinations.quickLook}
                                             </p>
                                             <p className="text-sm font-semibold">
-                                                {destinationText?.quickLook ?? pkg.destination.quickLook}
+                                                {destinationText?.quickLook ?? pkg.destination?.quickLook ?? ''}
                                             </p>
                                         </div>
                                     </div>
@@ -137,16 +137,16 @@ export function DestinationsSection({
                                             <span className="material-symbols-outlined text-base">
                                                 calendar_month
                                             </span>
-                                            {pkg.destination.dates}
+                                            {pkg.dates || pkg.destination?.dates || ''}
                                         </p>
                                         <h3 className="mt-2 text-lg font-bold">
-                                            {destinationText?.title ?? pkg.destination.title}
+                                            {destinationText?.title ?? pkg.destination?.title ?? pkg.name}
                                         </h3>
                                         <p className="mt-2 text-sm text-slate-500">
                                             {copy.destinations.description}
                                         </p>
                                         <p className="mt-2 text-xs text-slate-400 md:hidden">
-                                            {destinationText?.quickLook ?? pkg.destination.quickLook}
+                                            {destinationText?.quickLook ?? pkg.destination?.quickLook ?? ''}
                                         </p>
                                         <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
                                             <div>
@@ -154,7 +154,7 @@ export function DestinationsSection({
                                                     {copy.destinations.startingAt}
                                                 </span>
                                                 <strong className="text-lg text-[var(--navy)]">
-                                                    {pkg.destination.price}
+                                                    {pkg.price || pkg.destination?.price || ''}
                                                 </strong>
                                             </div>
                                             <Link

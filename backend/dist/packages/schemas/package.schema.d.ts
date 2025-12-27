@@ -1,12 +1,100 @@
 import { Document } from 'mongoose';
 export type PackageDocument = Package & Document;
-export declare class DestinationInfo {
+export type SupportedLanguage = 'en' | 'de' | 'el';
+export declare const SUPPORTED_LANGUAGES: SupportedLanguage[];
+export declare const DEFAULT_LANGUAGE: SupportedLanguage;
+export declare class TranslatedContent {
     title: string;
-    dates: string;
-    price: string;
-    image: string;
+    description: string;
     quickLook: string;
 }
+export declare const TranslatedContentSchema: import("mongoose").Schema<TranslatedContent, import("mongoose").Model<TranslatedContent, any, any, any, Document<unknown, any, TranslatedContent, any, import("mongoose").DefaultSchemaOptions> & TranslatedContent & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, any, TranslatedContent>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, TranslatedContent, Document<unknown, {}, TranslatedContent, {
+    id: string;
+}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<TranslatedContent & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, "id"> & {
+    id: string;
+}, {
+    title?: import("mongoose").SchemaDefinitionProperty<string, TranslatedContent, Document<unknown, {}, TranslatedContent, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<TranslatedContent & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    description?: import("mongoose").SchemaDefinitionProperty<string, TranslatedContent, Document<unknown, {}, TranslatedContent, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<TranslatedContent & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    quickLook?: import("mongoose").SchemaDefinitionProperty<string, TranslatedContent, Document<unknown, {}, TranslatedContent, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<TranslatedContent & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+}, TranslatedContent>;
+export declare class PackageTranslations {
+    en: TranslatedContent;
+    de?: TranslatedContent;
+    el?: TranslatedContent;
+}
+export declare const PackageTranslationsSchema: import("mongoose").Schema<PackageTranslations, import("mongoose").Model<PackageTranslations, any, any, any, Document<unknown, any, PackageTranslations, any, import("mongoose").DefaultSchemaOptions> & PackageTranslations & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, any, PackageTranslations>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, PackageTranslations, Document<unknown, {}, PackageTranslations, {
+    id: string;
+}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<PackageTranslations & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, "id"> & {
+    id: string;
+}, {
+    en?: import("mongoose").SchemaDefinitionProperty<TranslatedContent, PackageTranslations, Document<unknown, {}, PackageTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<PackageTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    de?: import("mongoose").SchemaDefinitionProperty<TranslatedContent | undefined, PackageTranslations, Document<unknown, {}, PackageTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<PackageTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    el?: import("mongoose").SchemaDefinitionProperty<TranslatedContent | undefined, PackageTranslations, Document<unknown, {}, PackageTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<PackageTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+}, PackageTranslations>;
 export declare class Partner {
     name: string;
     url: string;
@@ -16,10 +104,24 @@ export declare class ItineraryDay {
     title: string;
     items: string[];
 }
+export declare class DestinationInfo {
+    title: string;
+    dates: string;
+    price: string;
+    image: string;
+    quickLook: string;
+}
 export declare class Package {
     id: string;
     name: string;
-    destination: DestinationInfo;
+    translations?: PackageTranslations;
+    dates?: string;
+    price?: string;
+    image?: string;
+    destinationId?: string;
+    destinationIds?: string[];
+    includedServices: string[];
+    destination?: DestinationInfo;
     departures: string[];
     spots: number;
     partner: Partner;
@@ -46,7 +148,42 @@ export declare const PackageSchema: import("mongoose").Schema<Package, import("m
     } & {
         __v: number;
     }> | undefined;
-    destination?: import("mongoose").SchemaDefinitionProperty<DestinationInfo, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+    translations?: import("mongoose").SchemaDefinitionProperty<PackageTranslations | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    dates?: import("mongoose").SchemaDefinitionProperty<string | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    price?: import("mongoose").SchemaDefinitionProperty<string | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    image?: import("mongoose").SchemaDefinitionProperty<string | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    destinationId?: import("mongoose").SchemaDefinitionProperty<string | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    destinationIds?: import("mongoose").SchemaDefinitionProperty<string[] | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    includedServices?: import("mongoose").SchemaDefinitionProperty<string[], Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }> | undefined;
+    destination?: import("mongoose").SchemaDefinitionProperty<DestinationInfo | undefined, Package, Document<unknown, {}, Package, {}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Package & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
@@ -82,3 +219,4 @@ export declare const PackageSchema: import("mongoose").Schema<Package, import("m
         __v: number;
     }> | undefined;
 }, Package>;
+export declare function getTranslatedContent(pkg: Package, language?: SupportedLanguage): TranslatedContent | null;
