@@ -19,9 +19,6 @@ import {
 } from "@/components";
 
 // Data - only translations kept as static (they're UI strings)
-import initialPackageDetailsData from "@/data/packages.json";
-import galleryDataFallback from "@/data/gallery.json";
-import testimonialsDataFallback from "@/data/testimonials.json";
 import translationsData from "@/data/translations.json";
 import contentTranslationsData from "@/data/content-translations.json";
 
@@ -43,10 +40,7 @@ import type {
 // API Config
 import { api } from "@/config/api";
 
-// Cast imported data as fallbacks
-const initialPackages = initialPackageDetailsData as unknown as PackageDetails;
-const fallbackGallery = galleryDataFallback as GalleryItem[];
-const fallbackTestimonials = testimonialsDataFallback as Testimonial[];
+
 const translations = translationsData as Record<Language, Translations>;
 const contentTranslations = contentTranslationsData as Record<string, ContentTranslations>;
 
@@ -109,18 +103,19 @@ export default function Home() {
   const [footerEmail, setFooterEmail] = useState("");
   const [footerStatus, setFooterStatus] = useState("");
   const [includedOpen, setIncludedOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<PackageId>("mykonos");
-  const [selectedDate, setSelectedDate] = useState(initialPackages.mykonos?.departures[0] || "");
-  const [packagesState, setPackagesState] = useState<PackageDetails>(initialPackages);
-  const [galleryState, setGalleryState] = useState<GalleryItem[]>(fallbackGallery);
-  const [testimonialsState, setTestimonialsState] = useState<Testimonial[]>(fallbackTestimonials);
+  const [selectedPackage, setSelectedPackage] = useState<PackageId | null>(null);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [packagesState, setPackagesState] = useState<PackageDetails>({});
+  const [galleryState, setGalleryState] = useState<GalleryItem[]>([]);
+  const [testimonialsState, setTestimonialsState] = useState<Testimonial[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("experience");
   const [showMiniSummary, setShowMiniSummary] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [itineraryProgress, setItineraryProgress] = useState(0);
 
   // Derived state
-  const currentPackage = packagesState[selectedPackage];
+  const currentPackage = selectedPackage ? packagesState[selectedPackage] : null;
   const baseCopy = translations.en;
   const copy = translations[language] ?? baseCopy;
   const contentCopy = language === "en" ? null : contentTranslations[language] ?? null;
@@ -213,8 +208,8 @@ export default function Home() {
     }).format(parsed);
   };
 
-  const packageText = getPackageText(selectedPackage);
-  const localizedPackage: Package = {
+  const packageText = selectedPackage ? getPackageText(selectedPackage) : null;
+  const localizedPackage: Package | null = currentPackage ? {
     ...currentPackage,
     name: packageText?.name ?? currentPackage.name,
     partner: {
@@ -229,10 +224,12 @@ export default function Home() {
         items: override?.items ?? block.items,
       };
     }),
-  };
+  } : null;
 
   const confirmRedirect = () => {
-    window.open(currentPackage.partner.url, "_blank", "noopener,noreferrer");
+    if (currentPackage?.partner?.url) {
+      window.open(currentPackage.partner.url, "_blank", "noopener,noreferrer");
+    }
     setModalOpen(false);
   };
 
@@ -338,6 +335,7 @@ export default function Home() {
   useEffect(() => {
     let active = true;
     const loadData = async () => {
+      setDataLoading(true);
       try {
         // Load packages, gallery, and testimonials in parallel
         const [packagesRes, galleryRes, testimonialsRes] = await Promise.all([
@@ -351,25 +349,17 @@ export default function Home() {
         // Process packages
         if (packagesRes.ok) {
           const data = (await packagesRes.json()) as { packages?: PackageDetails };
-          let nextPackages = initialPackages;
           if (data.packages && Object.keys(data.packages).length) {
-            const firstPkgId = Object.keys(data.packages)[0] as PackageId;
-            const firstPkg = data.packages[firstPkgId];
-            if (firstPkg && firstPkg.destination) {
-              nextPackages = data.packages;
+            setPackagesState(data.packages);
+            const keys = Object.keys(data.packages) as PackageId[];
+
+            // Find if any package is selected (featured)
+            const featuredPackageId = keys.find(key => data.packages![key].isSelected);
+
+            // Set selected package - prefer featured, else first
+            if (!selectedPackage || !keys.includes(selectedPackage)) {
+              setSelectedPackage(featuredPackageId || keys[0]);
             }
-          }
-          setPackagesState(nextPackages);
-          const keys = Object.keys(nextPackages) as PackageId[];
-
-          // Find if any package is selected (featured)
-          const featuredPackageId = keys.find(key => nextPackages[key].isSelected);
-
-          if (keys.length && !keys.includes(selectedPackage)) {
-            setSelectedPackage(featuredPackageId || keys[0]);
-          } else if (featuredPackageId && selectedPackage === "mykonos" && nextPackages["mykonos"]?.isSelected !== true) {
-            // If currently on default/placeholder but a featured one exists (and default isn't it), switch to featured
-            setSelectedPackage(featuredPackageId);
           }
         }
 
@@ -388,8 +378,10 @@ export default function Home() {
             setTestimonialsState(testimonialsData);
           }
         }
-      } catch {
-        // Leave fallback data in place if the API is unavailable.
+      } catch (error) {
+        console.error("Failed to load data:", error);
+      } finally {
+        if (active) setDataLoading(false);
       }
     };
     loadData();
@@ -415,6 +407,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!selectedPackage) return;
     const nextDate = packagesState[selectedPackage]?.departures[0] ?? "";
     setSelectedDate(nextDate);
     setIncludedOpen(false);
@@ -602,7 +595,7 @@ export default function Home() {
         <DestinationsSection
           copy={copy}
           packages={packagesState}
-          selectedPackage={selectedPackage}
+          selectedPackage={selectedPackage || ""}
           setSelectedPackage={setSelectedPackage}
           getDestinationText={getDestinationText}
           carouselRef={carouselRef}
@@ -663,7 +656,7 @@ export default function Home() {
         />
       )}
 
-      {modalOpen && (
+      {modalOpen && localizedPackage && (
         <AffiliateModal
           copy={copy}
           localizedPackage={localizedPackage}
@@ -673,7 +666,7 @@ export default function Home() {
         />
       )}
 
-      {showMiniSummary && (
+      {showMiniSummary && localizedPackage && currentPackage && (
         <MiniSummary
           copy={copy}
           localizedPackage={localizedPackage}

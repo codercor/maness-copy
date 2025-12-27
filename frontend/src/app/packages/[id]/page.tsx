@@ -8,9 +8,9 @@ import { useReducedMotion } from "framer-motion";
 // Components
 import { ItinerarySection } from "@/components";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { useTranslation } from "@/hooks/useTranslation";
 
 // Data - translations
-import translationsData from "@/data/translations.json";
 import contentTranslationsData from "@/data/content-translations.json";
 
 // Types
@@ -27,18 +27,12 @@ import type {
 // API Config
 import { api } from "@/config/api";
 
-const translations = translationsData as Record<Language, Translations>;
 const contentTranslations = contentTranslationsData as Record<string, ContentTranslations>;
-
-const languageOptions: LanguageOption[] = [
-    { id: "en", label: "English" },
-    { id: "de", label: "German" },
-    { id: "el", label: "Greek" },
-];
 
 export default function PackageDetailsPage() {
     const params = useParams();
     const packageId = params.id as string;
+    const { t: copy, language, translations } = useTranslation();
 
     // Refs
     const headerRef = useRef<HTMLElement | null>(null);
@@ -49,7 +43,6 @@ export default function PackageDetailsPage() {
     // State
     const reducedMotion = useReducedMotion();
     const [navOpen, setNavOpen] = useState(false);
-    const [language, setLanguage] = useState<Language>("en");
     const [packageData, setPackageData] = useState<Package | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState("");
@@ -60,7 +53,7 @@ export default function PackageDetailsPage() {
 
     const motionEnabled = !reducedMotion;
     const baseCopy = translations.en;
-    const copy = translations[language] ?? baseCopy;
+    // copy is already localized from useTranslation hook, no need to recalc
     const contentCopy = language === "en" ? null : contentTranslations[language] ?? null;
     const itineraryServices = copy.itinerary?.services?.length === 3 ? copy.itinerary.services : baseCopy.itinerary.services;
     const trustItems = copy.booking?.trustItems?.length === 3 ? copy.booking.trustItems : baseCopy.booking.trustItems;
@@ -90,30 +83,58 @@ export default function PackageDetailsPage() {
     }, [packageId]);
 
     // Get localized package
+    // PRIORITY:
+    // 1. Database Migrated Translations (packageData.translations)
+    // 2. Static JSON File Overrides (contentTranslations.json)
+    // 3. Database Legacy Destination (packageData.destination)
+    // 4. Fallback (English / Default)
     const localizedPackage = useMemo(() => {
         if (!packageData) return null;
-        if (!contentCopy?.destinations) return packageData;
 
-        const destTrans = contentCopy.destinations[packageId as PackageId] as (DestinationContentTranslation & { itinerary?: { title?: string; items?: string[] }[] }) | undefined;
-        if (!destTrans) return packageData;
+        // Check for DB-based translations (NEW SYSTEM)
+        if (packageData.translations && packageData.translations[language]) {
+            const trans = packageData.translations[language];
+            return {
+                ...packageData,
+                destination: {
+                    ...packageData.destination,
+                    title: trans.title || packageData.destination?.title || packageData.name,
+                    quickLook: trans.quickLook || packageData.destination?.quickLook || '',
+                    description: trans.description || (packageData.destination as any)?.description || '',
+                    dates: packageData.destination?.dates || '', // Dates usually not translated
+                    price: packageData.destination?.price || '', // Price usually not translated
+                    image: packageData.destination?.image || '',
+                },
+                // Add logic for itinerary translation if schema supports it in future
+                // For now, fallback to JSON or legacy for itinerary items
+            };
+        }
 
-        return {
-            ...packageData,
-            destination: {
-                ...packageData.destination,
-                title: destTrans.title ?? packageData.destination?.title ?? packageData.name,
-                quickLook: destTrans.quickLook ?? packageData.destination?.quickLook ?? '',
-                dates: packageData.destination?.dates ?? '',
-                price: packageData.destination?.price ?? '',
-                image: packageData.destination?.image ?? '',
-            },
-            itinerary: packageData.itinerary.map((day, i) => ({
-                ...day,
-                title: destTrans.itinerary?.[i]?.title ?? day.title,
-                items: destTrans.itinerary?.[i]?.items ?? day.items,
-            })),
-        };
-    }, [packageData, contentCopy, packageId]);
+        // Fallback to Static JSON (OLD SYSTEM)
+        if (contentCopy?.destinations) {
+            const destTrans = contentCopy.destinations[packageId as PackageId] as (DestinationContentTranslation & { itinerary?: { title?: string; items?: string[] }[] }) | undefined;
+            if (destTrans) {
+                return {
+                    ...packageData,
+                    destination: {
+                        ...packageData.destination,
+                        title: destTrans.title ?? packageData.destination?.title ?? packageData.name,
+                        quickLook: destTrans.quickLook ?? packageData.destination?.quickLook ?? '',
+                        dates: packageData.destination?.dates ?? '',
+                        price: packageData.destination?.price ?? '',
+                        image: packageData.destination?.image ?? '',
+                    },
+                    itinerary: packageData.itinerary.map((day, i) => ({
+                        ...day,
+                        title: destTrans.itinerary?.[i]?.title ?? day.title,
+                        items: destTrans.itinerary?.[i]?.items ?? day.items,
+                    })),
+                };
+            }
+        }
+
+        return packageData;
+    }, [packageData, contentCopy, packageId, language]);
 
     // Date formatting
     const formatDate = (dateString: string): string => {

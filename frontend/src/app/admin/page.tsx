@@ -15,10 +15,6 @@ import type {
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES, DEFAULT_LANGUAGE, INCLUDED_SERVICES } from "@/types";
 import { api, UPLOADS_URL } from "@/config/api";
 
-// Import initial data
-import initialPackageDetailsData from "@/data/packages.json";
-
-const initialPackages = initialPackageDetailsData as unknown as PackageDetails;
 
 interface GalleryItemWithId extends GalleryItem {
     _id: string;
@@ -33,7 +29,7 @@ export default function AdminPage() {
     // Form state
     const [saving, setSaving] = useState(false);
     const [saveStatus, setSaveStatus] = useState("");
-    const [editPackageId, setEditPackageId] = useState<PackageId>("mykonos");
+    const [editPackageId, setEditPackageId] = useState<PackageId | null>(null);
     const [showAddModal, setShowAddModal] = useState(false);
     const [newPackageId, setNewPackageId] = useState("");
     const [uploading, setUploading] = useState(false);
@@ -43,7 +39,7 @@ export default function AdminPage() {
     const [activeLanguage, setActiveLanguage] = useState<SupportedLanguage>("en");
 
     // Data state
-    const [packages, setPackages] = useState<PackageDetails>(initialPackages);
+    const [packages, setPackages] = useState<PackageDetails>({});
     const [galleryItems, setGalleryItems] = useState<GalleryItemWithId[]>([]);
 
     // Check auth on mount
@@ -88,7 +84,7 @@ export default function AdminPage() {
                     // Use the data regardless of structure - service handles migration
                     if (firstPkg) {
                         setPackages(data.packages);
-                        if (!packageIds.includes(editPackageId)) {
+                        if (!editPackageId || !packageIds.includes(editPackageId)) {
                             setEditPackageId(packageIds[0]);
                         }
                     }
@@ -112,6 +108,9 @@ export default function AdminPage() {
         setSaveStatus("");
 
         try {
+            // Debug payload
+            console.log('Saving packages payload:', JSON.stringify({ packages }, null, 2));
+
             const response = await fetch(api.packages.bulk, {
                 method: "PUT",
                 headers: {
@@ -135,8 +134,19 @@ export default function AdminPage() {
         setSaving(false);
     };
 
-    const handleReset = () => {
-        setPackages(initialPackages);
+    const handleReset = async () => {
+        // Reload packages from API
+        try {
+            const response = await fetch(api.packages.list, { cache: "no-store" });
+            if (response.ok) {
+                const data = (await response.json()) as { packages?: PackageDetails };
+                if (data.packages) {
+                    setPackages(data.packages);
+                }
+            }
+        } catch (error) {
+            console.error("Failed to reload packages:", error);
+        }
         setSaveStatus("");
     };
 
@@ -168,23 +178,30 @@ export default function AdminPage() {
             const currentTranslations = pkg.translations || {
                 en: { title: pkg.name, description: "", quickLook: "" },
             };
+
+            // If we're starting a new language translation, copy from English/Fallback
+            // This prevents other fields from clearing out when user edits just one field
+            const fallbackContent = currentTranslations.en || { title: pkg.name, description: "", quickLook: "" };
+
             const currentLangContent = currentTranslations[language] || {
-                title: "",
-                description: "",
-                quickLook: "",
+                title: fallbackContent.title,
+                description: fallbackContent.description,
+                quickLook: fallbackContent.quickLook,
+            };
+
+            const updatedTranslations = {
+                ...currentTranslations,
+                [language]: {
+                    ...currentLangContent,
+                    [field]: value,
+                },
             };
 
             return {
                 ...prev,
                 [packageId]: {
                     ...pkg,
-                    translations: {
-                        ...currentTranslations,
-                        [language]: {
-                            ...currentLangContent,
-                            [field]: value,
-                        },
-                    },
+                    translations: updatedTranslations,
                 },
             };
         });
@@ -238,7 +255,9 @@ export default function AdminPage() {
 
             const data = await response.json();
             const imageUrl = `${UPLOADS_URL}${data.url}`;
-            updatePackageField(editPackageId, "image", imageUrl);
+            if (editPackageId) {
+                updatePackageField(editPackageId, "image", imageUrl);
+            }
         } catch (error) {
             setSaveStatus("Image upload failed");
         } finally {
@@ -481,10 +500,10 @@ export default function AdminPage() {
         return null;
     }
 
-    const currentPackage = packages[editPackageId];
+    const currentPackage = editPackageId ? packages[editPackageId] : null;
 
-    // Handle case where package is not loaded yet
-    if (!currentPackage) {
+    // Handle case where no package is selected or loaded
+    if (!editPackageId || !currentPackage) {
         return (
             <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center">
                 <div className="text-center">

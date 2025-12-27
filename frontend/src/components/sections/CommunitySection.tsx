@@ -50,8 +50,13 @@ export function CommunitySection({
         }
         : { initial: false as const };
 
-    const current = testimonials[testimonialIndex];
-    const translated = getTestimonialText(testimonialIndex);
+    const current = testimonials.length > 0 ? testimonials[testimonialIndex] : null;
+    const translated = testimonials.length > 0 ? getTestimonialText(testimonialIndex) : null;
+
+    // Don't render if no testimonials
+    if (!current) {
+        return null;
+    }
 
     return (
         <section className="coast-pattern py-24 scroll-mt-24 snap-start" id="community">
@@ -176,8 +181,8 @@ export function CommunitySection({
                                 <button
                                     key={`dot-${index}`}
                                     className={`h-2.5 w-2.5 rounded-full transition ${testimonialIndex === index
-                                            ? "bg-[var(--navy)]"
-                                            : "bg-black/10"
+                                        ? "bg-[var(--navy)]"
+                                        : "bg-black/10"
                                         }`}
                                     onClick={() => setTestimonialIndex(index)}
                                     aria-label={`Go to review ${index + 1}`}
