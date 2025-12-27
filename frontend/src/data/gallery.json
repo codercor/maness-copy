@@ -1,0 +1,51 @@
+[
+    {
+        "title": "Santorini, Greece",
+        "description": "Experience the iconic caldera views from your private infinity pool.",
+        "price": "$3,200",
+        "duration": "Editor's Pick",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDvdZ5KcJGBubUGE7_aoPXOmhIOLX2fYYhuj6x7Eqd4FMJ-b2QVlK4c3NiZ2UWEU-xAG2Jx_pLbGfWxAHbbhkPo_K4PqMorXHruZ38Nihp1SrL-Uo51xCaWL1I03jP8r2gBmtjcnChEd7fC6v9kY0a5f3eXFxnjsUfZNFgLmOeHWMjLt84RWjnqTqIQCrMt2IAzwIy5Wk2K-4w-ohAdkLw2vxcPUFxWWlSuJyDsNOUL5XisSgEkioBFQ8ZuqfIn-s5AAZ0M42_wHdE",
+        "quickLook": "Private caldera suites, sunset dinners, and discreet concierge.",
+        "featured": true
+    },
+    {
+        "title": "Palm Springs, USA",
+        "description": "Desert modernism meets poolside relaxation. The ultimate weekend getaway.",
+        "price": "$1,900",
+        "duration": "7 Days",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAKFuTcPVdlJ9SjpUhCoFXUqPyOd55BGd4LiJuuW-YCo57qxHNaoy977MkGZ_QiMLx2YFu1bSggSzJ7Cw6H1tHKRPjszQG5YTqS0JW5wdU_cMcDzp6M0Qs0t2TNLlgE4GoxZ0-SF_W41FvcgwVUBRWeGlbqFZM7r-w-TAeY19h8DkjjBlIV8WLWG3A5wzzwMYcmD19bHCtzYZz2vILTiJRJxisoMJ4ihvGZ1Sjc_4ueUU2MQ2qyi_Y0nI4JX-VdAI41BLAaLmdD8IA",
+        "quickLook": "Desert spa rituals, pool parties, and private villa cabanas."
+    },
+    {
+        "title": "Puerto Vallarta",
+        "description": "The crown jewel of gay travel in Mexico. Vibrant nightlife and jungle tours.",
+        "price": "$2,100",
+        "duration": "5 Days",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAz5rHUN_isMGLuezLUD0HAj4NfttCLgIReUcNRpM-jOf0r1QFhGqDgDzvLe9ZP-YpDKHKHeHmqjXzsbP_OQYmrxc3Of5vAU6ujX17N-L9rMdvx9eHL1-yinXGntImB2Brbw5vuB0BOjOsXFC4ujPiOsryTJ51tvZZff4w-Cw6MeF5J5VZdyDQ17j-kqD0kTkE5eNUC767zN1kHkE6mDA_q5SBFgi476IxYfAXbT0eG2VugLMCS0Ar5Fhg2j8puj3dapEQe-jKujG4",
+        "quickLook": "Romantic zone nights, beach clubs, and jungle day trips."
+    },
+    {
+        "title": "Gran Canaria",
+        "description": "European paradise with endless dunes and open-minded atmosphere.",
+        "price": "$2,800",
+        "duration": "7 Days",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC1oHqeVZ979CXY0NIWeEIEVPGlAPNHHVyBkcZ4rs3qUxdXIN5OES-z9HMn6iPIAVifcuW3PNLlmWCJrT9y7mQhCcHuQKxfk-d_zYMEE19_n_JuzecKLv6yGh1KJgsSnmeaCS60CxkU1E4YQC9MBrFJwvTjuwjKlbuaBlAtyhCGWfbqW04csDZbeDWbeHl6mtYwmDIHU4hjGkeBpiT11M-ykNQqM933mCe7qLJfoUaZ2CpX_60L7NQVt8fIwQfh3EKVxWgeu9BxKeU",
+        "quickLook": "Dune walks, discreet villas, and sunset sound baths."
+    },
+    {
+        "title": "Tel Aviv, Israel",
+        "description": "The city that never sleeps. Incredible beaches and world-class dining.",
+        "price": "$2,450",
+        "duration": "4 Days",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA8YSOQBYTEExgbkaWbJuiU3IPZEhXC2e9LCS3f2JKgIl-E6xpom7ZI-VvFR8FLLOcZpJTseAUj_jdocbv9i5OFGs0tkZ1DfPymxWotxcwsI7sttzfDlOMTcvqemRAcerSZ8zeJu5urbhDbTQwC9xWlK-4p8_8J1506SDfmGP32CcBv5UzJMmCuffQmYnVFPAvQpJPr8kn10Uq81E8krDI1LgSWWIjWh-W6KPwp5K6MnBNxZ6KXTsTJI_NQNSj9RVlJALjTDm56k7o",
+        "quickLook": "Beach mornings, rooftop dinners, and late-night parties."
+    },
+    {
+        "title": "Sitges, Spain",
+        "description": "Charming coastal town known for its inclusive vibe and nightlife.",
+        "price": "$1,800",
+        "duration": "6 Days",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBM9sfenNGIoym2JGoHRZHp8wyx-YR5sCFGpedOVLtgbMPztknk1FakKG3sNuH4mdQeXhHLHZBF3Vogn4lFe2rCWPlifcYwSmQOeDGyXtn_2enONhXGWM17UX9IGahXMARI1L8MjR-5Ds9fq-qtc52JFasS7lnbIC5vhVxnbovJcJmRN2o2f5Xp-R2xTFUjXED55lqQLG1KFaNDKS_Cvq1kn9b0hY7G19yVx9l0OI09KJnRfRtK7c_jHofJsBggS8N8nvFzNaLiV2E",
+        "quickLook": "Sea-view villas, pride nights, and relaxed beach days."
+    }
+]

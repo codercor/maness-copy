@@ -1,0 +1,293 @@
+{
+    "mykonos": {
+        "id": "mykonos",
+        "name": "Mykonos Escape: The Aegean Dream",
+        "destination": {
+            "title": "Mykonos: The Party Edition",
+            "dates": "Aug 05 - Aug 12, 2024",
+            "price": "€3,200",
+            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDFwXZkWV8A_tns06bYDCc6DjmVuoLLQOB7nBPWvRmfWHw25-CpIswyozBiYcxSFNFbTAhbHxLfyWhnigefEbYKkOyt0k8AtCsYZBY790KijtrNAKuH-GkXlnHmirva9c-ZQb3RWSpR468SqxbV91HordCKTALFhe6xuqDA_OFnwlSmjF6keJH7mpwSA-izEuexK-X9zM5ShP_hF3RRRVx69DURiqqP5HAiLgYRVAgoYvJpJajI6DAjXN8h7q9FAIL_Gj5G0mfcXiw",
+            "quickLook": "VIP nightlife access, beach club suites, sunrise recovery."
+        },
+        "departures": [
+            "2024-10-12",
+            "2024-10-19",
+            "2024-10-26"
+        ],
+        "spots": 3,
+        "partner": {
+            "name": "Aegean Coast Villas",
+            "url": "https://partner-hotel.example.com/booking?ref=menescape"
+        },
+        "itinerary": [
+            {
+                "day": "01",
+                "title": "Arrival, Meet & Greet",
+                "items": [
+                    "14:00 Arrival & villa check-in with discreet transfers.",
+                    "18:00 Meet & greet cocktails by the pool.",
+                    "20:30 Dinner with drag queens and local legends."
+                ]
+            },
+            {
+                "day": "02",
+                "title": "Aegean Sea Cruise",
+                "items": [
+                    "10:00 Private catamaran boarding.",
+                    "13:00 Lunch at sea.",
+                    "16:00 Party on deck with swim stops."
+                ]
+            },
+            {
+                "day": "03",
+                "title": "Drag Bingo, Beach & Nightlife",
+                "items": [
+                    "11:00 Drag Bingo brunch.",
+                    "14:00 Beach time with private loungers.",
+                    "19:30 Fine dining experience.",
+                    "22:00 Moonlit pool party."
+                ]
+            },
+            {
+                "day": "04",
+                "title": "Farewell Brunch & Transfers",
+                "items": [
+                    "10:30 Farewell brunch.",
+                    "12:30 Airport transfers."
+                ]
+            }
+        ]
+    },
+    "crete": {
+        "id": "crete",
+        "name": "Authentic Crete: Coastal Explorer",
+        "destination": {
+            "title": "Authentic Crete: Coastal Explorer",
+            "dates": "Sep 12 - Sep 19, 2024",
+            "price": "€2,450",
+            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBXBBqRBeqfLqAz2iX2QNL7_uPudu_oaID2KCp1ZMjrpbicqQxOodosMQAv1B6ydNs3Znt8s0rYqlbMSolaxueepCUBTQ9TL2xNdyyODQYFopX0a9ZFKGDz7mx5t0kjztzKfmhFdbx_xCFlqrWqnDSayatpYaIXrx6xUTdOaxcleNrZkEngSzgqCnJC3XvMgsAI3LyecMN4sb5KehX1299xvswwlwN_AGlvFAE03-SJpvUveI_pkFPX7ICF8DNHn-gDs2LbOaJgAL8",
+            "quickLook": "Private coves, chef-led dinners, and discreet villa hosts."
+        },
+        "departures": [
+            "2024-09-12",
+            "2024-09-19",
+            "2024-09-26"
+        ],
+        "spots": 4,
+        "partner": {
+            "name": "Cretan Villa Partners",
+            "url": "https://partner-hotel.example.com/booking?ref=menescape-crete"
+        },
+        "itinerary": [
+            {
+                "day": "01",
+                "title": "Arrival & Cretan Welcome",
+                "items": [
+                    "15:00 Arrival & villa check-in with welcome mezze.",
+                    "18:30 Sunset meet & greet cocktails.",
+                    "20:30 Harbour dinner with live bouzouki."
+                ]
+            },
+            {
+                "day": "02",
+                "title": "Coastal Explorer Day",
+                "items": [
+                    "10:00 Private speedboat to hidden coves.",
+                    "13:00 Beach lunch with local wines.",
+                    "17:00 Golden hour swim & sauna ritual."
+                ]
+            },
+            {
+                "day": "03",
+                "title": "Wellness & Nightlife",
+                "items": [
+                    "11:00 Villa yoga + pool recovery.",
+                    "16:00 FKK beach time.",
+                    "21:00 Chef-led tasting dinner."
+                ]
+            },
+            {
+                "day": "04",
+                "title": "Farewell Brunch & Transfers",
+                "items": [
+                    "10:30 Farewell brunch.",
+                    "12:30 Airport transfers."
+                ]
+            }
+        ]
+    },
+    "sitges": {
+        "id": "sitges",
+        "name": "Sitges: Pride & Villa",
+        "destination": {
+            "title": "Sitges: Pride & Villa",
+            "dates": "Jun 15 - Jun 22, 2024",
+            "price": "€1,950",
+            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDNn1snnRG7WDxZdW0R-LIKC9t0tvl4hbjoN3ygNspI4nFKV2CYzHm85U2CwBitOZ1ZeBKlkld86-oxp81FOv7GMpC8iR4ONkLBDHIQfGZ00BgL7rmRSkwfx-GDJpxBqgKHdiAe4gHrWl2jfw9tqJskgnZ1aUP3Y4sS5rijwFpKN0cqMTVNMUyQ6fLM8aaAqVnKE-psmPAOitgUa4ixBm7rJ2e1DfrswsoNSmnCy7aX_VRHQhLFY2L8OqzPNglso28BOO8zM1G75rQ",
+            "quickLook": "Pride villa, open-air breakfasts, sunset cocktails."
+        },
+        "departures": [
+            "2024-06-15",
+            "2024-06-22",
+            "2024-06-29"
+        ],
+        "spots": 5,
+        "partner": {
+            "name": "Sitges Luxe Stays",
+            "url": "https://partner-hotel.example.com/booking?ref=menescape-sitges"
+        },
+        "itinerary": [
+            {
+                "day": "01",
+                "title": "Arrival & Pride Welcome",
+                "items": [
+                    "14:00 Check-in + seaside welcome drinks.",
+                    "19:00 Pride kickoff dinner.",
+                    "22:00 Rooftop DJ session."
+                ]
+            },
+            {
+                "day": "02",
+                "title": "Beach & Celebration",
+                "items": [
+                    "11:00 Beach day with reserved loungers.",
+                    "16:00 Sunset catamaran cruise.",
+                    "21:00 Pride parade meet-up."
+                ]
+            },
+            {
+                "day": "03",
+                "title": "Villa Reset & Pool Party",
+                "items": [
+                    "11:00 Wellness brunch.",
+                    "15:00 Pool party & cocktails.",
+                    "20:00 Tapas crawl in old town."
+                ]
+            },
+            {
+                "day": "04",
+                "title": "Farewell Brunch & Transfers",
+                "items": [
+                    "10:30 Farewell brunch.",
+                    "12:30 Airport transfers."
+                ]
+            }
+        ]
+    },
+    "telaviv": {
+        "id": "telaviv",
+        "name": "Tel Aviv: Coastal Nights",
+        "destination": {
+            "title": "Tel Aviv: Coastal Nights",
+            "dates": "Oct 20 - Oct 27, 2024",
+            "price": "€2,750",
+            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA8YSOQBYTEExgbkaWbJuiU3IPZEhXC2e9LCS3f2JKgIl-E6xpom7ZI-VvFR8FLLOcZpJTseAUj_jdocbv9i5OFGs0tkZ1DfPymxWotxcwsI7sttzfDlOMTcvqemRAcerSZ8zeJu5urbhDbTQwC9xWlK-4p8_8J1506SDfmGP32CcBv5UzJMmCuffQmYnVFPAvQpJPr8kn10Uq81E8krDI1LgSWWIjWh-W6KPwp5K6MnBNxZ6KXTsTJI_NQNSj9RVlJALjTDm56k7o",
+            "quickLook": "Beach mornings, rooftop dinners, and late-night parties."
+        },
+        "departures": [
+            "2024-10-20",
+            "2024-10-27",
+            "2024-11-03"
+        ],
+        "spots": 2,
+        "partner": {
+            "name": "Rothschild Retreats",
+            "url": "https://partner-hotel.example.com/booking?ref=menescape-tlv"
+        },
+        "itinerary": [
+            {
+                "day": "01",
+                "title": "Arrival & Rooftop Welcome",
+                "items": [
+                    "15:00 Hotel check-in and welcome gift.",
+                    "19:00 Sunset cocktails on Rothschild.",
+                    "21:00 Late-night beach promenade."
+                ]
+            },
+            {
+                "day": "02",
+                "title": "City & Sea",
+                "items": [
+                    "10:00 Old Jaffa cultural walk.",
+                    "13:00 Chef-led lunch by the sea.",
+                    "18:00 Private beach club evening."
+                ]
+            },
+            {
+                "day": "03",
+                "title": "Wellness & Nightlife",
+                "items": [
+                    "11:00 Spa recovery session.",
+                    "17:00 Poolside relaxation.",
+                    "22:00 VIP nightlife entry."
+                ]
+            },
+            {
+                "day": "04",
+                "title": "Farewell Brunch & Transfers",
+                "items": [
+                    "10:30 Farewell brunch.",
+                    "12:30 Airport transfers."
+                ]
+            }
+        ]
+    },
+    "grancanaria": {
+        "id": "grancanaria",
+        "name": "Gran Canaria: Dune Rituals",
+        "destination": {
+            "title": "Gran Canaria: Dune Rituals",
+            "dates": "Nov 04 - Nov 11, 2024",
+            "price": "€2,180",
+            "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC1oHqeVZ979CXY0NIWeEIEVPGlAPNHHVyBkcZ4rs3qUxdXIN5OES-z9HMn6iPIAVifcuW3PNLlmWCJrT9y7mQhCcHuQKxfk-d_zYMEE19_n_JuzecKLv6yGh1KJgsSnmeaCS60CxkU1E4YQC9MBrFJwvTjuwjKlbuaBlAtyhCGWfbqW04csDZbeDWbeHl6mtYwmDIHU4hjGkeBpiT11M-ykNQqM933mCe7qLJfoUaZ2CpX_60L7NQVt8fIwQfh3EKVxWgeu9BxKeU",
+            "quickLook": "Dune walks, discreet villas, and sunset sound baths."
+        },
+        "departures": [
+            "2024-11-04",
+            "2024-11-11",
+            "2024-11-18"
+        ],
+        "spots": 4,
+        "partner": {
+            "name": "Maspalomas Villas",
+            "url": "https://partner-hotel.example.com/booking?ref=menescape-gc"
+        },
+        "itinerary": [
+            {
+                "day": "01",
+                "title": "Arrival & Dune Welcome",
+                "items": [
+                    "15:00 Villa check-in and sunset welcome.",
+                    "19:00 Canary islands dinner.",
+                    "21:30 Stargazing on the dunes."
+                ]
+            },
+            {
+                "day": "02",
+                "title": "Dune Rituals",
+                "items": [
+                    "10:00 Guided dune walk.",
+                    "13:00 Beach picnic with chilled rose.",
+                    "17:00 Sound bath & sauna."
+                ]
+            },
+            {
+                "day": "03",
+                "title": "Villa Freedom",
+                "items": [
+                    "11:00 Poolside brunch.",
+                    "16:00 FKK-friendly villa time.",
+                    "20:00 Private chef dinner."
+                ]
+            },
+            {
+                "day": "04",
+                "title": "Farewell Brunch & Transfers",
+                "items": [
+                    "10:30 Farewell brunch.",
+                    "12:30 Airport transfers."
+                ]
+            }
+        ]
+    }
+}

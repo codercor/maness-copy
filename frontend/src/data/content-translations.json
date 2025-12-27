@@ -1,0 +1,520 @@
+{
+    "de": {
+        "destinations": {
+            "crete": {
+                "title": "Authentisches Kreta: Küsten-Explorer",
+                "quickLook": "Private Buchten, Chef-Dinner und diskrete Villen-Hosts."
+            },
+            "mykonos": {
+                "title": "Mykonos: The Party Edition",
+                "quickLook": "VIP-Nightlife, Beach-Club-Suiten, Sunrise-Recovery."
+            },
+            "sitges": {
+                "title": "Sitges: Pride & Villa",
+                "quickLook": "Pride-Villa, Open-Air-Frühstück, Sunset-Cocktails."
+            },
+            "telaviv": {
+                "title": "Tel Aviv: Küstennächte",
+                "quickLook": "Beach-Morgens, Rooftop-Dinner und Late-Night-Partys."
+            },
+            "grancanaria": {
+                "title": "Gran Canaria: Dune Rituals",
+                "quickLook": "Dünen-Spaziergänge, diskrete Villen und Sound-Baths."
+            }
+        },
+        "packages": {
+            "mykonos": {
+                "name": "Mykonos Escape: Der Ägäis-Traum",
+                "itinerary": [
+                    {
+                        "title": "Ankunft, Meet & Greet",
+                        "items": [
+                            "14:00 Ankunft & Check-in mit diskreten Transfers.",
+                            "18:00 Welcome Cocktails am Pool.",
+                            "20:30 Dinner mit Drag Queens und lokalen Legenden."
+                        ]
+                    },
+                    {
+                        "title": "Ägäis-Kreuzfahrt",
+                        "items": [
+                            "10:00 Private Katamaran-Abfahrt.",
+                            "13:00 Lunch auf See.",
+                            "16:00 Party an Deck mit Swim-Stops."
+                        ]
+                    },
+                    {
+                        "title": "Drag Bingo, Beach & Nightlife",
+                        "items": [
+                            "11:00 Drag Bingo Brunch.",
+                            "14:00 Beach-Time mit privaten Liegen.",
+                            "19:30 Fine-Dining-Erlebnis.",
+                            "22:00 Moonlit Pool Party."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell Brunch.",
+                            "12:30 Airport Transfers."
+                        ]
+                    }
+                ]
+            },
+            "crete": {
+                "name": "Authentisches Kreta: Küsten-Explorer",
+                "itinerary": [
+                    {
+                        "title": "Ankunft & kretisches Willkommen",
+                        "items": [
+                            "15:00 Check-in mit Welcome Mezze.",
+                            "18:30 Sunset Meet & Greet.",
+                            "20:30 Hafen-Dinner mit Live-Bouzouki."
+                        ]
+                    },
+                    {
+                        "title": "Küsten-Explorer Tag",
+                        "items": [
+                            "10:00 Speedboat zu versteckten Buchten.",
+                            "13:00 Strandlunch mit lokalen Weinen.",
+                            "17:00 Golden-Hour-Swim & Sauna-Ritual."
+                        ]
+                    },
+                    {
+                        "title": "Wellness & Nightlife",
+                        "items": [
+                            "11:00 Villa-Yoga + Pool-Recovery.",
+                            "16:00 FKK-Strandzeit.",
+                            "21:00 Chef-geführtes Tasting-Dinner."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell Brunch.",
+                            "12:30 Airport Transfers."
+                        ]
+                    }
+                ]
+            },
+            "sitges": {
+                "name": "Sitges: Pride & Villa",
+                "itinerary": [
+                    {
+                        "title": "Ankunft & Pride Welcome",
+                        "items": [
+                            "14:00 Check-in + Welcome Drinks.",
+                            "19:00 Pride Kickoff Dinner.",
+                            "22:00 Rooftop DJ Session."
+                        ]
+                    },
+                    {
+                        "title": "Beach & Celebration",
+                        "items": [
+                            "11:00 Beach Day mit reservierten Loungern.",
+                            "16:00 Sunset Catamaran Cruise.",
+                            "21:00 Pride Parade Meet-up."
+                        ]
+                    },
+                    {
+                        "title": "Villa Reset & Pool Party",
+                        "items": [
+                            "11:00 Wellness Brunch.",
+                            "15:00 Pool Party & Cocktails.",
+                            "20:00 Tapas Crawl in der Altstadt."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell Brunch.",
+                            "12:30 Airport Transfers."
+                        ]
+                    }
+                ]
+            },
+            "telaviv": {
+                "name": "Tel Aviv: Küstennächte",
+                "itinerary": [
+                    {
+                        "title": "Ankunft & Rooftop Welcome",
+                        "items": [
+                            "15:00 Check-in und Willkommensgeschenk.",
+                            "19:00 Sunset Cocktails am Rothschild.",
+                            "21:00 Late-Night Beach Promenade."
+                        ]
+                    },
+                    {
+                        "title": "City & Sea",
+                        "items": [
+                            "10:00 Old-Jaffa Kulturspaziergang.",
+                            "13:00 Chef-Lunch am Meer.",
+                            "18:00 Private Beach-Club Night."
+                        ]
+                    },
+                    {
+                        "title": "Wellness & Nightlife",
+                        "items": [
+                            "11:00 Spa-Recovery Session.",
+                            "17:00 Poolside Relax.",
+                            "22:00 VIP Nightlife Entry."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell Brunch.",
+                            "12:30 Airport Transfers."
+                        ]
+                    }
+                ]
+            },
+            "grancanaria": {
+                "name": "Gran Canaria: Dünen-Rituale",
+                "itinerary": [
+                    {
+                        "title": "Ankunft & Dune Welcome",
+                        "items": [
+                            "15:00 Check-in und Sunset Welcome.",
+                            "19:00 Canary Islands Dinner.",
+                            "21:30 Stargazing in den Dünen."
+                        ]
+                    },
+                    {
+                        "title": "Dünen-Rituale",
+                        "items": [
+                            "10:00 Geführter Dünenwalk.",
+                            "13:00 Strand-Picknick mit Rosé.",
+                            "17:00 Sound Bath & Sauna."
+                        ]
+                    },
+                    {
+                        "title": "Villa Freedom",
+                        "items": [
+                            "11:00 Poolside Brunch.",
+                            "16:00 FKK-friendly Villa Time.",
+                            "20:00 Private Chef Dinner."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell Brunch.",
+                            "12:30 Airport Transfers."
+                        ]
+                    }
+                ]
+            }
+        },
+        "gallery": {
+            "Santorini, Greece": {
+                "title": "Santorini, Griechenland",
+                "description": "Ikonische Caldera-Blicke aus dem privaten Infinity-Pool.",
+                "duration": "Redakteurswahl",
+                "quickLook": "Private Caldera-Suiten, Sunset-Dinner und diskreter Concierge."
+            },
+            "Palm Springs, USA": {
+                "title": "Palm Springs, USA",
+                "description": "Desert-Modernismus trifft Poolside-Relax. Das perfekte Wochenende.",
+                "duration": "7 Tage",
+                "quickLook": "Desert-Spa, Pool-Partys und private Cabana-Suiten."
+            },
+            "Puerto Vallarta": {
+                "title": "Puerto Vallarta",
+                "description": "Die Krone des Gay Travel in Mexiko. Nightlife und Jungle Tours.",
+                "duration": "5 Tage",
+                "quickLook": "Romantic-Zone-Nights, Beach Clubs und Jungle Trips."
+            },
+            "Gran Canaria": {
+                "title": "Gran Canaria",
+                "description": "Europäisches Paradies mit endlosen Dünen und offenen Vibes.",
+                "duration": "7 Tage",
+                "quickLook": "Dünenwalks, diskrete Villen und Sunset Sound Baths."
+            },
+            "Tel Aviv, Israel": {
+                "title": "Tel Aviv, Israel",
+                "description": "Die Stadt ohne Schlaf. Traumhafte Strände und Fine Dining.",
+                "duration": "4 Tage",
+                "quickLook": "Beach-Morgens, Rooftop-Dinner und Late-Night-Partys."
+            },
+            "Sitges, Spain": {
+                "title": "Sitges, Spanien",
+                "description": "Charmante Küstenstadt mit inklusiven Vibes und Nightlife.",
+                "duration": "6 Tage",
+                "quickLook": "Sea-View-Villen, Pride-Nights und relaxed Beach Days."
+            }
+        },
+        "testimonials": [
+            {
+                "quote": "Sicher, urteilsfrei und ehrlich sexy. Ich fühlte mich jederzeit diskret betreut.",
+                "author": "Mark D. — London, UK"
+            },
+            {
+                "quote": "Ich fühlte mich geschützt und frei zugleich. Die Hosts schufen einen sicheren Raum ohne Druck.",
+                "author": "Javier R. — Madrid, ES"
+            },
+            {
+                "quote": "MenEscape gab uns eine diskrete, wunderschöne Umgebung, wir selbst zu sein.",
+                "author": "Ethan & Leo — Toronto, CA"
+            }
+        ]
+    },
+    "el": {
+        "destinations": {
+            "crete": {
+                "title": "Αυθεντική Κρήτη: Coastal Explorer",
+                "quickLook": "Ιδιωτικοί όρμοι, δείπνα από chef και διακριτικοί hosts."
+            },
+            "mykonos": {
+                "title": "Μύκονος: The Party Edition",
+                "quickLook": "VIP νύχτα, beach club suites, sunrise recovery."
+            },
+            "sitges": {
+                "title": "Sitges: Pride & Villa",
+                "quickLook": "Pride βίλα, open-air πρωινά, sunset cocktails."
+            },
+            "telaviv": {
+                "title": "Τελ Αβίβ: Coastal Nights",
+                "quickLook": "Παραλίες, rooftop δείπνα και late-night parties."
+            },
+            "grancanaria": {
+                "title": "Γκραν Κανάρια: Dune Rituals",
+                "quickLook": "Περίπατοι στις αμμοθίνες και sunset sound baths."
+            }
+        },
+        "packages": {
+            "mykonos": {
+                "name": "Mykonos Escape: Το Όνειρο του Αιγαίου",
+                "itinerary": [
+                    {
+                        "title": "Άφιξη, Meet & Greet",
+                        "items": [
+                            "14:00 Άφιξη & check-in με διακριτικές μεταφορές.",
+                            "18:00 Cocktails γνωριμίας στην πισίνα.",
+                            "20:30 Δείπνο με drag queens και τοπικούς θρύλους."
+                        ]
+                    },
+                    {
+                        "title": "Κρουαζιέρα στο Αιγαίο",
+                        "items": [
+                            "10:00 Επιβίβαση στο ιδιωτικό καταμαράν.",
+                            "13:00 Γεύμα στη θάλασσα.",
+                            "16:00 Party στο κατάστρωμα με στάσεις για κολύμπι."
+                        ]
+                    },
+                    {
+                        "title": "Drag Bingo, Παραλία & Nightlife",
+                        "items": [
+                            "11:00 Drag Bingo brunch.",
+                            "14:00 Χρόνος στην παραλία με ιδιωτικές ξαπλώστρες.",
+                            "19:30 Fine dining εμπειρία.",
+                            "22:00 Pool party στο φως του φεγγαριού."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell brunch.",
+                            "12:30 Μεταφορά στο αεροδρόμιο."
+                        ]
+                    }
+                ]
+            },
+            "crete": {
+                "name": "Αυθεντική Κρήτη: Coastal Explorer",
+                "itinerary": [
+                    {
+                        "title": "Άφιξη & Κρητικό Καλωσόρισμα",
+                        "items": [
+                            "15:00 Check-in με welcome mezze.",
+                            "18:30 Sunset meet & greet.",
+                            "20:30 Δείπνο στο λιμάνι με live μουσική."
+                        ]
+                    },
+                    {
+                        "title": "Coastal Explorer Day",
+                        "items": [
+                            "10:00 Ιδιωτικό speedboat σε κρυφούς όρμους.",
+                            "13:00 Γεύμα στην παραλία με τοπικά κρασιά.",
+                            "17:00 Golden hour swim & sauna ritual."
+                        ]
+                    },
+                    {
+                        "title": "Wellness & Nightlife",
+                        "items": [
+                            "11:00 Yoga στη βίλα + pool recovery.",
+                            "16:00 FKK beach time.",
+                            "21:00 Chef-led tasting dinner."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell brunch.",
+                            "12:30 Μεταφορά στο αεροδρόμιο."
+                        ]
+                    }
+                ]
+            },
+            "sitges": {
+                "name": "Sitges: Pride & Villa",
+                "itinerary": [
+                    {
+                        "title": "Άφιξη & Pride Welcome",
+                        "items": [
+                            "14:00 Check-in + welcome drinks.",
+                            "19:00 Pride kickoff dinner.",
+                            "22:00 Rooftop DJ session."
+                        ]
+                    },
+                    {
+                        "title": "Beach & Celebration",
+                        "items": [
+                            "11:00 Beach day με κρατημένες ξαπλώστρες.",
+                            "16:00 Sunset catamaran cruise.",
+                            "21:00 Pride parade meet-up."
+                        ]
+                    },
+                    {
+                        "title": "Villa Reset & Pool Party",
+                        "items": [
+                            "11:00 Wellness brunch.",
+                            "15:00 Pool party & cocktails.",
+                            "20:00 Tapas crawl στην παλιά πόλη."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell brunch.",
+                            "12:30 Μεταφορά στο αεροδρόμιο."
+                        ]
+                    }
+                ]
+            },
+            "telaviv": {
+                "name": "Τελ Αβίβ: Coastal Nights",
+                "itinerary": [
+                    {
+                        "title": "Άφιξη & Rooftop Welcome",
+                        "items": [
+                            "15:00 Check-in και welcome gift.",
+                            "19:00 Sunset cocktails στο Rothschild.",
+                            "21:00 Late-night beach promenade."
+                        ]
+                    },
+                    {
+                        "title": "City & Sea",
+                        "items": [
+                            "10:00 Πολιτιστικός περίπατος στην παλιά Γιάφα.",
+                            "13:00 Chef-led lunch δίπλα στη θάλασσα.",
+                            "18:00 Ιδιωτικό beach club evening."
+                        ]
+                    },
+                    {
+                        "title": "Wellness & Nightlife",
+                        "items": [
+                            "11:00 Spa recovery session.",
+                            "17:00 Poolside relaxation.",
+                            "22:00 VIP nightlife entry."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell brunch.",
+                            "12:30 Μεταφορά στο αεροδρόμιο."
+                        ]
+                    }
+                ]
+            },
+            "grancanaria": {
+                "name": "Γκραν Κανάρια: Dune Rituals",
+                "itinerary": [
+                    {
+                        "title": "Άφιξη & Dune Welcome",
+                        "items": [
+                            "15:00 Check-in και sunset welcome.",
+                            "19:00 Canary Islands dinner.",
+                            "21:30 Stargazing στις αμμοθίνες."
+                        ]
+                    },
+                    {
+                        "title": "Dune Rituals",
+                        "items": [
+                            "10:00 Guided dune walk.",
+                            "13:00 Beach picnic με chilled rose.",
+                            "17:00 Sound bath & sauna."
+                        ]
+                    },
+                    {
+                        "title": "Villa Freedom",
+                        "items": [
+                            "11:00 Poolside brunch.",
+                            "16:00 FKK-friendly villa time.",
+                            "20:00 Private chef dinner."
+                        ]
+                    },
+                    {
+                        "title": "Farewell Brunch & Transfers",
+                        "items": [
+                            "10:30 Farewell brunch.",
+                            "12:30 Μεταφορά στο αεροδρόμιο."
+                        ]
+                    }
+                ]
+            }
+        },
+        "gallery": {
+            "Santorini, Greece": {
+                "title": "Σαντορίνη, Ελλάδα",
+                "description": "Εμβληματική καλντέρα με ιδιωτική infinity pool.",
+                "duration": "Επιλογή Συντάκτη",
+                "quickLook": "Ιδιωτικές σουίτες, sunset dinners και διακριτικός concierge."
+            },
+            "Palm Springs, USA": {
+                "title": "Palm Springs, ΗΠΑ",
+                "description": "Desert modernism και poolside χαλάρωση. Το τέλειο weekend.",
+                "duration": "7 Ημέρες",
+                "quickLook": "Desert spa rituals, pool parties και private cabanas."
+            },
+            "Puerto Vallarta": {
+                "title": "Puerto Vallarta",
+                "description": "Το διαμάντι του gay travel στο Μεξικό. Ζωντανή νύχτα και jungle tours.",
+                "duration": "5 Ημέρες",
+                "quickLook": "Romantic zone nights, beach clubs και jungle trips."
+            },
+            "Gran Canaria": {
+                "title": "Γκραν Κανάρια",
+                "description": "Ευρωπαϊκός παράδεισος με αμμοθίνες και ανοιχτή ατμόσφαιρα.",
+                "duration": "7 Ημέρες",
+                "quickLook": "Dune walks, διακριτικές βίλες και sunset sound baths."
+            },
+            "Tel Aviv, Israel": {
+                "title": "Τελ Αβίβ, Ισραήλ",
+                "description": "Η πόλη που δεν κοιμάται. Παραλίες και κορυφαίο dining.",
+                "duration": "4 Ημέρες",
+                "quickLook": "Beach mornings, rooftop dinners και late-night parties."
+            },
+            "Sitges, Spain": {
+                "title": "Sitges, Ισπανία",
+                "description": "Γοητευτική παραλιακή πόλη με inclusive vibes και nightlife.",
+                "duration": "6 Ημέρες",
+                "quickLook": "Sea-view βίλες, pride nights και χαλαρές beach days."
+            }
+        },
+        "testimonials": [
+            {
+                "quote": "Ασφάλεια, χωρίς κρίση και πραγματικά σέξι. Όλα έγιναν με διακριτικότητα.",
+                "author": "Mark D. — London, UK"
+            },
+            {
+                "quote": "Ένιωσα προστατευμένος και ελεύθερος. Οι hosts δημιούργησαν ασφαλή χώρο.",
+                "author": "Javier R. — Madrid, ES"
+            },
+            {
+                "quote": "Το MenEscape μας έδωσε διακριτικό, όμορφο περιβάλλον για να είμαστε ο εαυτός μας.",
+                "author": "Ethan & Leo — Toronto, CA"
+            }
+        ]
+    }
+}

@@ -1,0 +1,458 @@
+{
+    "en": {
+        "nav": {
+            "destinations": "Destinations",
+            "experience": "The Experience",
+            "community": "Community"
+        },
+        "header": {
+            "signIn": "Sign in",
+            "signOut": "Sign out",
+            "findEscape": "Find Your Escape",
+            "languageLabel": "Language"
+        },
+        "hero": {
+            "label": "MenEscape — The Gateway",
+            "title": "Your body. Your rules.",
+            "highlight": "Your getaway.",
+            "subhead": "We create spaces for a liberating, exciting, and pleasurable getaway.",
+            "primaryCta": "Explore Destinations",
+            "secondaryCta": "View The Plan",
+            "scroll": "Scroll"
+        },
+        "offers": {
+            "label": "The Experience",
+            "title": "What We Offer",
+            "subtitle": "Curated environments where luxury meets total freedom.",
+            "cards": [
+                {
+                    "title": "Wellness & Party",
+                    "text": "A perfect balance of relaxation, yoga sessions, and vibrant nightlife events curated for connection."
+                },
+                {
+                    "title": "FKK & Body Freedom",
+                    "text": "Complete nudity-friendly environments where you can be comfortable in your skin, pool-side or private."
+                },
+                {
+                    "title": "Safe Spaces in Luxurious Villas",
+                    "text": "Private, discreet villas with elevated service so you can relax into freedom with confidence."
+                }
+            ]
+        },
+        "destinations": {
+            "label": "Upcoming Trips",
+            "title": "Exclusive Destinations",
+            "viewAll": "View all destinations",
+            "quickLook": "Quick Look",
+            "description": "Discover hidden beaches and private villas on the beautiful island.",
+            "startingAt": "Starting at",
+            "viewPlan": "View Plan",
+            "selected": "Selected Package"
+        },
+        "gallery": {
+            "label": "Curated Escapes",
+            "title": "Destination Gallery",
+            "subtitle": "Exclusive destinations designed for connection, adventure, and unparalleled luxury.",
+            "quickLook": "Quick Look",
+            "startingFrom": "Starting from",
+            "viewDetails": "View Details"
+        },
+        "itinerary": {
+            "label": "The Itinerary",
+            "title": "The Plan for",
+            "subtitle": "Four days of curated luxury with a freedom-first mindset.",
+            "includedTitle": "Included Services",
+            "services": [
+                {
+                    "title": "Catering",
+                    "text": "Chef-led breakfasts, beach picnics, and late-night bites."
+                },
+                {
+                    "title": "Transportation",
+                    "text": "Airport transfers and private shuttles for all events."
+                },
+                {
+                    "title": "VIP Add-ons",
+                    "text": "Private suites, concierge upgrades, and curated surprises."
+                }
+            ]
+        },
+        "booking": {
+            "total": "Package Total",
+            "perPerson": "per person",
+            "tripWindow": "Trip window",
+            "onlySpots": "Only {count} spots left",
+            "whatsIncluded": "What's included",
+            "bookNow": "Book Now",
+            "selectedDeparture": "Selected departure",
+            "redirectNote": "You will be redirected to our secure partner booking page.",
+            "freeCancel": "Free cancellation until Sept 1",
+            "noFees": "No hidden booking fees",
+            "trustTitle": "Why MenEscape is safe",
+            "trustItems": [
+                "Privacy-first guest lists and discreet communication.",
+                "Vetted hosts and vetted villas with trusted staff.",
+                "Discreet check-in and on-site safety protocols."
+            ]
+        },
+        "community": {
+            "label": "Community Togetherness",
+            "title": "Who is this for?",
+            "subtitle": "Freedom, discretion, safety, and community togetherness are at the heart of every escape.",
+            "personas": [
+                "Twinks",
+                "Bears",
+                "Daddys",
+                "Singles",
+                "Partnered"
+            ],
+            "testimonialsLabel": "Comments from Previous Buyers",
+            "play": "Play",
+            "pause": "Pause"
+        },
+        "footer": {
+            "explore": "Explore",
+            "resources": "Resources",
+            "terms": "Terms & Conditions",
+            "cleaning": "Cleaning Fees",
+            "brandLine": "Let's create the perfect MenEscape together.",
+            "phase4": "Phase 4 is about community building, private circles, and destination-first connection.",
+            "join": "Join Phase 4",
+            "rights": "© 2024 MenEscape. All rights reserved.",
+            "closing": "Let's create the perfect MenEscape together."
+        },
+        "newsletter": {
+            "label": "Subscribe to a Newsletter",
+            "title": "Stay ahead of new escapes",
+            "subtitle": "Monthly drop of new villas, curated experiences, and community-only perks.",
+            "placeholder": "Enter your email",
+            "button": "Subscribe",
+            "success": "Thanks for joining the MenEscape newsletter.",
+            "invalid": "Please enter a valid email."
+        },
+        "affiliate": {
+            "label": "Affiliate Notice",
+            "title": "You are leaving MenEscape",
+            "description": "We are redirecting you to",
+            "descriptionSuffix": "to complete your booking.",
+            "stay": "Stay here",
+            "continue": "Continue"
+        },
+        "miniSummary": {
+            "label": "Selected Package",
+            "from": "From"
+        },
+        "userAuth": {
+            "label": "Member Access",
+            "title": "Sign in to MenEscape",
+            "subtitle": "Continue with a trusted provider to manage bookings and unlock member-only travel perks.",
+            "google": "Continue with Google",
+            "apple": "Continue with Apple",
+            "note": "We only use your email to confirm bookings and send itinerary updates."
+        }
+    },
+    "de": {
+        "nav": {
+            "destinations": "Reiseziele",
+            "experience": "Das Erlebnis",
+            "community": "Community"
+        },
+        "header": {
+            "signIn": "Anmelden",
+            "signOut": "Abmelden",
+            "findEscape": "Finde deinen Escape",
+            "languageLabel": "Sprache"
+        },
+        "hero": {
+            "label": "MenEscape — Das Tor",
+            "title": "Dein Körper. Deine Regeln.",
+            "highlight": "Dein Rückzug.",
+            "subhead": "Wir schaffen Räume für einen befreienden, aufregenden und genussvollen Urlaub.",
+            "primaryCta": "Reiseziele entdecken",
+            "secondaryCta": "Den Plan ansehen",
+            "scroll": "Scrollen"
+        },
+        "offers": {
+            "label": "Das Erlebnis",
+            "title": "Was wir anbieten",
+            "subtitle": "Kuratiertes Umfeld, in dem Luxus auf Freiheit trifft.",
+            "cards": [
+                {
+                    "title": "Wellness & Party",
+                    "text": "Die perfekte Balance aus Entspannung, Yoga und Nightlife-Events für echte Verbindung."
+                },
+                {
+                    "title": "FKK & Körperfreiheit",
+                    "text": "Nacktfreundliche Umgebungen, in denen du dich ganz frei fühlen kannst – am Pool oder privat."
+                },
+                {
+                    "title": "Sichere Räume in Luxusvillen",
+                    "text": "Diskrete Villen mit erstklassigem Service, damit du dich sicher entspannen kannst."
+                }
+            ]
+        },
+        "destinations": {
+            "label": "Kommende Trips",
+            "title": "Exklusive Reiseziele",
+            "viewAll": "Alle Reiseziele ansehen",
+            "quickLook": "Kurzblick",
+            "description": "Entdecke versteckte Strände und private Villen auf einer traumhaften Insel.",
+            "startingAt": "Ab",
+            "viewPlan": "Plan ansehen",
+            "selected": "Ausgewähltes Paket"
+        },
+        "gallery": {
+            "label": "Kuratierten Escapes",
+            "title": "Destination Gallery",
+            "subtitle": "Exklusive Ziele für Verbindung, Abenteuer und unvergleichlichen Luxus.",
+            "quickLook": "Kurzblick",
+            "startingFrom": "Ab",
+            "viewDetails": "Details ansehen"
+        },
+        "itinerary": {
+            "label": "Der Reiseplan",
+            "title": "Der Plan für",
+            "subtitle": "Vier Tage Luxus mit einem Freedom-first Mindset.",
+            "includedTitle": "Inklusive Leistungen",
+            "services": [
+                {
+                    "title": "Catering",
+                    "text": "Chef-geführte Frühstücke, Strandpicknicks und Late-Night-Bites."
+                },
+                {
+                    "title": "Transport",
+                    "text": "Flughafentransfers und private Shuttles für alle Events."
+                },
+                {
+                    "title": "VIP Add-ons",
+                    "text": "Private Suiten, Concierge-Upgrades und kuratierte Überraschungen."
+                }
+            ]
+        },
+        "booking": {
+            "total": "Gesamtpreis",
+            "perPerson": "pro Person",
+            "tripWindow": "Reisezeitraum",
+            "onlySpots": "Nur noch {count} Plätze",
+            "whatsIncluded": "Inklusive",
+            "bookNow": "Jetzt buchen",
+            "selectedDeparture": "Gewähltes Datum",
+            "redirectNote": "Du wirst zur sicheren Buchungsseite unseres Partners weitergeleitet.",
+            "freeCancel": "Kostenlose Stornierung bis 1. Sept",
+            "noFees": "Keine versteckten Gebühren",
+            "trustTitle": "Warum MenEscape sicher ist",
+            "trustItems": [
+                "Privatsphäre-orientierte Gästelisten und diskrete Kommunikation.",
+                "Geprüfte Hosts und Villen mit vertrauenswürdigem Personal.",
+                "Diskreter Check-in und Sicherheitsprotokolle vor Ort."
+            ]
+        },
+        "community": {
+            "label": "Community-Zusammenhalt",
+            "title": "Für wen ist das?",
+            "subtitle": "Freiheit, Diskretion, Sicherheit und Gemeinschaft stehen im Mittelpunkt.",
+            "personas": [
+                "Twinks",
+                "Bears",
+                "Daddys",
+                "Singles",
+                "Paare"
+            ],
+            "testimonialsLabel": "Kommentare früherer Gäste",
+            "play": "Abspielen",
+            "pause": "Pause"
+        },
+        "footer": {
+            "explore": "Entdecken",
+            "resources": "Ressourcen",
+            "terms": "Allgemeine Geschäftsbedingungen",
+            "cleaning": "Reinigungsgebühren",
+            "brandLine": "Lasst uns gemeinsam den perfekten MenEscape schaffen.",
+            "phase4": "Phase 4 steht für Community-Aufbau, private Circles und destination-first Verbindung.",
+            "join": "Phase 4 beitreten",
+            "rights": "© 2024 MenEscape. Alle Rechte vorbehalten.",
+            "closing": "Lasst uns gemeinsam den perfekten MenEscape schaffen."
+        },
+        "newsletter": {
+            "label": "Newsletter abonnieren",
+            "title": "Neue Escapes zuerst",
+            "subtitle": "Monatlich neue Villen, kuratierte Erlebnisse und Community-Perks.",
+            "placeholder": "E-Mail eingeben",
+            "button": "Abonnieren",
+            "success": "Danke fürs Abonnieren des MenEscape Newsletters.",
+            "invalid": "Bitte eine gültige E-Mail eingeben."
+        },
+        "affiliate": {
+            "label": "Affiliate Hinweis",
+            "title": "Du verlässt MenEscape",
+            "description": "Wir leiten dich weiter zu",
+            "descriptionSuffix": "um deine Buchung abzuschließen.",
+            "stay": "Hier bleiben",
+            "continue": "Weiter"
+        },
+        "miniSummary": {
+            "label": "Ausgewähltes Paket",
+            "from": "Ab"
+        },
+        "userAuth": {
+            "label": "Mitgliederzugang",
+            "title": "Bei MenEscape anmelden",
+            "subtitle": "Melde dich mit einem vertrauenswürdigen Anbieter an, um Buchungen zu verwalten.",
+            "google": "Mit Google fortfahren",
+            "apple": "Mit Apple fortfahren",
+            "note": "Wir nutzen deine E-Mail nur für Buchungsbestätigung und Updates."
+        }
+    },
+    "el": {
+        "nav": {
+            "destinations": "Προορισμοί",
+            "experience": "Η Εμπειρία",
+            "community": "Κοινότητα"
+        },
+        "header": {
+            "signIn": "Σύνδεση",
+            "signOut": "Αποσύνδεση",
+            "findEscape": "Βρες την Απόδρασή σου",
+            "languageLabel": "Γλώσσα"
+        },
+        "hero": {
+            "label": "MenEscape — Η Πύλη",
+            "title": "Το σώμα σου. Οι κανόνες σου.",
+            "highlight": "Η απόδρασή σου.",
+            "subhead": "Δημιουργούμε χώρους για μια απελευθερωτική, συναρπαστική και απολαυστική απόδραση.",
+            "primaryCta": "Εξερεύνησε Προορισμούς",
+            "secondaryCta": "Δες το Πλάνο",
+            "scroll": "Κύλιση"
+        },
+        "offers": {
+            "label": "Η Εμπειρία",
+            "title": "Τι προσφέρουμε",
+            "subtitle": "Επιμελημένοι χώροι όπου η πολυτέλεια συναντά την ελευθερία.",
+            "cards": [
+                {
+                    "title": "Wellness & Party",
+                    "text": "Η τέλεια ισορροπία χαλάρωσης, yoga και νυχτερινών events για σύνδεση."
+                },
+                {
+                    "title": "FKK & Ελευθερία Σώματος",
+                    "text": "Χώροι φιλικοί προς το γυμνό, για απόλυτη άνεση στην πισίνα ή ιδιωτικά."
+                },
+                {
+                    "title": "Ασφαλείς χώροι σε πολυτελείς βίλες",
+                    "text": "Διακριτικές βίλες με υψηλού επιπέδου υπηρεσίες για σιγουριά."
+                }
+            ]
+        },
+        "destinations": {
+            "label": "Επερχόμενα Ταξίδια",
+            "title": "Αποκλειστικοί Προορισμοί",
+            "viewAll": "Δες όλους τους προορισμούς",
+            "quickLook": "Μια ματιά",
+            "description": "Ανακάλυψε κρυφές παραλίες και ιδιωτικές βίλες σε ένα υπέροχο νησί.",
+            "startingAt": "Από",
+            "viewPlan": "Δες το πλάνο",
+            "selected": "Επιλεγμένο Πακέτο"
+        },
+        "gallery": {
+            "label": "Επιλεγμένες Αποδράσεις",
+            "title": "Gallery Προορισμών",
+            "subtitle": "Αποκλειστικοί προορισμοί για σύνδεση, περιπέτεια και απαράμιλλη πολυτέλεια.",
+            "quickLook": "Μια ματιά",
+            "startingFrom": "Από",
+            "viewDetails": "Δες λεπτομέρειες"
+        },
+        "itinerary": {
+            "label": "Το Πρόγραμμα",
+            "title": "Το πλάνο για",
+            "subtitle": "Τέσσερις ημέρες πολυτέλειας με προτεραιότητα την ελευθερία.",
+            "includedTitle": "Περιλαμβανόμενες Υπηρεσίες",
+            "services": [
+                {
+                    "title": "Catering",
+                    "text": "Πρωινά από chef, πικνίκ στην παραλία και late-night bites."
+                },
+                {
+                    "title": "Μεταφορές",
+                    "text": "Μεταφορές αεροδρομίου και ιδιωτικά shuttles για τα events."
+                },
+                {
+                    "title": "VIP Add-ons",
+                    "text": "Ιδιωτικές σουίτες, concierge upgrades και εκπλήξεις."
+                }
+            ]
+        },
+        "booking": {
+            "total": "Συνολικό πακέτο",
+            "perPerson": "ανά άτομο",
+            "tripWindow": "Διάστημα ταξιδιού",
+            "onlySpots": "Μόνο {count} θέσεις",
+            "whatsIncluded": "Τι περιλαμβάνεται",
+            "bookNow": "Κάνε κράτηση",
+            "selectedDeparture": "Επιλεγμένη ημερομηνία",
+            "redirectNote": "Θα μεταφερθείς στη σελίδα κρατήσεων του συνεργάτη μας.",
+            "freeCancel": "Δωρεάν ακύρωση έως 1 Σεπ",
+            "noFees": "Χωρίς κρυφές χρεώσεις",
+            "trustTitle": "Γιατί το MenEscape είναι ασφαλές",
+            "trustItems": [
+                "Λίστες επισκεπτών με προτεραιότητα στην ιδιωτικότητα.",
+                "Ελεγμένοι hosts και βίλες με έμπιστο προσωπικό.",
+                "Διακριτικό check-in και πρωτόκολλα ασφαλείας."
+            ]
+        },
+        "community": {
+            "label": "Κοινότητα Μαζί",
+            "title": "Για ποιον είναι;",
+            "subtitle": "Η ελευθερία, η διακριτικότητα, η ασφάλεια και η κοινότητα είναι στον πυρήνα.",
+            "personas": [
+                "Twinks",
+                "Bears",
+                "Daddys",
+                "Singles",
+                "Ζευγάρια"
+            ],
+            "testimonialsLabel": "Σχόλια προηγούμενων επισκεπτών",
+            "play": "Αναπαραγωγή",
+            "pause": "Παύση"
+        },
+        "footer": {
+            "explore": "Εξερεύνηση",
+            "resources": "Πόροι",
+            "terms": "Όροι & Προϋποθέσεις",
+            "cleaning": "Χρεώσεις Καθαρισμού",
+            "brandLine": "Ας δημιουργήσουμε μαζί την τέλεια MenEscape εμπειρία.",
+            "phase4": "Το Phase 4 αφορά την κοινότητα, ιδιωτικούς κύκλους και συνδέσεις με βάση τον προορισμό.",
+            "join": "Γίνε μέρος του Phase 4",
+            "rights": "© 2024 MenEscape. Όλα τα δικαιώματα κατοχυρωμένα.",
+            "closing": "Ας δημιουργήσουμε μαζί την τέλεια MenEscape εμπειρία."
+        },
+        "newsletter": {
+            "label": "Εγγραφή στο Newsletter",
+            "title": "Μείνε μπροστά στις νέες αποδράσεις",
+            "subtitle": "Μηνιαίες νέες βίλες, επιμελημένες εμπειρίες και προνόμια κοινότητας.",
+            "placeholder": "Το email σου",
+            "button": "Εγγραφή",
+            "success": "Ευχαριστούμε για την εγγραφή στο newsletter.",
+            "invalid": "Παρακαλώ εισάγετε έγκυρο email."
+        },
+        "affiliate": {
+            "label": "Σημείωση Συνεργάτη",
+            "title": "Αποχωρείς από το MenEscape",
+            "description": "Σε μεταφέρουμε στο",
+            "descriptionSuffix": "για να ολοκληρώσεις την κράτησή σου.",
+            "stay": "Μείνε εδώ",
+            "continue": "Συνέχεια"
+        },
+        "miniSummary": {
+            "label": "Επιλεγμένο Πακέτο",
+            "from": "Από"
+        },
+        "userAuth": {
+            "label": "Πρόσβαση Μελών",
+            "title": "Σύνδεση στο MenEscape",
+            "subtitle": "Συνδέσου με έναν αξιόπιστο πάροχο για κρατήσεις και προνόμια.",
+            "google": "Συνέχεια με Google",
+            "apple": "Συνέχεια με Apple",
+            "note": "Χρησιμοποιούμε το email μόνο για επιβεβαιώσεις και ενημερώσεις."
+        }
+    }
+}

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Destinations - MenEscape</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0b1f3a",
+                        "accent-gold": "#c5a059",
+                        "brand-pink": "#ec4899",
+                        "brand-blue": "#3b82f6",
+                        "background-light": "#f7f4ef",
+                        "background-dark": "#0b1222",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a1d2d",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    backgroundImage: {
+                        "brand-gradient": "linear-gradient(135deg, #ec4899, #3b82f6)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111218] dark:text-white antialiased overflow-x-hidden">
+<div class="relative flex flex-col min-h-screen w-full">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-10 h-20 flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-11 rounded-full bg-brand-gradient text-white shadow-lg">
+<span class="material-symbols-outlined text-2xl">man</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary dark:text-white">MenEscape</h1>
+</div>
+<nav class="hidden md:flex flex-1 items-center justify-center gap-8">
+<a class="text-sm font-semibold text-slate-700 dark:text-gray-300 hover:text-primary dark:hover:text-white transition-colors" href="#destinations">Destinations</a>
+<a class="text-sm font-semibold text-slate-700 dark:text-gray-300 hover:text-primary dark:hover:text-white transition-colors" href="#experience">The Experience</a>
+<a class="text-sm font-semibold text-slate-700 dark:text-gray-300 hover:text-primary dark:hover:text-white transition-colors" href="#community">Community</a>
+<a class="text-sm font-semibold text-slate-700 dark:text-gray-300 hover:text-primary dark:hover:text-white transition-colors" href="#merchandise">Merchandise</a>
+</nav>
+<div class="flex items-center gap-4 ml-auto">
+<a class="hidden sm:flex items-center justify-center h-11 px-6 rounded-full bg-brand-gradient text-white text-sm font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow" href="#destinations">
+                    Find Your Escape
+                </a>
+<button class="md:hidden p-2 text-slate-700 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex-1 flex flex-col items-center w-full">
+<!-- HeroSection -->
+<div class="w-full relative h-[60vh] min-h-[500px] flex items-center justify-center bg-cover bg-center overflow-hidden" data-alt="Luxurious infinity pool overlooking a tropical ocean sunset" id="experience" style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPl8chKKsmPm55_5m0EGT7LPRSpJTqPqXPiXiPr52PlywoyCb3EDsMm3AF_vOmw_JUs66VHTzBd7n31udJo1vKnBvH1vKWGaKLhRelqaedfekeXu2XaEEXE0-IPAkteeQMbC-GByH9VqzMozN6Hmdy9lKcxyc-vwGTlw3jzvDuwl6SsOvaT8UPHqnuMlgdQ3ZbUcdA6ZYF_GRvhILx5D3y0S0YEGQTSuSU8GxexG3I1nkHwEXQ4exKMdENaLzxg2k_BeftUhvehVw");'>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background-light dark:to-background-dark opacity-100"></div>
+<div class="relative z-10 flex flex-col items-center gap-6 text-center max-w-[800px] px-6 animate-fade-in-up">
+<h1 class="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight drop-shadow-lg">
+                        Curated Escapes
+                    </h1>
+<p class="text-gray-100 text-lg md:text-xl font-light max-w-2xl drop-shadow-md">
+                        Exclusive destinations designed for connection, adventure, and unparalleled luxury.
+                    </p>
+<div class="pt-4">
+<button class="h-12 px-8 rounded-full bg-white text-primary hover:bg-gray-100 font-bold text-base transition-all shadow-xl flex items-center gap-2">
+                            Explore Collections
+                            <span class="material-symbols-outlined text-sm">arrow_downward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="w-full max-w-[1280px] px-6 lg:px-10 -mt-16 relative z-20 pb-20" id="destinations">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div class="flex flex-col gap-4">
+<nav class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 bg-surface-light dark:bg-surface-dark/80 backdrop-blur py-2 px-4 rounded-full w-fit shadow-sm border border-gray-100 dark:border-gray-700">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-gray-300">/</span>
+<span class="text-[#111218] dark:text-white font-medium">Destinations</span>
+</nav>
+<h2 class="text-3xl font-bold text-[#111218] dark:text-white">Explore the World</h2>
+</div>
+</div>
+<!-- Filters Toolbar -->
+<div class="w-full bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-xl p-4 shadow-sm mb-12 sticky top-24 z-30 transition-shadow">
+<div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+<!-- RadioList Component Adapted -->
+<div class="flex flex-wrap gap-3">
+<label class="group relative cursor-pointer select-none">
+<input checked="" class="peer sr-only" name="filter_type" type="radio"/>
+<div class="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300 transition-all peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary hover:border-primary/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+                                    All
+                                </div>
+</label>
+<label class="group relative cursor-pointer select-none">
+<input class="peer sr-only" name="filter_type" type="radio"/>
+<div class="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300 transition-all peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary hover:border-primary/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">sunny</span>
+                                    Tropical
+                                </div>
+</label>
+<label class="group relative cursor-pointer select-none">
+<input class="peer sr-only" name="filter_type" type="radio"/>
+<div class="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300 transition-all peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary hover:border-primary/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">location_city</span>
+                                    Urban
+                                </div>
+</label>
+<label class="group relative cursor-pointer select-none">
+<input class="peer sr-only" name="filter_type" type="radio"/>
+<div class="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300 transition-all peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary hover:border-primary/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">spa</span>
+                                    Wellness
+                                </div>
+</label>
+</div>
+<div class="flex items-center gap-3 w-full lg:w-auto border-t lg:border-t-0 border-gray-100 dark:border-gray-700 pt-4 lg:pt-0">
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">Sort by:</span>
+<div class="relative w-full lg:w-48">
+<select class="w-full appearance-none bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-[#111218] dark:text-white text-sm rounded-lg focus:ring-primary focus:border-primary block p-2.5 pr-8">
+<option>Recommended</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Newest Added</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Destination Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+<!-- Featured Large Card -->
+<div class="group relative col-span-1 md:col-span-2 row-span-2 h-full min-h-[500px] overflow-hidden rounded-2xl shadow-lg cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Santorini white buildings against blue sea at sunset" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvdZ5KcJGBubUGE7_aoPXOmhIOLX2fYYhuj6x7Eqd4FMJ-b2QVlK4c3NiZ2UWEU-xAG2Jx_pLbGfWxAHbbhkPo_K4PqMorXHruZ38Nihp1SrL-Uo51xCaWL1I03jP8r2gBmtjcnChEd7fC6v9kY0a5f3eXFxnjsUfZNFgLmOeHWMjLt84RWjnqTqIQCrMt2IAzwIy5Wk2K-4w-ohAdkLw2vxcPUFxWWlSuJyDsNOUL5XisSgEkioBFQ8ZuqfIn-s5AAZ0M42_wHdE");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-6 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Private caldera suites, sunset dinners, and discreet concierge.</p>
+</div>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Editor's Pick</span>
+</div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="flex items-center gap-2 text-yellow-400 mb-2">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-white text-sm font-medium ml-1">5.0 (128 reviews)</span>
+</div>
+<h3 class="text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">Santorini, Greece</h3>
+<p class="text-gray-200 text-base md:text-lg mb-6 line-clamp-2 max-w-xl">
+                                Experience the iconic caldera views from your private infinity pool. A blend of romance, nightlife, and ancient history.
+                            </p>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-400 text-xs uppercase tracking-wider">Starting from</span>
+<span class="text-white text-xl font-bold">$3,200 <span class="text-sm font-normal text-gray-300">/ person</span></span>
+</div>
+<button class="h-11 px-6 rounded-lg bg-white text-primary font-bold text-sm hover:bg-gray-100 transition-colors flex items-center gap-2">
+                                    View Details
+                                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Modern geometric swimming pool in a desert landscape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAKFuTcPVdlJ9SjpUhCoFXUqPyOd55BGd4LiJuuW-YCo57qxHNaoy977MkGZ_QiMLx2YFu1bSggSzJ7Cw6H1tHKRPjszQG5YTqS0JW5wdU_cMcDzp6M0Qs0t2TNLlgE4GoxZ0-SF_W41FvcgwVUBRWeGlbqFZM7r-w-TAeY19h8DkjjBlIV8WLWG3A5wzzwMYcmD19bHCtzYZz2vILTiJRJxisoMJ4ihvGZ1Sjc_4ueUU2MQ2qyi_Y0nI4JX-VdAI41BLAaLmdD8IA");'>
+</div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-4 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Desert spa rituals, pool parties, and private villa cabanas.</p>
+</div>
+</div>
+<button class="absolute top-4 right-4 size-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-[#111218] dark:text-white">Palm Springs, USA</h3>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-sm font-bold text-[#111218] dark:text-white">4.8</span>
+</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                                Desert modernism meets poolside relaxation. The ultimate weekend getaway for sun worshippers.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-400 uppercase">7 Days</span>
+<span class="font-bold text-primary text-lg">$1,900</span>
+</div>
+<button class="text-sm font-bold text-[#111218] dark:text-white hover:text-primary transition-colors flex items-center gap-1">
+                                    Explore <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Vibrant street scene in Puerto Vallarta with colonial architecture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAz5rHUN_isMGLuezLUD0HAj4NfttCLgIReUcNRpM-jOf0r1QFhGqDgDzvLe9ZP-YpDKHKHeHmqjXzsbP_OQYmrxc3Of5vAU6ujX17N-L9rMdvx9eHL1-yinXGntImB2Brbw5vuB0BOjOsXFC4ujPiOsryTJ51tvZZff4w-Cw6MeF5J5VZdyDQ17j-kqD0kTkE5eNUC767zN1kHkE6mDA_q5SBFgi476IxYfAXbT0eG2VugLMCS0Ar5Fhg2j8puj3dapEQe-jKujG4");'>
+</div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-4 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Romantic zone nights, beach clubs, and jungle day trips.</p>
+</div>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Trending</span>
+</div>
+<button class="absolute top-4 right-4 size-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-[#111218] dark:text-white">Puerto Vallarta</h3>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-sm font-bold text-[#111218] dark:text-white">4.9</span>
+</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                                The crown jewel of gay travel in Mexico. Romantic zones, vibrant nightlife, and lush jungle tours.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-400 uppercase">5 Days</span>
+<span class="font-bold text-primary text-lg">$2,100</span>
+</div>
+<button class="text-sm font-bold text-[#111218] dark:text-white hover:text-primary transition-colors flex items-center gap-1">
+                                    Explore <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Dunes of Maspalomas in Gran Canaria with blue sky" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1oHqeVZ979CXY0NIWeEIEVPGlAPNHHVyBkcZ4rs3qUxdXIN5OES-z9HMn6iPIAVifcuW3PNLlmWCJrT9y7mQhCcHuQKxfk-d_zYMEE19_n_JuzecKLv6yGh1KJgsSnmeaCS60CxkU1E4YQC9MBrFJwvTjuwjKlbuaBlAtyhCGWfbqW04csDZbeDWbeHl6mtYwmDIHU4hjGkeBpiT11M-ykNQqM933mCe7qLJfoUaZ2CpX_60L7NQVt8fIwQfh3EKVxWgeu9BxKeU");'>
+</div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-4 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Dune walks, discreet villas, and sunset sound baths.</p>
+</div>
+</div>
+<button class="absolute top-4 right-4 size-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-[#111218] dark:text-white">Gran Canaria</h3>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-sm font-bold text-[#111218] dark:text-white">4.7</span>
+</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                                European paradise with endless dunes. Famous for its open-minded atmosphere and year-round sun.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-400 uppercase">7 Days</span>
+<span class="font-bold text-primary text-lg">$2,800</span>
+</div>
+<button class="text-sm font-bold text-[#111218] dark:text-white hover:text-primary transition-colors flex items-center gap-1">
+                                    Explore <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Urban cityscape of Tel Aviv near the beach" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8YSOQBYTEExgbkaWbJuiU3IPZEhXC2e9LCS3f2JKgIl-E6xpom7ZI-VvFR8FLLOcZpJTseAUj_jdocbv9i5OFGs0tkZ1DfPymxWotxcwsI7sttzfDlOMTcvqemRAcerSZ8zeJu5urbhDbTQwC9xWlK-4p8_8J1506SDfmGP32CcBv5UzJMmCuffQmYnVFPAvQpJPr8kn10Uq81E8krDI1LgSWWIjWh-W6KPwp5K6MnBNxZ6KXTsTJI_NQNSj9RVlJALjTDm56k7o");'>
+</div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-4 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Beach mornings, rooftop dinners, and late-night parties.</p>
+</div>
+</div>
+<button class="absolute top-4 right-4 size-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-[#111218] dark:text-white">Tel Aviv, Israel</h3>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-sm font-bold text-[#111218] dark:text-white">4.8</span>
+</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                                The city that never sleeps. Incredible beaches, world-class dining, and legendary parties.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-400 uppercase">4 Days</span>
+<span class="font-bold text-primary text-lg">$2,450</span>
+</div>
+<button class="text-sm font-bold text-[#111218] dark:text-white hover:text-primary transition-colors flex items-center gap-1">
+                                    Explore <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Peaceful beach in Sitges, Spain with calm water" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBM9sfenNGIoym2JGoHRZHp8wyx-YR5sCFGpedOVLtgbMPztknk1FakKG3sNuH4mdQeXhHLHZBF3Vogn4lFe2rCWPlifcYwSmQOeDGyXtn_2enONhXGWM17UX9IGahXMARI1L8MjR-5Ds9fq-qtc52JFasS7lnbIC5vhVxnbovJcJmRN2o2f5Xp-R2xTFUjXED55lqQLG1KFaNDKS_Cvq1kn9b0hY7G19yVx9l0OI09KJnRfRtK7c_jHofJsBggS8N8nvFzNaLiV2E");'>
+</div>
+<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 flex items-end">
+<div class="p-4 text-white">
+<p class="text-xs uppercase tracking-[0.2em] text-white/70">Quick Look</p>
+<p class="text-sm font-semibold">Sea-view villas, pride nights, and relaxed beach days.</p>
+</div>
+</div>
+<button class="absolute top-4 right-4 size-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-lg">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-[#111218] dark:text-white">Sitges, Spain</h3>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined filled text-sm">star</span>
+<span class="text-sm font-bold text-[#111218] dark:text-white">4.6</span>
+</div>
+</div>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">
+                                Charming coastal town just south of Barcelona. Known for its film festival, carnival, and inclusive vibe.
+                            </p>
+<div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-400 uppercase">6 Days</span>
+<span class="font-bold text-primary text-lg">$1,800</span>
+</div>
+<button class="text-sm font-bold text-[#111218] dark:text-white hover:text-primary transition-colors flex items-center gap-1">
+                                    Explore <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Button -->
+<div class="flex justify-center mb-24">
+<button class="h-12 px-8 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-[#111218] dark:text-white font-bold text-sm hover:border-primary hover:text-primary transition-colors">
+                        Load More Destinations
+                    </button>
+</div>
+</div>
+<!-- Inner Circle / Newsletter Section -->
+<div class="w-full bg-[#101322] text-white py-24 px-6" id="community">
+<div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
+<span class="material-symbols-outlined text-5xl text-primary mb-2">diamond</span>
+<h2 class="text-3xl md:text-5xl font-bold tracking-tight">Join the Inner Circle</h2>
+<p class="text-gray-400 text-lg max-w-2xl leading-relaxed">
+                        Unlock access to secret sales, members-only retreats, and upgraded experiences. The world of MenEscape awaits.
+                    </p>
+<form class="flex flex-col sm:flex-row gap-4 w-full max-w-md mt-6">
+<input class="flex-1 h-12 rounded-lg bg-white/10 border border-white/20 px-4 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Enter your email address" type="email"/>
+<button class="h-12 px-8 rounded-lg bg-primary hover:bg-blue-700 text-white font-bold text-sm transition-colors whitespace-nowrap" type="button">
+                            Join Now
+                        </button>
+</form>
+<p class="text-xs text-gray-500 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+</div>
+</div>
+<!-- Merchandise Section -->
+<section class="w-full py-20 px-6 bg-background-light dark:bg-[#0d0d1a]" id="merchandise">
+<div class="max-w-[1100px] mx-auto flex flex-col lg:flex-row items-center gap-10">
+<div class="lg:w-1/2">
+<span class="text-accent-gold font-bold text-sm tracking-wider uppercase">Merchandise</span>
+<h2 class="text-3xl md:text-4xl font-bold text-[#111218] dark:text-white mt-3">Carry the MenEscape spirit</h2>
+<p class="text-gray-600 dark:text-gray-400 mt-4">Limited-edition resort essentials designed for discretion and style.</p>
+<button class="mt-6 h-12 px-6 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-colors">
+                        Browse the collection
+                    </button>
+</div>
+<div class="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="rounded-2xl bg-white dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+<p class="text-xs text-gray-500 uppercase tracking-wider">Resort Kit</p>
+<h3 class="text-lg font-bold text-[#111218] dark:text-white">Silk Travel Set</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Discrete pouch, spa-grade textures, curated scent.</p>
+</div>
+<div class="rounded-2xl bg-white dark:bg-gray-800 p-5 border border-gray-100 dark:border-gray-700 shadow-sm">
+<p class="text-xs text-gray-500 uppercase tracking-wider">Limited Drop</p>
+<h3 class="text-lg font-bold text-[#111218] dark:text-white">Villa Tee</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Soft-weight cotton with tonal MenEscape mark.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 pt-20 pb-10 px-6">
+<div class="max-w-[1280px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 mb-16">
+<div>
+<div class="flex items-center gap-2 mb-6">
+<div class="flex items-center justify-center size-9 rounded-full bg-brand-gradient text-white">
+<span class="material-symbols-outlined text-xl">man</span>
+</div>
+<h2 class="text-2xl font-bold text-[#111218] dark:text-white">MenEscape</h2>
+</div>
+<h3 class="text-3xl font-bold text-[#111218] dark:text-white mb-4">Let’s create the perfect MenEscape together.</h3>
+<p class="text-gray-500 dark:text-gray-400 mb-8 max-w-md">Phase 4 is about community building, private circles, and destination-first connection.</p>
+<form class="flex flex-col sm:flex-row gap-3 max-w-md">
+<input class="flex-1 h-12 px-4 rounded-lg border border-gray-300 dark:border-gray-700 bg-background-light dark:bg-gray-800 text-[#111218] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your email address" type="email"/>
+<button class="h-12 px-8 rounded-lg bg-primary text-white font-bold hover:opacity-90 transition-opacity" type="button">
+                                Join Phase 4
+                            </button>
+</form>
+</div>
+<div class="flex flex-wrap gap-12">
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-[#111218] dark:text-white">Explore</h4>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#destinations">Destinations</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#experience">The Experience</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#community">Community</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-[#111218] dark:text-white">Resources</h4>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#">Terms &amp; Conditions</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#">Cleaning Fees</a>
+<a class="text-sm text-gray-500 hover:text-primary transition-colors" href="#merchandise">Merchandise</a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+<p class="text-sm text-gray-400">© 2024 MenEscape. All rights reserved.</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Let’s create the perfect MenEscape together.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

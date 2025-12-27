@@ -1,0 +1,1 @@
+export { MiniSummary } from './MiniSummary';
