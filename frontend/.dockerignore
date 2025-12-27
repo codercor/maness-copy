@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+*.md
+.env*
+!.env.example
+Dockerfile
+.dockerignore
+.eslintrc*
+.prettierrc*
+coverage
+test
+*.test.*
+*.spec.*

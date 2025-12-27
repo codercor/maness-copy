@@ -50,8 +50,10 @@ export function CommunitySection({
         }
         : { initial: false as const };
 
-    const current = testimonials.length > 0 ? testimonials[testimonialIndex] : null;
-    const translated = testimonials.length > 0 ? getTestimonialText(testimonialIndex) : null;
+    // Ensure testimonialIndex is within bounds
+    const safeIndex = testimonials.length > 0 ? testimonialIndex % testimonials.length : 0;
+    const current = testimonials.length > 0 ? testimonials[safeIndex] : null;
+    const translated = testimonials.length > 0 ? getTestimonialText(safeIndex) : null;
 
     // Don't render if no testimonials
     if (!current) {
