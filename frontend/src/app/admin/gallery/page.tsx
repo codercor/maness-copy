@@ -231,52 +231,35 @@ export default function AdminGalleryPage() {
 
     return (
         <div className="min-h-screen bg-[var(--bg)]">
-            {/* Header */}
-            <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur">
-                <div className="mx-auto flex h-20 w-[min(1400px,95vw)] items-center justify-between">
-                    <Link href="/admin" className="flex items-center gap-3">
-                        <div className="grid h-12 w-12 place-items-center rounded-full overflow-hidden">
-                            <Image
-                                src="/Logo_Sade.svg"
-                                alt="MenEscape"
-                                width={48}
-                                height={48}
-                                className="h-12 w-12 object-contain scale-[1.6]"
-                            />
-                        </div>
-                        <div>
-                            <span className="text-lg font-bold text-[var(--navy)]">MenEscape Admin</span>
-                            <p className="text-xs text-slate-500">Gallery Management</p>
-                        </div>
-                    </Link>
-                    <div className="flex items-center gap-3">
+            {/* Main Content */}
+            <main className="mx-auto w-full max-w-[1400px]">
+                <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 className="text-3xl font-bold text-[var(--navy)]">Destination Gallery</h1>
+                        <p className="mt-2 text-slate-500">
+                            {galleryItems.length} items in gallery
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 self-start md:self-auto">
                         <Link
                             href="/admin"
-                            className="rounded-full border border-[var(--navy)] px-4 py-2 text-sm font-bold text-[var(--navy)]"
+                            className="hidden sm:inline-flex rounded-full border border-[var(--navy)] px-4 py-2 text-sm font-bold text-[var(--navy)] hover:bg-slate-50 transition-colors"
                         >
                             ← Back to Packages
                         </Link>
                         <button
                             onClick={() => setShowAddModal(true)}
-                            className="rounded-full bg-[var(--navy)] px-5 py-2 text-sm font-bold text-white"
+                            className="rounded-full bg-[var(--navy)] px-5 py-2 text-sm font-bold text-white hover:bg-opacity-90 transition-opacity flex items-center gap-2"
                         >
-                            + Add Gallery Item
+                            <span className="material-symbols-outlined text-lg">add</span>
+                            Add Item
                         </button>
                     </div>
                 </div>
-            </header>
-
-            {/* Main Content */}
-            <main className="mx-auto w-[min(1400px,95vw)] py-8">
-                <div className="mb-6">
-                    <h1 className="text-3xl font-bold text-[var(--navy)]">Destination Gallery</h1>
-                    <p className="mt-2 text-slate-500">
-                        {galleryItems.length} items in gallery
-                    </p>
-                </div>
 
                 {/* Gallery Grid */}
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {galleryItems.map((item) => (
                         <article
                             key={item._id}

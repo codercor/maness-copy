@@ -44,7 +44,7 @@ export default function UsersPage() {
     return (
         <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold text-[var(--navy)] mb-6">User Management</h1>
-            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                     <thead className="bg-slate-50 border-b border-slate-100">
                         <tr>

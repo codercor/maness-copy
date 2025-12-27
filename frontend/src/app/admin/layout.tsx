@@ -11,6 +11,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const pathname = usePathname();
     const [isAuthed, setIsAuthed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         // Skip auth check for login page
@@ -71,8 +72,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="min-h-screen bg-[var(--bg)] flex flex-col">
             {/* Header */}
             <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur">
-                <div className="mx-auto flex h-16 w-full px-6 items-center justify-between">
+                <div className="mx-auto flex h-16 w-full px-4 lg:px-6 items-center justify-between">
                     <div className="flex items-center gap-3 text-[var(--navy)]">
+                        {/* Mobile Menu Button */}
+                        <button
+                            className="lg:hidden p-1 mr-2 text-[var(--navy)]"
+                            onClick={() => setIsSidebarOpen(true)}
+                        >
+                            <span className="material-symbols-outlined">menu</span>
+                        </button>
+
                         <div className="grid h-10 w-10 place-items-center rounded-full bg-transparent overflow-hidden">
                             <Image
                                 src="/Logo_Sade.svg"
@@ -82,7 +91,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 className="h-10 w-10 object-contain scale-[1.6]"
                             />
                         </div>
-                        <span className="font-bold text-lg">Admin Panel</span>
+                        <span className="font-bold text-lg hidden sm:inline">Admin Panel</span>
                     </div>
                     <div className="flex items-center gap-3">
                         <a
@@ -90,12 +99,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             target="_blank"
                             className="text-sm text-slate-500 hover:text-[var(--navy)] transition-colors flex items-center gap-1"
                         >
-                            View Website
+                            <span className="hidden sm:inline">View Website</span>
                             <span className="material-symbols-outlined text-xs">open_in_new</span>
                         </a>
                         <button
                             onClick={handleLogout}
-                            className="rounded-full border border-red-200 bg-red-50 px-4 py-2 text-xs font-bold text-red-600 hover:bg-red-100 transition-colors"
+                            className="rounded-full border border-red-200 bg-red-50 px-3 py-1.5 lg:px-4 lg:py-2 text-xs font-bold text-red-600 hover:bg-red-100 transition-colors"
                         >
                             Logout
                         </button>
@@ -103,9 +112,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
             </header>
 
-            <div className="flex flex-1">
-                <AdminSidebar />
-                <main className="flex-1 p-8 overflow-y-auto h-[calc(100vh-64px)]">
+            <div className="flex flex-1 relative">
+                <AdminSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+                <main className="flex-1 w-full p-4 lg:p-8 overflow-y-auto h-[calc(100vh-64px)]">
                     {children}
                 </main>
             </div>

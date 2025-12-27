@@ -509,10 +509,10 @@ export default function AdminPage() {
                     </p>
                 </div>
 
-                <div className="flex gap-6">
+                <div className="flex flex-col lg:flex-row gap-6">
                     {/* Sidebar - Package List */}
-                    <aside className="w-72 flex-shrink-0">
-                        <div className="sticky top-24">
+                    <aside className="w-full lg:w-72 flex-shrink-0">
+                        <div className="lg:sticky lg:top-24">
                             <div className="lux-card rounded-2xl bg-white p-4">
                                 <div className="flex items-center justify-between mb-4">
                                     <h2 className="font-bold text-[var(--navy)]">Packages</h2>
@@ -525,7 +525,7 @@ export default function AdminPage() {
                                         <span className="material-symbols-outlined text-lg">add</span>
                                     </button>
                                 </div>
-                                <div className="space-y-2 max-h-[40vh] overflow-y-auto pr-1">
+                                <div className="flex lg:block gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 space-y-0 lg:space-y-2 lg:max-h-[40vh] lg:overflow-y-auto pr-1">
                                     {(Object.keys(packages) as PackageId[]).map((pkgId) => {
                                         const pkg = packages[pkgId];
                                         const isActive = editPackageId === pkgId;
@@ -536,7 +536,7 @@ export default function AdminPage() {
                                                 key={pkgId}
                                                 type="button"
                                                 onClick={() => setEditPackageId(pkgId)}
-                                                className={`w-full text-left p-3 rounded-xl transition-all ${isActive
+                                                className={`min-w-[240px] lg:min-w-0 w-full text-left p-3 rounded-xl transition-all ${isActive
                                                     ? 'bg-[var(--navy)] text-white'
                                                     : 'bg-slate-50 hover:bg-slate-100'
                                                     }`}
@@ -581,7 +581,7 @@ export default function AdminPage() {
                             </div>
 
                             {/* Quick Actions */}
-                            <div className="lux-card rounded-2xl bg-white p-4 mt-4">
+                            <div className="lux-card rounded-2xl bg-white p-4 mt-4 hidden lg:block">
                                 <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Quick Actions</h3>
                                 <div className="space-y-2">
                                     {/* Show on Homepage Toggle */}
@@ -781,10 +781,10 @@ export default function AdminPage() {
 
                             {/* Multi-Language Content */}
                             <div className="lux-card rounded-3xl bg-white p-6">
-                                <div className="flex items-center justify-between mb-4">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
                                     <h2 className="text-xl font-bold text-[var(--navy)]">Content Translations</h2>
                                     {/* Language Tabs */}
-                                    <div className="flex gap-1 bg-slate-100 rounded-full p-1">
+                                    <div className="flex gap-1 bg-slate-100 rounded-full p-1 overflow-x-auto max-w-full scrollbar-hide">
                                         {SUPPORTED_LANGUAGES.map((lang) => {
                                             const hasContent = hasLanguageContent(currentPackage, lang);
                                             const isActive = activeLanguage === lang;
