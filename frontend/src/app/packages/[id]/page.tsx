@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 
 // Components
-import { Header, Footer, ItinerarySection } from "@/components";
+import { ItinerarySection } from "@/components";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 
 // Data - translations
 import translationsData from "@/data/translations.json";
@@ -102,6 +103,9 @@ export default function PackageDetailsPage() {
                 ...packageData.destination,
                 title: destTrans.title ?? packageData.destination?.title ?? packageData.name,
                 quickLook: destTrans.quickLook ?? packageData.destination?.quickLook ?? '',
+                dates: packageData.destination?.dates ?? '',
+                price: packageData.destination?.price ?? '',
+                image: packageData.destination?.image ?? '',
             },
             itinerary: packageData.itinerary.map((day, i) => ({
                 ...day,
@@ -180,77 +184,56 @@ export default function PackageDetailsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[var(--bg)]">
-            <Header
-                copy={copy}
-                navOpen={navOpen}
-                setNavOpen={setNavOpen}
-                language={language}
-                setLanguage={setLanguage}
-                languageOptions={languageOptions}
-                activeSection="itinerary"
-                scrollProgress={scrollProgress}
-                headerRef={headerRef}
-                session={null}
-                onUserAuthOpen={() => { }}
-            />
-
-            {/* Hero section with package image */}
-            <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${packageData.image || packageData.destination?.image || ''})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-black/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <div className="mx-auto w-[min(1200px,92vw)]">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
-                        >
-                            <span className="material-symbols-outlined text-sm">arrow_back</span>
-                            Back to Home
-                        </Link>
-                        <h1 className="text-4xl md:text-5xl font-bold text-white">
-                            {localizedPackage.destination?.title || localizedPackage.translations?.en?.title || localizedPackage.name}
-                        </h1>
-                        <p className="mt-2 text-lg text-white/80">
-                            {packageData.dates || packageData.destination?.dates || ''} • {packageData.price || packageData.destination?.price || ''}
-                        </p>
+        <SiteLayout>
+            <div className="min-h-screen bg-[var(--bg)]">
+                {/* Hero section with package image */}
+                <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
+                    <div
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${packageData.image || packageData.destination?.image || ''})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8">
+                        <div className="mx-auto w-[min(1200px,92vw)]">
+                            <Link
+                                href="/"
+                                className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
+                            >
+                                <span className="material-symbols-outlined text-sm">arrow_back</span>
+                                Back to Home
+                            </Link>
+                            <h1 className="text-4xl md:text-5xl font-bold text-white">
+                                {localizedPackage.destination?.title || localizedPackage.translations?.en?.title || localizedPackage.name}
+                            </h1>
+                            <p className="mt-2 text-lg text-white/80">
+                                {packageData.dates || packageData.destination?.dates || ''} • {packageData.price || packageData.destination?.price || ''}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Itinerary Section */}
-            <ItinerarySection
-                copy={copy}
-                localizedPackage={localizedPackage}
-                currentPackage={packageData}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                itineraryServices={itineraryServices}
-                trustItems={trustItems}
-                includedOpen={includedOpen}
-                setIncludedOpen={setIncludedOpen}
-                onBookClick={handleBookClick}
-                formatDate={formatDate}
-                formatSpots={formatSpots}
-                itineraryRef={itineraryRef}
-                bookingRef={bookingRef}
-                timelineRef={timelineRef}
-                itineraryProgress={itineraryProgress}
-                motionEnabled={motionEnabled}
-                language={language}
-            />
-
-            <Footer
-                copy={copy}
-                footerEmail=""
-                setFooterEmail={() => { }}
-                footerStatus=""
-                onFooterSubmit={(e) => e.preventDefault()}
-                footerRef={footerRef}
-            />
-        </div>
+                {/* Itinerary Section */}
+                <ItinerarySection
+                    copy={copy}
+                    localizedPackage={localizedPackage}
+                    currentPackage={packageData}
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                    itineraryServices={itineraryServices}
+                    trustItems={trustItems}
+                    includedOpen={includedOpen}
+                    setIncludedOpen={setIncludedOpen}
+                    onBookClick={handleBookClick}
+                    formatDate={formatDate}
+                    formatSpots={formatSpots}
+                    itineraryRef={itineraryRef}
+                    bookingRef={bookingRef}
+                    timelineRef={timelineRef}
+                    itineraryProgress={itineraryProgress}
+                    motionEnabled={motionEnabled}
+                    language={language}
+                />
+            </div>
+        </SiteLayout>
     );
 }

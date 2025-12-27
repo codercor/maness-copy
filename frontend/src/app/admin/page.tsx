@@ -899,205 +899,164 @@ export default function AdminPage() {
                                 </div>
                             </div>
 
-                            {/* Destination Selection */}
+
+                            {/* Destination & Services */}
                             <div className="lux-card rounded-3xl bg-white p-6">
                                 <h2 className="text-xl font-bold text-[var(--navy)] mb-4">
-                                    Destination
+                                    Destination & Services
                                 </h2>
-                                <p className="text-sm text-slate-500 mb-4">
-                                    Select the destination for this package.
-                                </p>
 
-                                {galleryItems.length === 0 ? (
-                                    <div className="text-center py-8 text-slate-400">
-                                        <span className="material-symbols-outlined text-4xl mb-2">photo_library</span>
-                                        <p>No gallery items found. Add some in Gallery Management.</p>
-                                    </div>
-                                ) : (
-                                    <select
-                                        className="lux-field w-full px-4 py-3 text-sm rounded-xl"
-                                        value={currentPackage.destinationId || currentPackage.destinationIds?.[0] || ""}
-                                        onChange={(e) => handleSetDestination(editPackageId, e.target.value)}
-                                    >
-                                        <option value="">-- Select a destination --</option>
-                                        {galleryItems.map((item) => (
-                                            <option key={item._id} value={item._id}>
-                                                {item.title} - {item.duration}
-                                            </option>
-                                        ))}
-                                    </select>
-                                )}
-
-                                {/* Selected destination preview */}
-                                {(currentPackage.destinationId || currentPackage.destinationIds?.[0]) && (
-                                    <div className="mt-4 p-3 rounded-xl border border-slate-200 flex items-center gap-3">
-                                        {(() => {
-                                            const selectedItem = galleryItems.find(
-                                                (item) => item._id === (currentPackage.destinationId || currentPackage.destinationIds?.[0])
-                                            );
-                                            if (!selectedItem) return null;
-                                            return (
-                                                <>
-                                                    <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100">
-                                                        {selectedItem.image && (
-                                                            <div
-                                                                className="w-full h-full bg-cover bg-center"
-                                                                style={{ backgroundImage: `url(${selectedItem.image})` }}
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="font-semibold text-[var(--navy)] truncate">{selectedItem.title}</p>
-                                                        <p className="text-xs text-slate-500">{selectedItem.duration}</p>
-                                                    </div>
-                                                </>
-                                            );
-                                        })()}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Included Services */}
-                            <div className="lux-card rounded-3xl bg-white p-6">
-                                <h2 className="text-xl font-bold text-[var(--navy)] mb-4">
-                                    Included Services
-                                    {currentPackage.includedServices && currentPackage.includedServices.length > 0 && (
-                                        <span className="ml-2 text-sm font-normal text-slate-500">
-                                            ({currentPackage.includedServices.length} selected)
-                                        </span>
-                                    )}
-                                </h2>
-                                <p className="text-sm text-slate-500 mb-4">
-                                    Select the services included in this package.
-                                </p>
-
-                                <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
-                                    {INCLUDED_SERVICES.map((service) => {
-                                        const isSelected = currentPackage.includedServices?.includes(service.id) || false;
-                                        return (
-                                            <button
-                                                key={service.id}
-                                                type="button"
-                                                onClick={() => handleToggleService(editPackageId, service.id)}
-                                                className={`flex items-center gap-2 p-3 rounded-xl border text-left transition-all min-w-0 ${isSelected
-                                                    ? 'border-green-500 bg-green-50'
-                                                    : 'border-slate-200 hover:border-slate-300'
-                                                    }`}
-                                            >
-                                                {/* Checkbox */}
-                                                <div className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-green-500' : 'border-2 border-slate-300'
-                                                    }`}>
-                                                    {isSelected && (
-                                                        <span className="material-symbols-outlined text-white text-sm">check</span>
-                                                    )}
-                                                </div>
-
-                                                {/* Icon */}
-                                                <span className={`material-symbols-outlined text-lg flex-shrink-0 ${isSelected ? 'text-green-600' : 'text-slate-400'
-                                                    }`}>
-                                                    {service.icon}
-                                                </span>
-
-                                                {/* Label */}
-                                                <span className={`text-xs font-medium truncate ${isSelected ? 'text-green-700' : 'text-slate-600'
-                                                    }`}>
-                                                    {service.label}
-                                                </span>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-
-                            {/* Itinerary */}
-                            <div className="lux-card rounded-3xl bg-white p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h2 className="text-xl font-bold text-[var(--navy)]">Itinerary</h2>
-                                    <button
-                                        type="button"
-                                        onClick={() => addItineraryDay(editPackageId)}
-                                        className="rounded-full px-4 py-2 text-xs font-bold bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-1"
-                                    >
-                                        <span className="material-symbols-outlined text-base">add</span>
-                                        Add Day
-                                    </button>
-                                </div>
-                                <div className="grid gap-4 lg:grid-cols-2">
-                                    {currentPackage.itinerary.map((day, dayIndex) => (
-                                        <div
-                                            key={day.day}
-                                            className="rounded-2xl border border-slate-200 p-5"
+                                <div className="space-y-6">
+                                    {/* Destination Selection */}
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-500 mb-2">
+                                            Linked Destination
+                                        </label>
+                                        <select
+                                            className="lux-field w-full px-3 py-2 text-sm"
+                                            value={currentPackage.destinationId || ""}
+                                            onChange={(e) =>
+                                                handleSetDestination(editPackageId, e.target.value)
+                                            }
                                         >
-                                            <div className="mb-4 flex items-center gap-3">
-                                                <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
-                                                    {day.day}
-                                                </span>
-                                                <input
-                                                    className="lux-field flex-1 px-3 py-2 text-sm font-semibold"
-                                                    placeholder="Day Title"
-                                                    value={day.title}
-                                                    onChange={(e) =>
-                                                        updateItineraryDay(
-                                                            editPackageId,
-                                                            dayIndex,
-                                                            "title",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                                {currentPackage.itinerary.length > 1 && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => removeItineraryDay(editPackageId, dayIndex)}
-                                                        className="grid h-8 w-8 place-items-center rounded-full border border-red-300 text-red-500 hover:bg-red-50 transition-colors"
-                                                        title="Remove day"
-                                                    >
-                                                        <span className="material-symbols-outlined text-base">close</span>
-                                                    </button>
-                                                )}
-                                            </div>
-                                            <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                                Activities (one per line)
-                                            </label>
-                                            <textarea
-                                                className="lux-field w-full resize-none rounded-2xl px-3 py-2 text-sm"
-                                                rows={4}
-                                                value={day.items.join("\n")}
+                                            <option value="">-- No Destination Linked --</option>
+                                            {galleryItems.map((item) => (
+                                                <option key={item._id} value={item._id}>
+                                                    {item.title}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <p className="mt-1 text-xs text-slate-400">
+                                            Linking a destination will use its image and title if not overridden above.
+                                        </p>
+                                    </div>
+
+                                    {/* Included Services */}
+                                    <label className="block text-xs font-semibold text-slate-500 mb-3">
+                                        Included Services
+                                    </label>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {INCLUDED_SERVICES.map((service) => {
+                                            const isIncluded = (currentPackage.includedServices || []).includes(service.id);
+                                            return (
+                                                <label
+                                                    key={service.id}
+                                                    className={`flex items-start gap-3 p-3 rounded-xl border transition-all cursor-pointer ${isIncluded
+                                                        ? "border-[var(--navy)] bg-[var(--navy)]/5"
+                                                        : "border-slate-200 hover:border-slate-300"
+                                                        }`}
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        className="mt-1"
+                                                        checked={isIncluded}
+                                                        onChange={() => handleToggleService(editPackageId, service.id)}
+                                                    />
+                                                    <div className="overflow-hidden">
+                                                        <span className={`block text-sm font-medium truncate ${isIncluded ? "text-[var(--navy)]" : "text-slate-600"
+                                                            }`}>
+                                                            <span className="material-symbols-outlined align-middle mr-1 text-lg">
+                                                                {service.icon}
+                                                            </span>
+                                                            {service.label}
+                                                        </span>
+                                                    </div>
+                                                </label>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Itinerary */}
+                        <div className="lux-card rounded-3xl bg-white p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h2 className="text-xl font-bold text-[var(--navy)]">Itinerary</h2>
+                                <button
+                                    type="button"
+                                    onClick={() => addItineraryDay(editPackageId)}
+                                    className="rounded-full px-4 py-2 text-xs font-bold bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-1"
+                                >
+                                    <span className="material-symbols-outlined text-base">add</span>
+                                    Add Day
+                                </button>
+                            </div>
+                            <div className="grid gap-4 lg:grid-cols-2">
+                                {currentPackage.itinerary.map((day, dayIndex) => (
+                                    <div
+                                        key={day.day}
+                                        className="rounded-2xl border border-slate-200 p-5"
+                                    >
+                                        <div className="mb-4 flex items-center gap-3">
+                                            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
+                                                {day.day}
+                                            </span>
+                                            <input
+                                                className="lux-field flex-1 px-3 py-2 text-sm font-semibold"
+                                                placeholder="Day Title"
+                                                value={day.title}
                                                 onChange={(e) =>
                                                     updateItineraryDay(
                                                         editPackageId,
                                                         dayIndex,
-                                                        "items",
-                                                        e.target.value.split("\n")
+                                                        "title",
+                                                        e.target.value
                                                     )
                                                 }
                                             />
+                                            {currentPackage.itinerary.length > 1 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeItineraryDay(editPackageId, dayIndex)}
+                                                    className="grid h-8 w-8 place-items-center rounded-full border border-red-300 text-red-500 hover:bg-red-50 transition-colors"
+                                                    title="Remove day"
+                                                >
+                                                    <span className="material-symbols-outlined text-base">close</span>
+                                                </button>
+                                            )}
                                         </div>
-                                    ))}
-                                </div>
+                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                            Activities (one per line)
+                                        </label>
+                                        <textarea
+                                            className="lux-field w-full resize-none rounded-2xl px-3 py-2 text-sm"
+                                            rows={4}
+                                            value={day.items.join("\n")}
+                                            onChange={(e) =>
+                                                updateItineraryDay(
+                                                    editPackageId,
+                                                    dayIndex,
+                                                    "items",
+                                                    e.target.value.split("\n")
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
+                    </div>
 
-                        {/* Save Bar */}
-                        {/* Floating Save Button */}
-                        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-                            {saveStatus && (
-                                <div className={`px-4 py-2 rounded-full bg-white shadow-lg text-sm font-semibold ${saveStatus.includes("success")
-                                    ? "text-green-600"
-                                    : "text-red-600"
-                                    }`}>
-                                    {saveStatus}
-                                </div>
-                            )}
-                            <button
-                                type="button"
-                                onClick={handleSave}
-                                disabled={saving}
-                                className="cta-luxe rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 disabled:opacity-50 hover:scale-105 transition-transform"
-                            >
-                                {saving ? "Saving..." : "💾 Save Changes"}
-                            </button>
-                        </div>
+                    {/* Save Bar */}
+                    {/* Floating Save Button */}
+                    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+                        {saveStatus && (
+                            <div className={`px-4 py-2 rounded-full bg-white shadow-lg text-sm font-semibold ${saveStatus.includes("success")
+                                ? "text-green-600"
+                                : "text-red-600"
+                                }`}>
+                                {saveStatus}
+                            </div>
+                        )}
+                        <button
+                            type="button"
+                            onClick={handleSave}
+                            disabled={saving}
+                            className="cta-luxe rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-blue-500/30 disabled:opacity-50 hover:scale-105 transition-transform"
+                        >
+                            {saving ? "Saving..." : "💾 Save Changes"}
+                        </button>
                     </div>
                 </div>
             </main>

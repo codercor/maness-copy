@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import type { FormEvent } from "react";
 import type { Translations } from "@/types";
@@ -74,13 +75,19 @@ export function Footer({
                     </h4>
                     <ul className="mt-4 space-y-2 text-sm text-slate-500">
                         <li>
-                            <a href="#destinations">{copy.nav.destinations}</a>
+                            <Link href="/#destinations">{copy.nav.destinations}</Link>
                         </li>
                         <li>
-                            <a href="#experience">{copy.nav.experience}</a>
+                            <Link href="/#experience">{copy.nav.experience}</Link>
                         </li>
                         <li>
-                            <a href="#community">{copy.nav.community}</a>
+                            <Link href="/#community">{copy.nav.community}</Link>
+                        </li>
+                        <li>
+                            <Link href="/about">{copy.footer.about}</Link>
+                        </li>
+                        <li>
+                            <Link href="/contact">{copy.footer.contact}</Link>
                         </li>
                     </ul>
                 </div>
@@ -90,13 +97,16 @@ export function Footer({
                     </h4>
                     <ul className="mt-4 space-y-2 text-sm text-slate-500">
                         <li>
-                            <a href="#">{copy.footer.terms}</a>
+                            <Link href="/legal/terms">{copy.footer.terms}</Link>
+                        </li>
+                        <li>
+                            <Link href="/legal/privacy">{copy.footer.privacy}</Link>
                         </li>
                         <li>
                             <a href="#">{copy.footer.cleaning}</a>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 href="/admin"
                                 className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--navy)] hover:text-[var(--gold)] transition-colors"
                             >
@@ -104,7 +114,7 @@ export function Footer({
                                     admin_panel_settings
                                 </span>
                                 Admin Panel
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

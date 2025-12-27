@@ -3,7 +3,9 @@
         "nav": {
             "destinations": "Destinations",
             "experience": "The Experience",
-            "community": "Community"
+            "community": "Community",
+            "about": "About",
+            "contact": "Contact"
         },
         "header": {
             "signIn": "Sign in",
@@ -114,6 +116,10 @@
             "explore": "Explore",
             "resources": "Resources",
             "terms": "Terms & Conditions",
+            "privacy": "Privacy Policy",
+            "legal": "Legal",
+            "about": "About Us",
+            "contact": "Contact Us",
             "cleaning": "Cleaning Fees",
             "brandLine": "Let's create the perfect MenEscape together.",
             "phase4": "Phase 4 is about community building, private circles, and destination-first connection.",
@@ -148,13 +154,48 @@
             "subtitle": "Continue with a trusted provider to manage bookings and unlock member-only travel perks.",
             "google": "Continue with Google",
             "note": "We only use your email to confirm bookings and send itinerary updates."
+        },
+        "about": {
+            "title": "About MenEscape",
+            "subtitle": "Redefining freedom in travel.",
+            "content": [
+                "MenEscape was born from a desire for more. More freedom, more connection, and more authentic experiences. We curate exclusive getaways for men who seek to escape the ordinary and embrace the extraordinary.",
+                "Our philosophy is simple: Your body, your rules. We provide the setting—luxurious villas, secluded beaches, and vibrant nightlife—you bring the energy.",
+                "Join a community of like-minded individuals who value discretion, safety, and the thrill of the unknown."
+            ]
+        },
+        "contact": {
+            "title": "Get in Touch",
+            "subtitle": "Have questions? We're here to help.",
+            "form": {
+                "name": "Your Name",
+                "email": "Email Address",
+                "message": "Message",
+                "submit": "Send Message",
+                "success": "Message sent successfully!"
+            },
+            "info": {
+                "email": "hello@menescape.com",
+                "phone": "+1 (555) 123-4567"
+            }
+        },
+        "legal": {
+            "termsTitle": "Terms of Service",
+            "privacyTitle": "Privacy Policy"
+        },
+        "cookie": {
+            "message": "We use cookies to enhance your experience.",
+            "accept": "Accept",
+            "decline": "Decline"
         }
     },
     "de": {
         "nav": {
             "destinations": "Reiseziele",
             "experience": "Das Erlebnis",
-            "community": "Community"
+            "community": "Community",
+            "about": "Über uns",
+            "contact": "Kontakt"
         },
         "header": {
             "signIn": "Anmelden",
@@ -264,7 +305,11 @@
         "footer": {
             "explore": "Entdecken",
             "resources": "Ressourcen",
-            "terms": "Allgemeine Geschäftsbedingungen",
+            "terms": "AGB",
+            "privacy": "Datenschutz",
+            "legal": "Rechtliches",
+            "about": "Über uns",
+            "contact": "Kontakt",
             "cleaning": "Reinigungsgebühren",
             "brandLine": "Lasst uns gemeinsam den perfekten MenEscape schaffen.",
             "phase4": "Phase 4 steht für Community-Aufbau, private Circles und destination-first Verbindung.",
@@ -299,13 +344,48 @@
             "subtitle": "Melde dich mit einem vertrauenswürdigen Anbieter an, um Buchungen zu verwalten.",
             "google": "Mit Google fortfahren",
             "note": "Wir nutzen deine E-Mail nur für Buchungsbestätigung und Updates."
+        },
+        "about": {
+            "title": "Über MenEscape",
+            "subtitle": "Freiheit beim Reisen neu definiert.",
+            "content": [
+                "MenEscape entstand aus dem Wunsch nach mehr. Mehr Freiheit, mehr Verbindung und authentischeren Erlebnissen. Wir kuratieren exklusive Auszeiten für Männer, die dem Gewöhnlichen entfliehen wollen.",
+                "Unsere Philosophie ist einfach: Dein Körper, deine Regeln. Wir bieten den Rahmen – luxuriöse Villen, einsame Strände und lebendiges Nachtleben – du bringst die Energie.",
+                "Werde Teil einer Gemeinschaft Gleichgesinnter, die Diskretion, Sicherheit und den Reiz des Unbekannten schätzen."
+            ]
+        },
+        "contact": {
+            "title": "Kontakt",
+            "subtitle": "Fragen? Wir sind für dich da.",
+            "form": {
+                "name": "Dein Name",
+                "email": "E-Mail-Adresse",
+                "message": "Nachricht",
+                "submit": "Nachricht senden",
+                "success": "Nachricht erfolgreich gesendet!"
+            },
+            "info": {
+                "email": "hallo@menescape.com",
+                "phone": "+1 (555) 123-4567"
+            }
+        },
+        "legal": {
+            "termsTitle": "Allgemeine Geschäftsbedingungen",
+            "privacyTitle": "Datenschutzerklärung"
+        },
+        "cookie": {
+            "message": "Wir verwenden Cookies für ein besseres Erlebnis.",
+            "accept": "Akzeptieren",
+            "decline": "Ablehnen"
         }
     },
     "el": {
         "nav": {
             "destinations": "Προορισμοί",
             "experience": "Η Εμπειρία",
-            "community": "Κοινότητα"
+            "community": "Κοινότητα",
+            "about": "Σχετικά",
+            "contact": "Επικοινωνία"
         },
         "header": {
             "signIn": "Σύνδεση",
@@ -415,7 +495,11 @@
         "footer": {
             "explore": "Εξερεύνηση",
             "resources": "Πόροι",
-            "terms": "Όροι & Προϋποθέσεις",
+            "terms": "Όροι Χρήσης",
+            "privacy": "Πολιτική Απορρήτου",
+            "legal": "Νομικά",
+            "about": "Σχετικά με εμάς",
+            "contact": "Επικοινωνία",
             "cleaning": "Χρεώσεις Καθαρισμού",
             "brandLine": "Ας δημιουργήσουμε μαζί την τέλεια MenEscape εμπειρία.",
             "phase4": "Το Phase 4 αφορά την κοινότητα, ιδιωτικούς κύκλους και συνδέσεις με βάση τον προορισμό.",
@@ -450,6 +534,39 @@
             "subtitle": "Συνδέσου με έναν αξιόπιστο πάροχο για κρατήσεις και προνόμια.",
             "google": "Συνέχεια με Google",
             "note": "Χρησιμοποιούμε το email μόνο για επιβεβαιώσεις και ενημερώσεις."
+        },
+        "about": {
+            "title": "Σχετικά με το MenEscape",
+            "subtitle": "Επαναπροσδιορίζοντας την ελευθερία στα ταξίδια.",
+            "content": [
+                "Το MenEscape γεννήθηκε από την επιθυμία για περισσότερα. Περισσότερη ελευθερία, περισσότερη σύνδεση και πιο αυθεντικές εμπειρίες. Επιμελούμαστε αποκλειστικές αποδράσεις για άνδρες που αναζητούν να ξεφύγουν από τα συνηθισμένα.",
+                "Η φιλοσοφία μας είναι απλή: Το σώμα σου, οι κανόνες σου. Παρέχουμε το σκηνικό - πολυτελείς βίλες, απομονωμένες παραλίες και έντονη νυχτερινή ζωή - εσείς φέρνετε την ενέργεια.",
+                "Γίνετε μέλος μιας κοινότητας ομοϊδεατών ατόμων που εκτιμούν τη διακριτικότητα, την ασφάλεια και τη συγκίνηση του άγνωστου."
+            ]
+        },
+        "contact": {
+            "title": "Επικοινωνήστε μαζί μας",
+            "subtitle": "Έχετε ερωτήσεις; Είμαστε εδώ για να βοηθήσουμε.",
+            "form": {
+                "name": "Το Όνομά σας",
+                "email": "Email",
+                "message": "Μήνυμα",
+                "submit": "Αποστολή",
+                "success": "Το μήνυμα στάλθηκε επιτυχώς!"
+            },
+            "info": {
+                "email": "hello@menescape.com",
+                "phone": "+1 (555) 123-4567"
+            }
+        },
+        "legal": {
+            "termsTitle": "Όροι Χρήσης",
+            "privacyTitle": "Πολιτική Απορρήτου"
+        },
+        "cookie": {
+            "message": "Χρησιμοποιούμε cookies για την καλύτερη εμπειρία σας.",
+            "accept": "Αποδοχή",
+            "decline": "Απόρριψη"
         }
     }
 }

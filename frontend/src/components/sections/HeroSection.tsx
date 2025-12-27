@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion, type Variants } from "framer-motion";
 import type { Translations } from "@/types";
 
@@ -8,6 +9,12 @@ interface HeroSectionProps {
     motionEnabled: boolean;
     heroBgRef: React.RefObject<HTMLDivElement | null>;
 }
+
+const HERO_IMAGES = [
+    "/05.jpg",
+    "/best.jpg",
+    "/resort-life.jpg"
+];
 
 const motionEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -39,6 +46,15 @@ const heroBgVariants: Variants = {
 };
 
 export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps) {
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
     return (
         <section
             className="relative flex min-h-[85vh] items-center scroll-mt-24 snap-start"
@@ -46,11 +62,23 @@ export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps
         >
             <motion.div
                 ref={heroBgRef}
-                className="hero-parallax absolute inset-0 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsy8X8lAcIDSWq3AX4BeBPez2_-qrz0cyfANL9gJtNL7nNGWgzFc6WQZCoSRIVtMlxrmwhjdTpdqcgedQKFhLCFq35cHiI_gw4lbRFbspUepL_wwGLoAGfHavKoqQwtevjeYo9JRNNi-bkX9xh3ctG474wx8pPmX4wFI2Q6iPVWHhfpKUXF2f42FRvipTHqdho3RLK7ubAswvMZR33R3FYQd2RR8G09qMKtRMwmpbN4aSLC_j6c7U8-pPflje65RH4yVwKuE-THh0')] bg-cover bg-center"
+                className="hero-parallax absolute inset-0"
                 {...(motionEnabled
                     ? { initial: "hidden", animate: "show", variants: heroBgVariants }
                     : { initial: false })}
-            />
+            >
+                {HERO_IMAGES.map((src, index) => (
+                    <div
+                        key={src}
+                        className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+                        style={{
+                            backgroundImage: `url('${src}')`,
+                            opacity: activeImageIndex === index ? 1 : 0,
+                            zIndex: activeImageIndex === index ? 1 : 0
+                        }}
+                    />
+                ))}
+            </motion.div>
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
             <div className="hero-orb" aria-hidden="true" />
             <motion.div

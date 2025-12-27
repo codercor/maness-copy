@@ -21,17 +21,17 @@ interface HeaderProps {
 }
 
 const navItems = [
-    { id: "destinations", key: "destinations" as const },
-    { id: "experience", key: "experience" as const },
-    { id: "community", key: "community" as const },
+    { id: "destinations", key: "destinations" as const, href: "/#destinations" },
+    { id: "experience", key: "experience" as const, href: "/#experience" },
+    { id: "community", key: "community" as const, href: "/#community" },
+    { id: "about", key: "about" as const, href: "/about" },
+    { id: "contact", key: "contact" as const, href: "/contact" },
 ];
 
 export function Header({
     session,
     language,
     setLanguage,
-    languageOptions,
-    copy,
     activeSection,
     scrollProgress,
     navOpen,
@@ -39,6 +39,8 @@ export function Header({
     headerRef,
     onUserAuthOpen,
     onLogout,
+    copy,
+    languageOptions,
 }: HeaderProps) {
     return (
         <header
@@ -65,15 +67,15 @@ export function Header({
                 </Link>
                 <nav className="hidden flex-1 items-center justify-center gap-8 text-sm font-semibold text-[var(--navy)] md:flex">
                     {navItems.map((item) => (
-                        <a
+                        <Link
                             key={item.id}
                             className={`nav-link transition-colors hover:text-[var(--gold)] ${activeSection === item.id ? "text-[var(--gold)]" : ""
                                 }`}
-                            href={`/#${item.id}`}
+                            href={item.href}
                             aria-current={activeSection === item.id ? "page" : undefined}
                         >
                             {copy.nav[item.key]}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
                 <div className="ml-auto flex items-center gap-3">
@@ -152,16 +154,16 @@ export function Header({
                 >
                     <div className="mx-auto flex w-[min(1200px,92vw)] flex-col gap-4 py-4 text-sm font-semibold text-[var(--navy)]">
                         {navItems.map((item) => (
-                            <a
+                            <Link
                                 key={item.id}
-                                href={`/#${item.id}`}
+                                href={item.href}
                                 onClick={() => setNavOpen(false)}
                                 className={`transition-colors hover:text-[var(--gold)] ${activeSection === item.id ? "text-[var(--gold)]" : ""
                                     }`}
                                 aria-current={activeSection === item.id ? "page" : undefined}
                             >
                                 {copy.nav[item.key]}
-                            </a>
+                            </Link>
                         ))}
                         {session ? (
                             <button

@@ -9,6 +9,8 @@ export interface NavTranslations {
     destinations: string;
     experience: string;
     community: string;
+    about: string;
+    contact: string;
 }
 
 export interface HeaderTranslations {
@@ -102,6 +104,10 @@ export interface FooterTranslations {
     explore: string;
     resources: string;
     terms: string;
+    privacy: string;
+    legal: string;
+    about: string;
+    contact: string;
     cleaning: string;
     brandLine: string;
     phase4: string;
@@ -142,6 +148,39 @@ export interface UserAuthTranslations {
     note: string;
 }
 
+export interface AboutTranslations {
+    title: string;
+    subtitle: string;
+    content: string[];
+}
+
+export interface ContactTranslations {
+    title: string;
+    subtitle: string;
+    form: {
+        name: string;
+        email: string;
+        message: string;
+        submit: string;
+        success: string;
+    };
+    info: {
+        email: string;
+        phone: string;
+    };
+}
+
+export interface LegalTranslations {
+    termsTitle: string;
+    privacyTitle: string;
+}
+
+export interface CookieTranslations {
+    message: string;
+    accept: string;
+    decline: string;
+}
+
 export interface Translations {
     nav: NavTranslations;
     header: HeaderTranslations;
@@ -157,6 +196,10 @@ export interface Translations {
     affiliate: AffiliateTranslations;
     miniSummary: MiniSummaryTranslations;
     userAuth: UserAuthTranslations;
+    about: AboutTranslations;
+    contact: ContactTranslations;
+    legal: LegalTranslations;
+    cookie: CookieTranslations;
 }
 
 export interface DestinationContentTranslation {

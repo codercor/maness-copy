@@ -91,18 +91,7 @@ export type PackageId = string;
 
 export type PackageDetails = Record<PackageId, Package>;
 
-// Gallery Item (also serves as Destination)
-export interface GalleryItem {
-    _id?: string;
-    title: string;
-    description: string;
-    price: string;
-    duration: string;
-    image: string;
-    quickLook: string;
-    featured?: boolean;
-    packageId?: string;
-}
+
 
 // Legacy type for backwards compatibility
 export type Destination = DestinationInfo & { packageId: string };
