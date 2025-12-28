@@ -25,12 +25,32 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 export function TranslationProvider({ children }: { children: React.ReactNode }) {
     const [language, setLanguage] = useState<Language>("en");
 
-    // Initialize from localStorage on mount
+    // Initialize from localStorage on mount, fallback to browser language detection
     useEffect(() => {
         const stored = localStorage.getItem("menescape-language");
         if (stored === "en" || stored === "de" || stored === "el") {
             setLanguage(stored as Language);
+        } else {
+            // Auto-detect browser language if no stored preference
+            const browserLang = navigator.language || (navigator as any).userLanguage || "";
+            const langCode = browserLang.split("-")[0].toLowerCase();
+
+            // Map browser language to supported language
+            if (langCode === "de") {
+                setLanguage("de");
+                localStorage.setItem("menescape-language", "de");
+            } else if (langCode === "el") {
+                setLanguage("el");
+                localStorage.setItem("menescape-language", "el");
+            } else {
+                // Default to English for unsupported languages
+                setLanguage("en");
+                localStorage.setItem("menescape-language", "en");
+            }
         }
+
+        // Set document language attribute
+        document.documentElement.lang = language;
     }, []);
 
     const handleChangeLanguage = (lang: Language) => {

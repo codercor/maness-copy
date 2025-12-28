@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { DestinationCard } from "@/components/ui/DestinationCard";
 import { api } from "@/config/api";
+import { useTranslationContext } from "@/context/TranslationContext";
 import type { GalleryItem } from "@/types";
 
 interface GalleryItemWithId extends GalleryItem {
@@ -11,6 +12,7 @@ interface GalleryItemWithId extends GalleryItem {
 }
 
 export default function DestinationsPage() {
+    const { t } = useTranslationContext();
     const [destinations, setDestinations] = useState<GalleryItemWithId[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
@@ -94,9 +96,9 @@ export default function DestinationsPage() {
                         <path d="M1200,0H0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46c59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0z"></path>
                     </svg>
                     <div className="relative z-10 mx-auto w-[min(1200px,92vw)] text-center">
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">Discover Destinations</h1>
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.destinationsPage.title}</h1>
                         <p className="text-white/80 max-w-2xl mx-auto text-lg">
-                            Embark on a journey to the world's most breathtaking locations. Find your perfect escape today.
+                            {t.destinationsPage.subtitle}
                         </p>
                     </div>
                 </div>
@@ -110,7 +112,7 @@ export default function DestinationsPage() {
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
                             <input
                                 type="text"
-                                placeholder="Search destinations..."
+                                placeholder={t.destinationsPage.searchPlaceholder}
                                 value={searchQuery}
                                 onChange={handleSearch}
                                 className="w-full pl-10 pr-4 py-2 rounded-full border border-slate-300 focus:border-[var(--navy)] focus:ring-1 focus:ring-[var(--navy)] outline-none transition-all text-sm"
@@ -119,15 +121,15 @@ export default function DestinationsPage() {
 
                         {/* Sort */}
                         <div className="flex items-center gap-2 w-full md:w-auto">
-                            <span className="text-sm font-semibold text-slate-500 whitespace-nowrap">Sort by:</span>
+                            <span className="text-sm font-semibold text-slate-500 whitespace-nowrap">{t.destinationsPage.sortBy}</span>
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value as any)}
                                 className="px-4 py-2 rounded-full border border-slate-300 bg-white text-sm focus:border-[var(--navy)] outline-none cursor-pointer flex-1 md:flex-none"
                             >
-                                <option value="featured">Featured First</option>
-                                <option value="title-asc">Name: A to Z</option>
-                                <option value="title-desc">Name: Z to A</option>
+                                <option value="featured">{t.destinationsPage.sortFeatured}</option>
+                                <option value="title-asc">{t.destinationsPage.sortTitleAsc}</option>
+                                <option value="title-desc">{t.destinationsPage.sortTitleDesc}</option>
                             </select>
                         </div>
                     </div>
@@ -138,18 +140,18 @@ export default function DestinationsPage() {
                     {loading ? (
                         <div className="text-center py-20">
                             <div className="animate-spin h-10 w-10 border-4 border-[var(--navy)] border-t-transparent rounded-full mx-auto" />
-                            <p className="mt-4 text-slate-500">Loading destinations...</p>
+                            <p className="mt-4 text-slate-500">{t.destinationsPage.loading}</p>
                         </div>
                     ) : filteredDestinations.length === 0 ? (
                         <div className="text-center py-20 bg-white rounded-3xl p-8 border border-slate-100">
                             <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">location_off</span>
-                            <h3 className="text-xl font-bold text-[var(--navy)] mb-2">No destinations found</h3>
-                            <p className="text-slate-500">Try adjusting your search or filters.</p>
+                            <h3 className="text-xl font-bold text-[var(--navy)] mb-2">{t.destinationsPage.noResults}</h3>
+                            <p className="text-slate-500">{t.destinationsPage.noResultsHint}</p>
                             <button
                                 onClick={() => { setSearchQuery(""); setSortBy("featured"); }}
                                 className="mt-4 text-[var(--navy)] font-semibold hover:underline"
                             >
-                                Clear all filters
+                                {t.destinationsPage.clearFilters}
                             </button>
                         </div>
                     ) : (

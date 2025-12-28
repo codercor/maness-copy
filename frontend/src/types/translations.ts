@@ -183,6 +183,47 @@ export interface CookieTranslations {
     decline: string;
 }
 
+export interface DestinationsPageTranslations {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    sortBy: string;
+    sortFeatured: string;
+    sortTitleAsc: string;
+    sortTitleDesc: string;
+    loading: string;
+    noResults: string;
+    noResultsHint: string;
+    clearFilters: string;
+}
+
+export interface PackagesPageTranslations {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    sortBy: string;
+    sortDateAsc: string;
+    sortPriceAsc: string;
+    sortPriceDesc: string;
+    loading: string;
+    noResults: string;
+    noResultsHint: string;
+    clearFilters: string;
+}
+
+export interface PackageCardTranslations {
+    spotsLeft: string;
+    selectedPackage: string;
+    startingAt: string;
+    viewPackage: string;
+}
+
+export interface DestinationCardTranslations {
+    quickLook: string;
+    featured: string;
+    viewDetails: string;
+}
+
 export interface Translations {
     nav: NavTranslations;
     header: HeaderTranslations;
@@ -202,6 +243,10 @@ export interface Translations {
     contact: ContactTranslations;
     legal: LegalTranslations;
     cookie: CookieTranslations;
+    destinationsPage: DestinationsPageTranslations;
+    packagesPage: PackagesPageTranslations;
+    packageCard: PackageCardTranslations;
+    destinationCard: DestinationCardTranslations;
 }
 
 export interface DestinationContentTranslation {

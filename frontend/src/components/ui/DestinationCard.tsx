@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { type GalleryItem } from "@/types";
+import { useTranslationContext } from "@/context/TranslationContext";
 
 interface DestinationCardProps {
     item: GalleryItem;
@@ -10,6 +11,8 @@ interface DestinationCardProps {
 }
 
 export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardProps) {
+    const { t } = useTranslationContext();
+
     // Determine destination link: use _id if available (standard), otherwise fallback
     const destinationLink = item._id ? `/destinations/${item._id}` : `#`;
 
@@ -23,7 +26,7 @@ export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardP
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <p className="text-xs uppercase tracking-[0.3em] text-white/80">
-                        Quick Look
+                        {t.destinationCard.quickLook}
                     </p>
                     <p className="text-sm font-semibold">
                         {item.quickLook}
@@ -47,7 +50,7 @@ export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardP
                     {item.featured && (
                         <span className="inline-flex items-center gap-1 text-xs text-[var(--gold)] font-semibold">
                             <span className="material-symbols-outlined text-sm">star</span>
-                            Featured
+                            {t.destinationCard.featured}
                         </span>
                     )}
 
@@ -58,7 +61,7 @@ export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardP
                             : "border border-[var(--navy)] text-[var(--navy)] hover:bg-[var(--navy)] hover:text-white transition-colors"
                             }`}
                     >
-                        View Details
+                        {t.destinationCard.viewDetails}
                     </Link>
                 </div>
             </div>

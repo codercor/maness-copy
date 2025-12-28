@@ -189,6 +189,43 @@
             "message": "We use cookies to enhance your experience.",
             "accept": "Accept",
             "decline": "Decline"
+        },
+        "destinationsPage": {
+            "title": "Discover Destinations",
+            "subtitle": "Embark on a journey to the world's most breathtaking locations. Find your perfect escape today.",
+            "searchPlaceholder": "Search destinations...",
+            "sortBy": "Sort by:",
+            "sortFeatured": "Featured First",
+            "sortTitleAsc": "Name: A to Z",
+            "sortTitleDesc": "Name: Z to A",
+            "loading": "Loading destinations...",
+            "noResults": "No destinations found",
+            "noResultsHint": "Try adjusting your search or filters.",
+            "clearFilters": "Clear all filters"
+        },
+        "packagesPage": {
+            "title": "Explore Our Packages",
+            "subtitle": "Discover exclusive travel experiences tailored just for you. Browse our curated selection of premium packages.",
+            "searchPlaceholder": "Search packages...",
+            "sortBy": "Sort by:",
+            "sortDateAsc": "Date: Earliest First",
+            "sortPriceAsc": "Price: Low to High",
+            "sortPriceDesc": "Price: High to Low",
+            "loading": "Loading packages...",
+            "noResults": "No packages found",
+            "noResultsHint": "Try adjusting your search or filters.",
+            "clearFilters": "Clear all filters"
+        },
+        "packageCard": {
+            "spotsLeft": "Only {spots} spots left!",
+            "selectedPackage": "Selected Package",
+            "startingAt": "Starting at",
+            "viewPackage": "View Package"
+        },
+        "destinationCard": {
+            "quickLook": "Quick Look",
+            "featured": "Featured",
+            "viewDetails": "View Details"
         }
     },
     "de": {
@@ -381,6 +418,43 @@
             "message": "Wir verwenden Cookies für ein besseres Erlebnis.",
             "accept": "Akzeptieren",
             "decline": "Ablehnen"
+        },
+        "destinationsPage": {
+            "title": "Entdecke Reiseziele",
+            "subtitle": "Begib dich auf eine Reise zu den atemberaubendsten Orten der Welt. Finde heute noch dein perfektes Escape.",
+            "searchPlaceholder": "Reiseziele suchen...",
+            "sortBy": "Sortieren nach:",
+            "sortFeatured": "Empfohlen zuerst",
+            "sortTitleAsc": "Name: A bis Z",
+            "sortTitleDesc": "Name: Z bis A",
+            "loading": "Lade Reiseziele...",
+            "noResults": "Keine Reiseziele gefunden",
+            "noResultsHint": "Versuche deine Suche oder Filter anzupassen.",
+            "clearFilters": "Alle Filter löschen"
+        },
+        "packagesPage": {
+            "title": "Entdecke unsere Pakete",
+            "subtitle": "Entdecke exklusive Reiseerlebnisse, die auf dich zugeschnitten sind. Stöbere in unserer kuratierten Auswahl an Premium-Paketen.",
+            "searchPlaceholder": "Pakete suchen...",
+            "sortBy": "Sortieren nach:",
+            "sortDateAsc": "Datum: Früheste zuerst",
+            "sortPriceAsc": "Preis: Niedrig bis Hoch",
+            "sortPriceDesc": "Preis: Hoch bis Niedrig",
+            "loading": "Lade Pakete...",
+            "noResults": "Keine Pakete gefunden",
+            "noResultsHint": "Versuche deine Suche oder Filter anzupassen.",
+            "clearFilters": "Alle Filter löschen"
+        },
+        "packageCard": {
+            "spotsLeft": "Nur noch {spots} Plätze!",
+            "selectedPackage": "Ausgewähltes Paket",
+            "startingAt": "Ab",
+            "viewPackage": "Paket ansehen"
+        },
+        "destinationCard": {
+            "quickLook": "Kurzblick",
+            "featured": "Empfohlen",
+            "viewDetails": "Details ansehen"
         }
     },
     "el": {
@@ -573,6 +647,43 @@
             "message": "Χρησιμοποιούμε cookies για την καλύτερη εμπειρία σας.",
             "accept": "Αποδοχή",
             "decline": "Απόρριψη"
+        },
+        "destinationsPage": {
+            "title": "Ανακάλυψε Προορισμούς",
+            "subtitle": "Ξεκίνα ένα ταξίδι στις πιο εντυπωσιακές τοποθεσίες του κόσμου. Βρες την τέλεια απόδρασή σου σήμερα.",
+            "searchPlaceholder": "Αναζήτηση προορισμών...",
+            "sortBy": "Ταξινόμηση κατά:",
+            "sortFeatured": "Προτεινόμενα πρώτα",
+            "sortTitleAsc": "Όνομα: Α έως Ω",
+            "sortTitleDesc": "Όνομα: Ω έως Α",
+            "loading": "Φόρτωση προορισμών...",
+            "noResults": "Δεν βρέθηκαν προορισμοί",
+            "noResultsHint": "Δοκίμασε να τροποποιήσεις την αναζήτηση ή τα φίλτρα σου.",
+            "clearFilters": "Καθαρισμός όλων των φίλτρων"
+        },
+        "packagesPage": {
+            "title": "Εξερεύνησε τα πακέτα μας",
+            "subtitle": "Ανακάλυψε αποκλειστικές ταξιδιωτικές εμπειρίες φτιαγμένες ειδικά για εσένα. Περιηγήσου στην επιλεγμένη συλλογή premium πακέτων μας.",
+            "searchPlaceholder": "Αναζήτηση πακέτων...",
+            "sortBy": "Ταξινόμηση κατά:",
+            "sortDateAsc": "Ημερομηνία: Νωρίτερα πρώτα",
+            "sortPriceAsc": "Τιμή: Χαμηλή προς Υψηλή",
+            "sortPriceDesc": "Τιμή: Υψηλή προς Χαμηλή",
+            "loading": "Φόρτωση πακέτων...",
+            "noResults": "Δεν βρέθηκαν πακέτα",
+            "noResultsHint": "Δοκίμασε να τροποποιήσεις την αναζήτηση ή τα φίλτρα σου.",
+            "clearFilters": "Καθαρισμός όλων των φίλτρων"
+        },
+        "packageCard": {
+            "spotsLeft": "Μόνο {spots} θέσεις!",
+            "selectedPackage": "Επιλεγμένο Πακέτο",
+            "startingAt": "Από",
+            "viewPackage": "Δες το πακέτο"
+        },
+        "destinationCard": {
+            "quickLook": "Μια ματιά",
+            "featured": "Προτεινόμενο",
+            "viewDetails": "Δες λεπτομέρειες"
         }
     }
 }

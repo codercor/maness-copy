@@ -4,9 +4,11 @@ import { useState, useEffect, useMemo } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PackageCard } from "@/components/ui/PackageCard";
 import { api } from "@/config/api";
+import { useTranslationContext } from "@/context/TranslationContext";
 import type { Package, PackageDetails, PackageId } from "@/types";
 
 export default function PackagesPage() {
+    const { t, language } = useTranslationContext();
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
@@ -106,9 +108,9 @@ export default function PackagesPage() {
                         <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" />
                     </svg>
                     <div className="relative z-10 mx-auto w-[min(1200px,92vw)] text-center">
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">Explore Our Packages</h1>
+                        <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.packagesPage.title}</h1>
                         <p className="text-white/80 max-w-2xl mx-auto text-lg">
-                            Discover exclusive travel experiences tailored just for you. Browse our curated selection of premium packages.
+                            {t.packagesPage.subtitle}
                         </p>
                     </div>
                 </div>
@@ -122,7 +124,7 @@ export default function PackagesPage() {
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
                             <input
                                 type="text"
-                                placeholder="Search packages..."
+                                placeholder={t.packagesPage.searchPlaceholder}
                                 value={searchQuery}
                                 onChange={handleSearch}
                                 className="w-full pl-10 pr-4 py-2 rounded-full border border-slate-300 focus:border-[var(--navy)] focus:ring-1 focus:ring-[var(--navy)] outline-none transition-all text-sm"
@@ -131,15 +133,15 @@ export default function PackagesPage() {
 
                         {/* Sort */}
                         <div className="flex items-center gap-2 w-full md:w-auto">
-                            <span className="text-sm font-semibold text-slate-500 whitespace-nowrap">Sort by:</span>
+                            <span className="text-sm font-semibold text-slate-500 whitespace-nowrap">{t.packagesPage.sortBy}</span>
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value as any)}
                                 className="px-4 py-2 rounded-full border border-slate-300 bg-white text-sm focus:border-[var(--navy)] outline-none cursor-pointer flex-1 md:flex-none"
                             >
-                                <option value="date-asc">Date: Earliest First</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
+                                <option value="date-asc">{t.packagesPage.sortDateAsc}</option>
+                                <option value="price-asc">{t.packagesPage.sortPriceAsc}</option>
+                                <option value="price-desc">{t.packagesPage.sortPriceDesc}</option>
                             </select>
                         </div>
                     </div>
@@ -150,18 +152,18 @@ export default function PackagesPage() {
                     {loading ? (
                         <div className="text-center py-20">
                             <div className="animate-spin h-10 w-10 border-4 border-[var(--navy)] border-t-transparent rounded-full mx-auto" />
-                            <p className="mt-4 text-slate-500">Loading packages...</p>
+                            <p className="mt-4 text-slate-500">{t.packagesPage.loading}</p>
                         </div>
                     ) : filteredPackages.length === 0 ? (
                         <div className="text-center py-20 bg-white rounded-3xl p-8 border border-slate-100">
                             <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">free_cancellation</span>
-                            <h3 className="text-xl font-bold text-[var(--navy)] mb-2">No packages found</h3>
-                            <p className="text-slate-500">Try adjusting your search or filters.</p>
+                            <h3 className="text-xl font-bold text-[var(--navy)] mb-2">{t.packagesPage.noResults}</h3>
+                            <p className="text-slate-500">{t.packagesPage.noResultsHint}</p>
                             <button
                                 onClick={() => { setSearchQuery(""); setSortBy("date-asc"); }}
                                 className="mt-4 text-[var(--navy)] font-semibold hover:underline"
                             >
-                                Clear all filters
+                                {t.packagesPage.clearFilters}
                             </button>
                         </div>
                     ) : (
@@ -188,8 +190,8 @@ export default function PackagesPage() {
                                             key={i}
                                             onClick={() => setCurrentPage(i + 1)}
                                             className={`h-10 w-10 rounded-full font-bold text-sm transition-colors ${currentPage === i + 1
-                                                    ? "bg-[var(--navy)] text-white"
-                                                    : "border border-slate-300 hover:bg-slate-50 text-slate-600"
+                                                ? "bg-[var(--navy)] text-white"
+                                                : "border border-slate-300 hover:bg-slate-50 text-slate-600"
                                                 }`}
                                         >
                                             {i + 1}

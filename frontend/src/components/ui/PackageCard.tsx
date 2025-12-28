@@ -1,17 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import type { Package } from "@/types";
+import type { Package, Language } from "@/types";
+import { useTranslationContext } from "@/context/TranslationContext";
 
 interface PackageCardProps {
     pkg: Package;
 }
 
 export function PackageCard({ pkg }: PackageCardProps) {
+    const { t, language } = useTranslationContext();
+
     const price = pkg.price || pkg.destination?.price || "Price TBD";
     const dates = pkg.dates || pkg.destination?.dates || "";
-    const title = pkg.translations?.en?.title || pkg.destination?.title || pkg.name;
-    const quickLook = pkg.translations?.en?.quickLook || pkg.destination?.quickLook || "";
+
+    // Use translations based on current language, fallback to English
+    const translations = pkg.translations?.[language as keyof typeof pkg.translations] || pkg.translations?.en;
+    const title = translations?.title || pkg.destination?.title || pkg.name;
+    const quickLook = translations?.quickLook || pkg.destination?.quickLook || "";
+
     // Use the package image if available, otherwise fallback to destination image
     const image = pkg.image || pkg.destination?.image || "";
 
@@ -28,14 +35,14 @@ export function PackageCard({ pkg }: PackageCardProps) {
                 {/* Spots Badge */}
                 {pkg.spots && pkg.spots < 5 && (
                     <span className="absolute top-3 right-3 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white">
-                        Only {pkg.spots} spots left!
+                        {t.packageCard.spotsLeft.replace("{spots}", String(pkg.spots))}
                     </span>
                 )}
 
                 {/* Selected/Featured Badge */}
                 {pkg.isSelected && (
                     <span className="absolute left-3 top-3 rounded-full bg-[var(--gold)] px-3 py-1 text-xs font-bold text-white shadow-md">
-                        Selected Package
+                        {t.packageCard.selectedPackage}
                     </span>
                 )}
             </div>
@@ -57,7 +64,7 @@ export function PackageCard({ pkg }: PackageCardProps) {
 
                 <div className="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
                     <div>
-                        <p className="text-xs uppercase tracking-wider text-slate-400">Starting at</p>
+                        <p className="text-xs uppercase tracking-wider text-slate-400">{t.packageCard.startingAt}</p>
                         <p className="text-xl font-bold text-[var(--navy)]">{price}</p>
                     </div>
 
@@ -65,7 +72,7 @@ export function PackageCard({ pkg }: PackageCardProps) {
                         href={`/packages/${pkg.id}`}
                         className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-6 py-3 text-xs font-bold text-white shadow-lg shadow-blue-500/30 hover:scale-105 transition-transform"
                     >
-                        View Package
+                        {t.packageCard.viewPackage}
                         <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </Link>
                 </div>
