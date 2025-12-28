@@ -23,40 +23,41 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 export function TranslationProvider({ children }: { children: React.ReactNode }) {
-    const [language, setLanguage] = useState<Language>("en");
-
-    // Initialize from localStorage on mount, fallback to browser language detection
-    useEffect(() => {
-        const stored = localStorage.getItem("menescape-language");
-        if (stored === "en" || stored === "de" || stored === "el") {
-            setLanguage(stored as Language);
-        } else {
-            // Auto-detect browser language if no stored preference
-            const browserLang = navigator.language || (navigator as any).userLanguage || "";
-            const langCode = browserLang.split("-")[0].toLowerCase();
-
-            // Map browser language to supported language
-            if (langCode === "de") {
-                setLanguage("de");
-                localStorage.setItem("menescape-language", "de");
-            } else if (langCode === "el") {
-                setLanguage("el");
-                localStorage.setItem("menescape-language", "el");
-            } else {
-                // Default to English for unsupported languages
-                setLanguage("en");
-                localStorage.setItem("menescape-language", "en");
-            }
+    // Initialize language from localStorage or detect browser language
+    const [language, setLanguage] = useState<Language>(() => {
+        // Check if we're in the browser (not SSR)
+        if (typeof window === 'undefined') {
+            return "en";
         }
 
-        // Set document language attribute
+        // Check localStorage first
+        const stored = localStorage.getItem("menescape-language");
+        if (stored === "en" || stored === "de" || stored === "el") {
+            return stored as Language;
+        }
+
+        // Auto-detect browser language if no stored preference
+        const browserLang = navigator.language || (navigator as any).userLanguage || "";
+        const langCode = browserLang.split("-")[0].toLowerCase();
+
+        // Map browser language to supported language
+        if (langCode === "de") {
+            return "de";
+        } else if (langCode === "el") {
+            return "el";
+        }
+
+        return "en";
+    });
+
+    // Sync document language attribute whenever language changes
+    useEffect(() => {
         document.documentElement.lang = language;
-    }, []);
+    }, [language]);
 
     const handleChangeLanguage = (lang: Language) => {
         setLanguage(lang);
         localStorage.setItem("menescape-language", lang);
-        document.documentElement.lang = lang;
     };
 
     const value = {
