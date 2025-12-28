@@ -27,7 +27,7 @@ export default function PrivacyPage() {
                         <p>We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction.</p>
 
                         <h3>4. Your Rights</h3>
-                        <p>You have the right to access, correct, or delete your personal data. You may also object to processing or request data portability. Contact us at privacy@menescape.com to exercise these rights.</p>
+                        <p>You have the right to access, correct, or delete your personal data. You may also object to processing or request data portability. Contact us at contact@menescape.com to exercise these rights.</p>
 
                         {/* More placeholder content */}
                     </div>

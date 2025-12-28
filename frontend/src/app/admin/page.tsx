@@ -8,6 +8,8 @@ import type {
     PackageId,
     Package,
     ItineraryDay,
+    ItineraryDayContent,
+    ItineraryDayTranslations,
     SupportedLanguage,
     TranslatedContent,
     GalleryItem,
@@ -37,6 +39,7 @@ export default function AdminPage() {
 
     // Language state
     const [activeLanguage, setActiveLanguage] = useState<SupportedLanguage>("en");
+    const [itineraryLanguage, setItineraryLanguage] = useState<SupportedLanguage>("en");
 
     // Data state
     const [packages, setPackages] = useState<PackageDetails>({});
@@ -158,7 +161,7 @@ export default function AdminPage() {
     const updatePackageField = (
         packageId: PackageId,
         field: keyof Package,
-        value: string | number | string[]
+        value: any
     ) => {
         setPackages((prev) => ({
             ...prev,
@@ -268,11 +271,68 @@ export default function AdminPage() {
         }
     };
 
+    // Get itinerary content for a specific language (with fallback)
+    const getItineraryDayContent = (day: ItineraryDay, language: SupportedLanguage): ItineraryDayContent => {
+        if (day.translations?.[language]) {
+            return day.translations[language] as ItineraryDayContent;
+        }
+        if (day.translations?.en) {
+            return day.translations.en;
+        }
+        // Fallback to legacy fields
+        return {
+            title: day.title || `Day ${day.day}`,
+            items: day.items || [],
+        };
+    };
+
+    // Update itinerary day content for a specific language
+    const updateItineraryDayContent = (
+        packageId: PackageId,
+        dayIndex: number,
+        language: SupportedLanguage,
+        field: keyof ItineraryDayContent,
+        value: string | string[]
+    ) => {
+        setPackages((prev) => {
+            const pkg = prev[packageId];
+            const updatedItinerary = pkg.itinerary.map((day, i) => {
+                if (i !== dayIndex) return day;
+
+                const currentTranslations = day.translations || {
+                    en: { title: day.title || '', items: day.items || [] }
+                };
+
+                const langContent = currentTranslations[language] || { title: '', items: [] };
+
+                return {
+                    ...day,
+                    translations: {
+                        ...currentTranslations,
+                        [language]: {
+                            ...langContent,
+                            [field]: value,
+                        },
+                    },
+                };
+            });
+
+            return {
+                ...prev,
+                [packageId]: {
+                    ...pkg,
+                    itinerary: updatedItinerary,
+                },
+            };
+        });
+    };
+
+    // Legacy updateItineraryDay for non-translation fields (like 'day' number)
     const updateItineraryDay = (
         packageId: PackageId,
         dayIndex: number,
-        field: keyof ItineraryDay,
-        value: string | string[]
+        field: 'day',
+        value: string
     ) => {
         setPackages((prev) => ({
             ...prev,
@@ -314,8 +374,9 @@ export default function AdminPage() {
             itinerary: [
                 {
                     day: "01",
-                    title: "Day 1",
-                    items: ["Activity 1", "Activity 2"],
+                    translations: {
+                        en: { title: "Day 1", items: ["Activity 1", "Activity 2"] },
+                    },
                 },
             ],
         };
@@ -353,14 +414,20 @@ export default function AdminPage() {
     const addItineraryDay = (packageId: PackageId) => {
         setPackages((prev) => {
             const pkg = prev[packageId];
-            const nextDay = String(pkg.itinerary.length + 1).padStart(2, "0");
+            const nextDayNum = pkg.itinerary.length + 1;
+            const nextDay = String(nextDayNum).padStart(2, "0");
             return {
                 ...prev,
                 [packageId]: {
                     ...pkg,
                     itinerary: [
                         ...pkg.itinerary,
-                        { day: nextDay, title: `Day ${pkg.itinerary.length + 1}`, items: ["New activity"] },
+                        {
+                            day: nextDay,
+                            translations: {
+                                en: { title: `Day ${nextDayNum}`, items: ["New activity"] },
+                            },
+                        },
                     ],
                 },
             };
@@ -749,6 +816,45 @@ export default function AdminPage() {
                                         />
                                     </div>
                                     <div className="sm:col-span-2">
+                                        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 mt-2">
+                                            Booking & Partner
+                                        </h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                                    Partner Name
+                                                </label>
+                                                <input
+                                                    className="lux-field w-full px-3 py-2 text-sm"
+                                                    value={currentPackage.partner?.name || ""}
+                                                    onChange={(e) =>
+                                                        updatePackageField(editPackageId, "partner", {
+                                                            ...currentPackage.partner,
+                                                            name: e.target.value
+                                                        })
+                                                    }
+                                                    placeholder="e.g. Greek Escapes"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                                    Affiliate Link
+                                                </label>
+                                                <input
+                                                    className="lux-field w-full px-3 py-2 text-sm"
+                                                    value={currentPackage.partner?.url || ""}
+                                                    onChange={(e) =>
+                                                        updatePackageField(editPackageId, "partner", {
+                                                            ...currentPackage.partner,
+                                                            url: e.target.value
+                                                        })
+                                                    }
+                                                    placeholder="https://..."
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2">
                                         <label className="block text-xs font-semibold text-slate-500 mb-2">
                                             Package Image
                                         </label>
@@ -951,70 +1057,145 @@ export default function AdminPage() {
                         </div>
 
                         {/* Itinerary */}
-                        <div className="lux-card rounded-3xl bg-white p-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <h2 className="text-xl font-bold text-[var(--navy)]">Itinerary</h2>
-                                <button
-                                    type="button"
-                                    onClick={() => addItineraryDay(editPackageId)}
-                                    className="rounded-full px-4 py-2 text-xs font-bold bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-1"
-                                >
-                                    <span className="material-symbols-outlined text-base">add</span>
-                                    Add Day
-                                </button>
-                            </div>
-                            <div className="grid gap-4 lg:grid-cols-2">
-                                {currentPackage.itinerary.map((day, dayIndex) => (
-                                    <div
-                                        key={day.day}
-                                        className="rounded-2xl border border-slate-200 p-5"
-                                    >
-                                        <div className="mb-4 flex items-center gap-3">
-                                            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
-                                                {day.day}
-                                            </span>
-                                            <input
-                                                className="lux-field flex-1 px-3 py-2 text-sm font-semibold"
-                                                placeholder="Day Title"
-                                                value={day.title}
-                                                onChange={(e) =>
-                                                    updateItineraryDay(
-                                                        editPackageId,
-                                                        dayIndex,
-                                                        "title",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {currentPackage.itinerary.length > 1 && (
+                        <div className="lux-card rounded-3xl bg-white p-8 shadow-sm border border-slate-100">
+                            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
+                                <h2 className="text-2xl font-bold text-[var(--navy)] tracking-tight">Itinerary</h2>
+                                <div className="flex items-center gap-4">
+                                    {/* Language Tabs - Segmented Control Style */}
+                                    <div className="flex p-1 bg-slate-100 rounded-full border border-slate-200">
+                                        {SUPPORTED_LANGUAGES.map((lang) => {
+                                            const isActive = itineraryLanguage === lang;
+                                            return (
                                                 <button
-                                                    type="button"
-                                                    onClick={() => removeItineraryDay(editPackageId, dayIndex)}
-                                                    className="grid h-8 w-8 place-items-center rounded-full border border-red-300 text-red-500 hover:bg-red-50 transition-colors"
-                                                    title="Remove day"
+                                                    key={lang}
+                                                    onClick={() => setItineraryLanguage(lang)}
+                                                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${isActive
+                                                        ? 'bg-[var(--navy)] text-white shadow-md transform scale-105'
+                                                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'
+                                                        }`}
                                                 >
-                                                    <span className="material-symbols-outlined text-base">close</span>
+                                                    {LANGUAGE_NAMES[lang]}
                                                 </button>
-                                            )}
-                                        </div>
-                                        <label className="block text-xs font-semibold text-slate-500 mb-1">
-                                            Activities (one per line)
-                                        </label>
-                                        <textarea
-                                            className="lux-field w-full resize-none rounded-2xl px-3 py-2 text-sm"
-                                            rows={4}
-                                            value={day.items.join("\n")}
-                                            onChange={(e) =>
-                                                updateItineraryDay(
-                                                    editPackageId,
-                                                    dayIndex,
-                                                    "items",
-                                                    e.target.value.split("\n")
-                                                )
-                                            }
-                                        />
+                                            );
+                                        })}
                                     </div>
-                                ))}
+                                    <button
+                                        type="button"
+                                        onClick={() => addItineraryDay(editPackageId)}
+                                        className="rounded-full px-5 py-2.5 text-xs font-bold bg-green-500 text-white hover:bg-green-600 shadow-lg shadow-green-500/30 hover:shadow-green-500/40 hover:-translate-y-0.5 transition-all flex items-center gap-2 group"
+                                    >
+                                        <span className="material-symbols-outlined text-lg group-hover:rotate-90 transition-transform">add</span>
+                                        Add Day
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Translation Warning for Itinerary */}
+                            {itineraryLanguage !== 'en' && (
+                                <div className="mb-6 px-5 py-4 bg-blue-50/50 border border-blue-100 rounded-2xl flex items-center gap-3 text-blue-800">
+                                    <span className="material-symbols-outlined text-blue-500">translate</span>
+                                    <p className="text-sm font-medium">
+                                        Editing <strong>{LANGUAGE_NAMES[itineraryLanguage]}</strong> translations. Empty fields will fall back to English.
+                                    </p>
+                                </div>
+                            )}
+
+                            <div className="grid gap-6 lg:grid-cols-2">
+                                {currentPackage.itinerary.map((day, dayIndex) => {
+                                    const dayContent = getItineraryDayContent(day, itineraryLanguage);
+                                    const enContent = getItineraryDayContent(day, 'en');
+                                    const hasTranslation = itineraryLanguage === 'en' ||
+                                        (day.translations?.[itineraryLanguage]?.title || day.translations?.[itineraryLanguage]?.items?.length);
+
+                                    return (
+                                        <div
+                                            key={day.day}
+                                            className={`rounded-3xl p-6 transition-all duration-300 group ${hasTranslation
+                                                ? 'bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-slate-300'
+                                                : 'bg-amber-50/30 border border-amber-200'
+                                                }`}
+                                        >
+                                            <div className="mb-5 flex items-center gap-4">
+                                                <div className="relative">
+                                                    <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--navy)] text-base font-bold text-white shadow-lg shadow-blue-900/20 group-hover:scale-110 transition-transform duration-300">
+                                                        {day.day}
+                                                    </span>
+                                                </div>
+                                                <div className="flex-1">
+                                                    <input
+                                                        className="w-full px-5 py-3 rounded-full bg-slate-50 border border-slate-200 text-sm font-bold text-[var(--navy)] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[var(--navy)] focus:ring-4 focus:ring-blue-500/10 transition-all"
+                                                        placeholder={itineraryLanguage !== 'en' ? `${enContent.title} (English)` : "Day Title"}
+                                                        value={dayContent.title}
+                                                        onChange={(e) =>
+                                                            updateItineraryDayContent(
+                                                                editPackageId,
+                                                                dayIndex,
+                                                                itineraryLanguage,
+                                                                "title",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                </div>
+                                                {currentPackage.itinerary.length > 1 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeItineraryDay(editPackageId, dayIndex)}
+                                                        className="grid h-9 w-9 place-items-center rounded-full border border-slate-200 text-slate-400 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-all transform hover:rotate-90"
+                                                        title="Remove day"
+                                                    >
+                                                        <span className="material-symbols-outlined text-lg">close</span>
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                            <div className="flex items-center justify-between mb-2 pl-2 pr-1">
+                                                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-[var(--navy)] transition-colors">
+                                                    Activities ({LANGUAGE_NAMES[itineraryLanguage]})
+                                                </label>
+                                                <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                                                    {dayContent.items.filter(i => i.trim()).length} items
+                                                </span>
+                                            </div>
+                                            <div className="relative">
+                                                <textarea
+                                                    className="w-full resize-none rounded-[20px] bg-slate-50 border border-slate-200 px-5 py-4 text-sm text-slate-600 focus:outline-none focus:bg-white focus:border-[var(--navy)] focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-400/70"
+                                                    rows={5}
+                                                    placeholder={itineraryLanguage !== 'en' && enContent.items.length
+                                                        ? `English:\n${enContent.items.slice(0, 3).map(i => `• ${i}`).join('\n')}...`
+                                                        : "• One activity per line..."
+                                                    }
+                                                    value={dayContent.items.join("\n")}
+                                                    onChange={(e) =>
+                                                        updateItineraryDayContent(
+                                                            editPackageId,
+                                                            dayIndex,
+                                                            itineraryLanguage,
+                                                            "items",
+                                                            e.target.value.split("\n")
+                                                        )
+                                                    }
+                                                />
+                                                {/* Copy from English button for non-English languages */}
+                                                {itineraryLanguage !== 'en' && !hasTranslation && (
+                                                    <div className="absolute bottom-3 right-3">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                updateItineraryDayContent(editPackageId, dayIndex, itineraryLanguage, "title", enContent.title);
+                                                                updateItineraryDayContent(editPackageId, dayIndex, itineraryLanguage, "items", enContent.items);
+                                                            }}
+                                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-xs font-bold text-blue-600 shadow-sm border border-blue-100 hover:bg-blue-50 transition-all"
+                                                        >
+                                                            <span className="material-symbols-outlined text-xs">content_copy</span>
+                                                            Copy English
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

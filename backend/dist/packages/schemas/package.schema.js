@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PackageSchema = exports.Package = exports.DestinationInfo = exports.ItineraryDay = exports.Partner = exports.PackageTranslationsSchema = exports.PackageTranslations = exports.TranslatedContentSchema = exports.TranslatedContent = exports.DEFAULT_LANGUAGE = exports.SUPPORTED_LANGUAGES = void 0;
+exports.PackageSchema = exports.Package = exports.DestinationInfo = exports.ItineraryDay = exports.ItineraryDayTranslationsSchema = exports.ItineraryDayTranslations = exports.ItineraryDayContentSchema = exports.ItineraryDayContent = exports.Partner = exports.PackageTranslationsSchema = exports.PackageTranslations = exports.TranslatedContentSchema = exports.TranslatedContent = exports.DEFAULT_LANGUAGE = exports.SUPPORTED_LANGUAGES = void 0;
 exports.getTranslatedContent = getTranslatedContent;
 const mongoose_1 = require("@nestjs/mongoose");
 exports.SUPPORTED_LANGUAGES = ['en', 'de', 'el'];
@@ -74,8 +74,48 @@ __decorate([
 exports.Partner = Partner = __decorate([
     (0, mongoose_1.Schema)()
 ], Partner);
+let ItineraryDayContent = class ItineraryDayContent {
+    title;
+    items;
+};
+exports.ItineraryDayContent = ItineraryDayContent;
+__decorate([
+    (0, mongoose_1.Prop)({ default: '' }),
+    __metadata("design:type", String)
+], ItineraryDayContent.prototype, "title", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [String], default: [] }),
+    __metadata("design:type", Array)
+], ItineraryDayContent.prototype, "items", void 0);
+exports.ItineraryDayContent = ItineraryDayContent = __decorate([
+    (0, mongoose_1.Schema)({ _id: false })
+], ItineraryDayContent);
+exports.ItineraryDayContentSchema = mongoose_1.SchemaFactory.createForClass(ItineraryDayContent);
+let ItineraryDayTranslations = class ItineraryDayTranslations {
+    en;
+    de;
+    el;
+};
+exports.ItineraryDayTranslations = ItineraryDayTranslations;
+__decorate([
+    (0, mongoose_1.Prop)({ type: exports.ItineraryDayContentSchema, required: true }),
+    __metadata("design:type", ItineraryDayContent)
+], ItineraryDayTranslations.prototype, "en", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: exports.ItineraryDayContentSchema }),
+    __metadata("design:type", ItineraryDayContent)
+], ItineraryDayTranslations.prototype, "de", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: exports.ItineraryDayContentSchema }),
+    __metadata("design:type", ItineraryDayContent)
+], ItineraryDayTranslations.prototype, "el", void 0);
+exports.ItineraryDayTranslations = ItineraryDayTranslations = __decorate([
+    (0, mongoose_1.Schema)({ _id: false })
+], ItineraryDayTranslations);
+exports.ItineraryDayTranslationsSchema = mongoose_1.SchemaFactory.createForClass(ItineraryDayTranslations);
 let ItineraryDay = class ItineraryDay {
     day;
+    translations;
     title;
     items;
 };
@@ -85,11 +125,15 @@ __decorate([
     __metadata("design:type", String)
 ], ItineraryDay.prototype, "day", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ type: exports.ItineraryDayTranslationsSchema }),
+    __metadata("design:type", ItineraryDayTranslations)
+], ItineraryDay.prototype, "translations", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], ItineraryDay.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [String], required: true }),
+    (0, mongoose_1.Prop)({ type: [String] }),
     __metadata("design:type", Array)
 ], ItineraryDay.prototype, "items", void 0);
 exports.ItineraryDay = ItineraryDay = __decorate([

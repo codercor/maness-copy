@@ -168,13 +168,13 @@ export interface ContactTranslations {
     };
     info: {
         email: string;
-        phone: string;
     };
 }
 
 export interface LegalTranslations {
     termsTitle: string;
     privacyTitle: string;
+    gdprTitle: string;
 }
 
 export interface CookieTranslations {

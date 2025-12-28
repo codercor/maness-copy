@@ -47,16 +47,48 @@ export class Partner {
     url: string;
 }
 
+// Itinerary day content (translatable fields)
+@Schema({ _id: false })
+export class ItineraryDayContent {
+    @Prop({ default: '' })
+    title: string;
+
+    @Prop({ type: [String], default: [] })
+    items: string[];
+}
+
+export const ItineraryDayContentSchema = SchemaFactory.createForClass(ItineraryDayContent);
+
+// Itinerary day translations map
+@Schema({ _id: false })
+export class ItineraryDayTranslations {
+    @Prop({ type: ItineraryDayContentSchema, required: true })
+    en: ItineraryDayContent;  // English is required (fallback)
+
+    @Prop({ type: ItineraryDayContentSchema })
+    de?: ItineraryDayContent;  // German (optional)
+
+    @Prop({ type: ItineraryDayContentSchema })
+    el?: ItineraryDayContent;  // Greek (optional)
+}
+
+export const ItineraryDayTranslationsSchema = SchemaFactory.createForClass(ItineraryDayTranslations);
+
 @Schema()
 export class ItineraryDay {
     @Prop({ required: true })
     day: string;
 
-    @Prop({ required: true })
-    title: string;
+    // Multi-language content
+    @Prop({ type: ItineraryDayTranslationsSchema })
+    translations?: ItineraryDayTranslations;
 
-    @Prop({ type: [String], required: true })
-    items: string[];
+    // Legacy fields (kept for backward compatibility)
+    @Prop()
+    title?: string;
+
+    @Prop({ type: [String] })
+    items?: string[];
 }
 
 // Legacy DestinationInfo (kept for backward compatibility during migration)

@@ -99,10 +99,93 @@ export declare class Partner {
     name: string;
     url: string;
 }
-export declare class ItineraryDay {
-    day: string;
+export declare class ItineraryDayContent {
     title: string;
     items: string[];
+}
+export declare const ItineraryDayContentSchema: import("mongoose").Schema<ItineraryDayContent, import("mongoose").Model<ItineraryDayContent, any, any, any, Document<unknown, any, ItineraryDayContent, any, import("mongoose").DefaultSchemaOptions> & ItineraryDayContent & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, any, ItineraryDayContent>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, ItineraryDayContent, Document<unknown, {}, ItineraryDayContent, {
+    id: string;
+}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayContent & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, "id"> & {
+    id: string;
+}, {
+    title?: import("mongoose").SchemaDefinitionProperty<string, ItineraryDayContent, Document<unknown, {}, ItineraryDayContent, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayContent & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    items?: import("mongoose").SchemaDefinitionProperty<string[], ItineraryDayContent, Document<unknown, {}, ItineraryDayContent, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayContent & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+}, ItineraryDayContent>;
+export declare class ItineraryDayTranslations {
+    en: ItineraryDayContent;
+    de?: ItineraryDayContent;
+    el?: ItineraryDayContent;
+}
+export declare const ItineraryDayTranslationsSchema: import("mongoose").Schema<ItineraryDayTranslations, import("mongoose").Model<ItineraryDayTranslations, any, any, any, Document<unknown, any, ItineraryDayTranslations, any, import("mongoose").DefaultSchemaOptions> & ItineraryDayTranslations & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, any, ItineraryDayTranslations>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, ItineraryDayTranslations, Document<unknown, {}, ItineraryDayTranslations, {
+    id: string;
+}, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayTranslations & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
+    __v: number;
+}, "id"> & {
+    id: string;
+}, {
+    en?: import("mongoose").SchemaDefinitionProperty<ItineraryDayContent, ItineraryDayTranslations, Document<unknown, {}, ItineraryDayTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    de?: import("mongoose").SchemaDefinitionProperty<ItineraryDayContent | undefined, ItineraryDayTranslations, Document<unknown, {}, ItineraryDayTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    el?: import("mongoose").SchemaDefinitionProperty<ItineraryDayContent | undefined, ItineraryDayTranslations, Document<unknown, {}, ItineraryDayTranslations, {
+        id: string;
+    }, import("mongoose").ResolveSchemaOptions<import("mongoose").DefaultSchemaOptions>> & Omit<ItineraryDayTranslations & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+}, ItineraryDayTranslations>;
+export declare class ItineraryDay {
+    day: string;
+    translations?: ItineraryDayTranslations;
+    title?: string;
+    items?: string[];
 }
 export declare class DestinationInfo {
     title: string;

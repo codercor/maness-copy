@@ -32,10 +32,26 @@ export interface DestinationInfo {
     quickLook: string;
 }
 
-export interface ItineraryDay {
-    day: string;
+// Itinerary day translatable content
+export interface ItineraryDayContent {
     title: string;
     items: string[];
+}
+
+// Itinerary day translations map
+export interface ItineraryDayTranslations {
+    en: ItineraryDayContent;   // English is required (fallback)
+    de?: ItineraryDayContent;  // German (optional)
+    el?: ItineraryDayContent;  // Greek (optional)
+}
+
+export interface ItineraryDay {
+    day: string;
+    // Multi-language content
+    translations?: ItineraryDayTranslations;
+    // Legacy fields (kept for backward compatibility)
+    title?: string;
+    items?: string[];
 }
 
 export interface Partner {

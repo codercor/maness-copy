@@ -87,6 +87,7 @@ export function ItinerarySection({
     timelineRef,
     itineraryProgress,
     motionEnabled,
+    language,
 }: ItinerarySectionProps) {
     const sectionHeaderMotion = motionEnabled
         ? {
@@ -153,27 +154,41 @@ export function ItinerarySection({
                                 top: `${Math.min(Math.max(itineraryProgress, 0.02), 0.98) * 100}%`,
                             }}
                         />
-                        {localizedPackage.itinerary.map((block) => (
-                            <motion.div
-                                key={block.day}
-                                variants={timelineItemVariants}
-                                className="flex items-start gap-4"
-                            >
-                                <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
-                                    {block.day}
-                                </span>
-                                <div>
-                                    <h3 className="text-xl font-bold text-[var(--navy)]">
-                                        {block.title}
-                                    </h3>
-                                    <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                                        {block.items.map((item) => (
-                                            <li key={item}>{item}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </motion.div>
-                        ))}
+                        {localizedPackage.itinerary.map((block) => {
+                            // Get content from translations or legacy fields
+                            const trans = (block.translations as any)?.[language];
+                            const title = trans?.title ||
+                                block.translations?.en?.title ||
+                                block.title ||
+                                `Day ${block.day}`;
+
+                            const items: string[] = trans?.items ||
+                                block.translations?.en?.items ||
+                                block.items ||
+                                [];
+
+                            return (
+                                <motion.div
+                                    key={block.day}
+                                    variants={timelineItemVariants}
+                                    className="flex items-start gap-4"
+                                >
+                                    <span className="mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[var(--navy)] text-sm font-bold text-white">
+                                        {block.day}
+                                    </span>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-[var(--navy)]">
+                                            {title}
+                                        </h3>
+                                        <ul className="mt-3 space-y-2 text-sm text-slate-500">
+                                            {items.map((item) => (
+                                                <li key={item}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </motion.div>
 
                     <div className="mt-12">
@@ -246,12 +261,7 @@ export function ItinerarySection({
                             <p className="text-xs text-slate-500">
                                 {copy.booking.tripWindow}: {currentPackage.dates || currentPackage.destination?.dates || ''}
                             </p>
-                            <div className="lux-field flex items-center gap-2 px-4 py-3 text-sm">
-                                <span className="material-symbols-outlined text-base text-slate-500">
-                                    group
-                                </span>
-                                1 Adult
-                            </div>
+
                             <p className="text-xs font-bold uppercase tracking-[0.3em] text-orange-700">
                                 {formatSpots(currentPackage.spots)}
                             </p>

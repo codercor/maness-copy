@@ -12,7 +12,7 @@ interface GalleryItemWithId extends GalleryItem {
 }
 
 export default function DestinationsPage() {
-    const { t } = useTranslationContext();
+    const { t, language } = useTranslationContext();
     const [destinations, setDestinations] = useState<GalleryItemWithId[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
@@ -38,38 +38,51 @@ export default function DestinationsPage() {
         fetchDestinations();
     }, []);
 
+    // Helper to get translated content for a destination
+    const getTranslatedTitle = (item: GalleryItem) => {
+        const translations = item.translations?.[language as keyof typeof item.translations] || item.translations?.en;
+        return translations?.title || item.title;
+    };
+
+    const getTranslatedDescription = (item: GalleryItem) => {
+        const translations = item.translations?.[language as keyof typeof item.translations] || item.translations?.en;
+        return translations?.description || item.description;
+    };
+
     // Filter and Sort Logic
     const filteredDestinations = useMemo(() => {
         let result = [...destinations];
 
-        // Search Filter
+        // Search Filter (using translated content)
         if (searchQuery) {
             const query = searchQuery.toLowerCase();
             result = result.filter((item) => {
+                const title = getTranslatedTitle(item);
+                const description = getTranslatedDescription(item);
                 return (
-                    item.title.toLowerCase().includes(query) ||
-                    item.description.toLowerCase().includes(query)
+                    title.toLowerCase().includes(query) ||
+                    description.toLowerCase().includes(query)
                 );
             });
         }
 
-        // Sorting
+        // Sorting (using translated content)
         result.sort((a, b) => {
             switch (sortBy) {
                 case "title-asc":
-                    return a.title.localeCompare(b.title);
+                    return getTranslatedTitle(a).localeCompare(getTranslatedTitle(b));
                 case "title-desc":
-                    return b.title.localeCompare(a.title);
+                    return getTranslatedTitle(b).localeCompare(getTranslatedTitle(a));
                 case "featured":
                 default:
                     // Featured first, then by title
-                    if (a.featured === b.featured) return a.title.localeCompare(b.title);
+                    if (a.featured === b.featured) return getTranslatedTitle(a).localeCompare(getTranslatedTitle(b));
                     return a.featured ? -1 : 1;
             }
         });
 
         return result;
-    }, [destinations, searchQuery, sortBy]);
+    }, [destinations, searchQuery, sortBy, language]);
 
     // Pagination Logic
     const totalPages = Math.ceil(filteredDestinations.length / ITEMS_PER_PAGE);

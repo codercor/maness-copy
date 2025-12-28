@@ -57,15 +57,6 @@ export default function ContactPage() {
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="flex items-start gap-4">
-                                        <span className="material-symbols-outlined text-[var(--gold)]">call</span>
-                                        <div>
-                                            <p className="text-xs uppercase tracking-widest text-slate-400">Phone</p>
-                                            <a href={`tel:${t.contact.info.phone}`} className="text-lg font-medium text-[var(--navy)] hover:text-[var(--gold)] transition-colors">
-                                                {t.contact.info.phone}
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 

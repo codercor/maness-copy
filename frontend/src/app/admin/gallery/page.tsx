@@ -4,12 +4,31 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import type { GalleryItem } from "@/types";
+import type { GalleryItem, GalleryItemTranslations, GalleryTranslatedContent, Language } from "@/types";
 import { api, UPLOADS_URL } from "@/config/api";
 
 interface GalleryItemWithId extends GalleryItem {
     _id: string;
 }
+
+type SupportedLanguage = 'en' | 'de' | 'el';
+const SUPPORTED_LANGUAGES: { id: SupportedLanguage; label: string }[] = [
+    { id: 'en', label: 'English' },
+    { id: 'de', label: 'Deutsch' },
+    { id: 'el', label: 'Ελληνικά' },
+];
+
+const emptyTranslatedContent = (): GalleryTranslatedContent => ({
+    title: '',
+    description: '',
+    quickLook: '',
+});
+
+const emptyTranslations = (): GalleryItemTranslations => ({
+    en: emptyTranslatedContent(),
+    de: emptyTranslatedContent(),
+    el: emptyTranslatedContent(),
+});
 
 export default function AdminGalleryPage() {
     const router = useRouter();
@@ -22,19 +41,24 @@ export default function AdminGalleryPage() {
     const [editItem, setEditItem] = useState<GalleryItemWithId | null>(null);
     const [showAddModal, setShowAddModal] = useState(false);
 
+    // Language tab state
+    const [activeLanguage, setActiveLanguage] = useState<SupportedLanguage>('en');
+
     // Form state
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // New item form
+    // New item form with translations
     const [newItem, setNewItem] = useState<Partial<GalleryItem>>({
-        title: "",
-        description: "",
+        translations: emptyTranslations(),
         duration: "",
         image: "",
-        quickLook: "",
         featured: false,
+        // Legacy fields (for backward compatibility)
+        title: "",
+        description: "",
+        quickLook: "",
     });
 
     // Check auth on mount
@@ -92,13 +116,15 @@ export default function AdminGalleryPage() {
                 const created = await response.json();
                 setGalleryItems((prev) => [...prev, created]);
                 setShowAddModal(false);
+                setActiveLanguage('en');
                 setNewItem({
-                    title: "",
-                    description: "",
+                    translations: emptyTranslations(),
                     duration: "",
                     image: "",
-                    quickLook: "",
                     featured: false,
+                    title: "",
+                    description: "",
+                    quickLook: "",
                 });
             }
         } catch (error) {
@@ -334,36 +360,102 @@ export default function AdminGalleryPage() {
             {/* Add Modal */}
             {showAddModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    <div className="bg-white rounded-3xl p-6 w-[min(500px,90vw)] max-h-[90vh] overflow-y-auto">
+                    <div className="bg-white rounded-3xl p-6 w-[min(600px,90vw)] max-h-[90vh] overflow-y-auto">
                         <h2 className="text-xl font-bold text-[var(--navy)] mb-4">Add Gallery Item</h2>
+
+                        {/* Language Tabs */}
+                        <div className="flex gap-2 mb-4 border-b border-slate-200 pb-2">
+                            {SUPPORTED_LANGUAGES.map((lang) => (
+                                <button
+                                    key={lang.id}
+                                    onClick={() => setActiveLanguage(lang.id)}
+                                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors ${activeLanguage === lang.id
+                                        ? 'bg-[var(--navy)] text-white'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                        }`}
+                                >
+                                    {lang.label}
+                                    {lang.id === 'en' && <span className="ml-1 text-xs">*</span>}
+                                </button>
+                            ))}
+                        </div>
+                        <p className="text-xs text-slate-500 mb-4">* English is required</p>
+
                         <div className="space-y-4">
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={newItem.title}
-                                onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
-                            />
-                            <textarea
-                                placeholder="Description"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                rows={3}
-                                value={newItem.description}
-                                onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-                            />
+                            {/* Translatable Fields */}
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Title ({activeLanguage.toUpperCase()})
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    value={newItem.translations?.[activeLanguage]?.title || ''}
+                                    onChange={(e) => setNewItem({
+                                        ...newItem,
+                                        translations: {
+                                            ...newItem.translations!,
+                                            [activeLanguage]: {
+                                                ...newItem.translations?.[activeLanguage],
+                                                title: e.target.value,
+                                            },
+                                        },
+                                    })}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Description ({activeLanguage.toUpperCase()})
+                                </label>
+                                <textarea
+                                    placeholder="Description"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    rows={3}
+                                    value={newItem.translations?.[activeLanguage]?.description || ''}
+                                    onChange={(e) => setNewItem({
+                                        ...newItem,
+                                        translations: {
+                                            ...newItem.translations!,
+                                            [activeLanguage]: {
+                                                ...newItem.translations?.[activeLanguage],
+                                                description: e.target.value,
+                                            },
+                                        },
+                                    })}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Quick Look ({activeLanguage.toUpperCase()})
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Quick Look"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    value={newItem.translations?.[activeLanguage]?.quickLook || ''}
+                                    onChange={(e) => setNewItem({
+                                        ...newItem,
+                                        translations: {
+                                            ...newItem.translations!,
+                                            [activeLanguage]: {
+                                                ...newItem.translations?.[activeLanguage],
+                                                quickLook: e.target.value,
+                                            },
+                                        },
+                                    })}
+                                />
+                            </div>
+
+                            <hr className="border-slate-200" />
+
+                            {/* Non-translatable Fields */}
                             <input
                                 type="text"
                                 placeholder="Duration (e.g., 7 nights)"
                                 className="lux-field w-full px-3 py-2 text-sm"
                                 value={newItem.duration}
                                 onChange={(e) => setNewItem({ ...newItem, duration: e.target.value })}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Quick Look"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={newItem.quickLook}
-                                onChange={(e) => setNewItem({ ...newItem, quickLook: e.target.value })}
                             />
 
                             <div>
@@ -404,14 +496,14 @@ export default function AdminGalleryPage() {
                         </div>
                         <div className="flex gap-3 mt-6">
                             <button
-                                onClick={() => setShowAddModal(false)}
+                                onClick={() => { setShowAddModal(false); setActiveLanguage('en'); }}
                                 className="flex-1 rounded-full border border-slate-300 px-4 py-2 text-sm font-bold text-slate-600"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleCreate}
-                                disabled={saving || !newItem.title}
+                                disabled={saving || !newItem.translations?.en?.title}
                                 className="flex-1 rounded-full bg-[var(--navy)] px-4 py-2 text-sm font-bold text-white disabled:opacity-50"
                             >
                                 {saving ? "Creating..." : "Create"}
@@ -424,36 +516,111 @@ export default function AdminGalleryPage() {
             {/* Edit Modal */}
             {editItem && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    <div className="bg-white rounded-3xl p-6 w-[min(500px,90vw)] max-h-[90vh] overflow-y-auto">
+                    <div className="bg-white rounded-3xl p-6 w-[min(600px,90vw)] max-h-[90vh] overflow-y-auto">
                         <h2 className="text-xl font-bold text-[var(--navy)] mb-4">Edit Gallery Item</h2>
+
+                        {/* Language Tabs */}
+                        <div className="flex gap-2 mb-4 border-b border-slate-200 pb-2">
+                            {SUPPORTED_LANGUAGES.map((lang) => (
+                                <button
+                                    key={lang.id}
+                                    onClick={() => setActiveLanguage(lang.id)}
+                                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors ${activeLanguage === lang.id
+                                        ? 'bg-[var(--navy)] text-white'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                        }`}
+                                >
+                                    {lang.label}
+                                    {lang.id === 'en' && <span className="ml-1 text-xs">*</span>}
+                                </button>
+                            ))}
+                        </div>
+                        <p className="text-xs text-slate-500 mb-4">* English is required</p>
+
                         <div className="space-y-4">
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={editItem.title}
-                                onChange={(e) => setEditItem({ ...editItem, title: e.target.value })}
-                            />
-                            <textarea
-                                placeholder="Description"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                rows={3}
-                                value={editItem.description}
-                                onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
-                            />
+                            {/* Translatable Fields */}
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Title ({activeLanguage.toUpperCase()})
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    value={editItem.translations?.[activeLanguage]?.title || (activeLanguage === 'en' ? editItem.title : '') || ''}
+                                    onChange={(e) => {
+                                        const currentTranslations = editItem.translations || emptyTranslations();
+                                        setEditItem({
+                                            ...editItem,
+                                            translations: {
+                                                ...currentTranslations,
+                                                [activeLanguage]: {
+                                                    ...currentTranslations[activeLanguage],
+                                                    title: e.target.value,
+                                                },
+                                            },
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Description ({activeLanguage.toUpperCase()})
+                                </label>
+                                <textarea
+                                    placeholder="Description"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    rows={3}
+                                    value={editItem.translations?.[activeLanguage]?.description || (activeLanguage === 'en' ? editItem.description : '') || ''}
+                                    onChange={(e) => {
+                                        const currentTranslations = editItem.translations || emptyTranslations();
+                                        setEditItem({
+                                            ...editItem,
+                                            translations: {
+                                                ...currentTranslations,
+                                                [activeLanguage]: {
+                                                    ...currentTranslations[activeLanguage],
+                                                    description: e.target.value,
+                                                },
+                                            },
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                    Quick Look ({activeLanguage.toUpperCase()})
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Quick Look"
+                                    className="lux-field w-full px-3 py-2 text-sm"
+                                    value={editItem.translations?.[activeLanguage]?.quickLook || (activeLanguage === 'en' ? editItem.quickLook : '') || ''}
+                                    onChange={(e) => {
+                                        const currentTranslations = editItem.translations || emptyTranslations();
+                                        setEditItem({
+                                            ...editItem,
+                                            translations: {
+                                                ...currentTranslations,
+                                                [activeLanguage]: {
+                                                    ...currentTranslations[activeLanguage],
+                                                    quickLook: e.target.value,
+                                                },
+                                            },
+                                        });
+                                    }}
+                                />
+                            </div>
+
+                            <hr className="border-slate-200" />
+
+                            {/* Non-translatable Fields */}
                             <input
                                 type="text"
                                 placeholder="Duration"
                                 className="lux-field w-full px-3 py-2 text-sm"
                                 value={editItem.duration}
                                 onChange={(e) => setEditItem({ ...editItem, duration: e.target.value })}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Quick Look"
-                                className="lux-field w-full px-3 py-2 text-sm"
-                                value={editItem.quickLook}
-                                onChange={(e) => setEditItem({ ...editItem, quickLook: e.target.value })}
                             />
 
                             <div>
@@ -495,7 +662,7 @@ export default function AdminGalleryPage() {
                         </div>
                         <div className="flex gap-3 mt-6">
                             <button
-                                onClick={() => setEditItem(null)}
+                                onClick={() => { setEditItem(null); setActiveLanguage('en'); }}
                                 className="flex-1 rounded-full border border-slate-300 px-4 py-2 text-sm font-bold text-slate-600"
                             >
                                 Cancel

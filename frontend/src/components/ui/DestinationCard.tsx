@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type GalleryItem } from "@/types";
+import { type GalleryItem, type Language } from "@/types";
 import { useTranslationContext } from "@/context/TranslationContext";
 
 interface DestinationCardProps {
@@ -11,7 +11,13 @@ interface DestinationCardProps {
 }
 
 export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardProps) {
-    const { t } = useTranslationContext();
+    const { t, language } = useTranslationContext();
+
+    // Get translated content based on current language, fallback to English then legacy fields
+    const translations = item.translations?.[language as keyof typeof item.translations] || item.translations?.en;
+    const title = translations?.title || item.title;
+    const description = translations?.description || item.description;
+    const quickLook = translations?.quickLook || item.quickLook;
 
     // Determine destination link: use _id if available (standard), otherwise fallback
     const destinationLink = item._id ? `/destinations/${item._id}` : `#`;
@@ -29,7 +35,7 @@ export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardP
                         {t.destinationCard.quickLook}
                     </p>
                     <p className="text-sm font-semibold">
-                        {item.quickLook}
+                        {quickLook}
                     </p>
                 </div>
             </div>
@@ -40,10 +46,10 @@ export function DestinationCard({ item, heightClass = "h-80" }: DestinationCardP
                 </span>
 
                 <h3 className="mt-3 text-xl font-bold text-[var(--navy)]">
-                    {item.title}
+                    {title}
                 </h3>
                 <p className="mt-2 text-sm text-slate-500 line-clamp-2">
-                    {item.description}
+                    {description}
                 </p>
 
                 <div className="mt-6 flex items-center justify-between">

@@ -177,13 +177,13 @@
                 "success": "Message sent successfully!"
             },
             "info": {
-                "email": "hello@menescape.com",
-                "phone": "+1 (555) 123-4567"
+                "email": "contact@menescape.com"
             }
         },
         "legal": {
             "termsTitle": "Terms of Service",
-            "privacyTitle": "Privacy Policy"
+            "privacyTitle": "Privacy Policy",
+            "gdprTitle": "GDPR Compliance"
         },
         "cookie": {
             "message": "We use cookies to enhance your experience.",
@@ -406,13 +406,13 @@
                 "success": "Nachricht erfolgreich gesendet!"
             },
             "info": {
-                "email": "hallo@menescape.com",
-                "phone": "+1 (555) 123-4567"
+                "email": "contact@menescape.com"
             }
         },
         "legal": {
             "termsTitle": "Allgemeine Geschäftsbedingungen",
-            "privacyTitle": "Datenschutzerklärung"
+            "privacyTitle": "Datenschutzerklärung",
+            "gdprTitle": "DSGVO Konformität"
         },
         "cookie": {
             "message": "Wir verwenden Cookies für ein besseres Erlebnis.",
@@ -635,13 +635,13 @@
                 "success": "Το μήνυμα στάλθηκε επιτυχώς!"
             },
             "info": {
-                "email": "hello@menescape.com",
-                "phone": "+1 (555) 123-4567"
+                "email": "contact@menescape.com"
             }
         },
         "legal": {
             "termsTitle": "Όροι Χρήσης",
-            "privacyTitle": "Πολιτική Απορρήτου"
+            "privacyTitle": "Πολιτική Απορρήτου",
+            "gdprTitle": "Συμμόρφωση GDPR"
         },
         "cookie": {
             "message": "Χρησιμοποιούμε cookies για την καλύτερη εμπειρία σας.",

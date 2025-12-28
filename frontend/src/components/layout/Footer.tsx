@@ -102,6 +102,9 @@ export function Footer({
                         <li>
                             <Link href="/legal/privacy">{copy.footer.privacy}</Link>
                         </li>
+                        <li>
+                            <Link href="/legal/gdpr">{copy.legal.gdprTitle}</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

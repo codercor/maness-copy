@@ -8,6 +8,7 @@ import type { GalleryItem, Package } from "@/types";
 import { api } from "@/config/api";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PackageCard } from "@/components/ui/PackageCard";
+import { useTranslationContext } from "@/context/TranslationContext";
 
 interface DestinationWithId extends GalleryItem {
     _id: string;
@@ -16,11 +17,25 @@ interface DestinationWithId extends GalleryItem {
 export default function DestinationDetailPage() {
     const params = useParams();
     const destinationId = params.id as string;
+    const { t, language } = useTranslationContext();
 
     const [destination, setDestination] = useState<DestinationWithId | null>(null);
     const [packages, setPackages] = useState<Package[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    // Get translated content based on current language, fallback to English then legacy fields
+    const getTranslatedContent = (dest: DestinationWithId | null) => {
+        if (!dest) return { title: '', description: '', quickLook: '' };
+        const translations = dest.translations?.[language as keyof typeof dest.translations] || dest.translations?.en;
+        return {
+            title: translations?.title || dest.title || '',
+            description: translations?.description || dest.description || '',
+            quickLook: translations?.quickLook || dest.quickLook || '',
+        };
+    };
+
+    const translatedContent = getTranslatedContent(destination);
 
     useEffect(() => {
         if (!destinationId) return;
@@ -117,7 +132,7 @@ export default function DestinationDetailPage() {
                             )}
 
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-                                {destination.title}
+                                {translatedContent.title}
                             </h1>
 
                             <div className="mt-4 flex flex-wrap items-center gap-4">
@@ -128,7 +143,7 @@ export default function DestinationDetailPage() {
                             </div>
 
                             <p className="mt-4 text-lg text-white/90 max-w-2xl">
-                                {destination.quickLook}
+                                {translatedContent.quickLook}
                             </p>
                         </div>
                     </div>
@@ -140,7 +155,7 @@ export default function DestinationDetailPage() {
                         <div className="lux-card rounded-3xl bg-white p-8">
                             <h2 className="text-2xl font-bold text-[var(--navy)] mb-4">About This Destination</h2>
                             <p className="text-slate-600 leading-relaxed text-lg">
-                                {destination.description}
+                                {translatedContent.description}
                             </p>
                         </div>
                     </div>
@@ -159,7 +174,7 @@ export default function DestinationDetailPage() {
                         </div>
 
                         <h2 className="text-3xl font-bold text-[var(--navy)] mb-2">
-                            Travel Packages to {destination.title}
+                            Travel Packages to {translatedContent.title}
                         </h2>
                         <p className="text-slate-500 mb-8">
                             Explore our curated travel experiences for this stunning destination
@@ -197,7 +212,7 @@ export default function DestinationDetailPage() {
                 <section className="py-16 bg-[var(--navy)]">
                     <div className="mx-auto w-[min(1200px,92vw)] text-center">
                         <h2 className="text-3xl font-bold text-white mb-4">
-                            Ready to Explore {destination.title}?
+                            Ready to Explore {translatedContent.title}?
                         </h2>
                         <p className="text-white/70 mb-8 max-w-xl mx-auto">
                             Contact us to plan your perfect getaway or browse our other stunning destinations.
