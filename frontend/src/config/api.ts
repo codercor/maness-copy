@@ -1,6 +1,6 @@
 // API configuration
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
-export const UPLOADS_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3001';
+export const UPLOADS_URL = process.env.NEXT_PUBLIC_API_URL?.replace('.com/api', '.com') || 'http://localhost:3001';
 
 export const api = {
     // Auth endpoints
