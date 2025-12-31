@@ -21,7 +21,7 @@ export default function GdprPage() {
                         <p>At MenEscape, we prioritize your privacy and are dedicated to processing your personal data transparently, securely, and in accordance with the General Data Protection Regulation (GDPR).</p>
 
                         <h3>Data Controller</h3>
-                        <p>MenEscape acts as the data controller for any personal information collected through this platform. If you have questions about how your data is handled, please contact us at contact@menescape.com.</p>
+                        <p>MenEscape acts as the data controller for any personal information collected through this platform. If you have questions about how your data is handled, please contact us at contact@men-escape.com.</p>
 
                         <h3>Your Rights</h3>
                         <p>Under the GDPR, you have the following rights regarding your personal data:</p>
@@ -42,7 +42,7 @@ export default function GdprPage() {
                         </ul>
 
                         <h3>Contact Us</h3>
-                        <p>If you wish to exercise any of your rights or have concerns about your data, please reach out to our Data Protection Officer at contact@menescape.com.</p>
+                        <p>If you wish to exercise any of your rights or have concerns about your data, please reach out to our Data Protection Officer at contact@men-escape.com.</p>
                     </div>
                 </div>
             </div>

@@ -158,24 +158,58 @@ export default function Home() {
     setUserAuthOpen(true);
   };
 
-  const handleNewsletterSubmit = (event: FormEvent) => {
+  const handleNewsletterSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!newsletterEmail.trim()) {
       setNewsletterStatus(copy.newsletter.invalid);
       return;
     }
-    setNewsletterStatus(copy.newsletter.success);
-    setNewsletterEmail("");
+
+    try {
+      const res = await fetch(api.newsletter.subscribe, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newsletterEmail, source: 'homepage' }),
+      });
+
+      if (res.ok) {
+        setNewsletterStatus(copy.newsletter.success);
+        setNewsletterEmail("");
+      } else {
+        setNewsletterStatus('Subscription failed. Please try again.');
+      }
+    } catch (error) {
+      setNewsletterStatus('An error occurred. Please try again.');
+    }
   };
 
-  const handleFooterNewsletterSubmit = (event: FormEvent) => {
+  const handleFooterNewsletterSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!footerEmail.trim()) {
       setFooterStatus(copy.newsletter.invalid);
       return;
     }
-    setFooterStatus(copy.newsletter.success);
-    setFooterEmail("");
+
+    try {
+      const res = await fetch(api.newsletter.subscribe, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: footerEmail, source: 'footer' }),
+      });
+
+      if (res.ok) {
+        setFooterStatus(copy.newsletter.success);
+        setFooterEmail("");
+      } else {
+        setFooterStatus('Subscription failed. Please try again.');
+      }
+    } catch (error) {
+      setFooterStatus('An error occurred. Please try again.');
+    }
   };
 
   const getDestinationText = (packageId: string): DestinationContentTranslation | null => {

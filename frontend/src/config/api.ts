@@ -39,7 +39,13 @@ export const api = {
     },
     // Newsletter endpoints
     newsletter: {
+        list: `${API_URL}/newsletter`,
         subscribe: `${API_URL}/newsletter/subscribe`,
+        unsubscribe: `${API_URL}/newsletter/unsubscribe`,
+        delete: (id: string) => `${API_URL}/newsletter/${id}`,
+        // import: `${API_URL}/newsletter/import`, // Removed feature
+        emails: `${API_URL}/newsletter/emails`,
+        export: `${API_URL}/newsletter/export`,
     },
     // Upload endpoints
     upload: {
