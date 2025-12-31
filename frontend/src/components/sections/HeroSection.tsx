@@ -87,44 +87,48 @@ export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps
                     ? { initial: "hidden", animate: "show", variants: heroContainerVariants }
                     : { initial: false })}
             >
-                <motion.p
-                    variants={heroItemVariants}
-                    className="text-xs font-bold uppercase tracking-[0.4em] text-white/70"
-                >
-                    {copy.hero.label}
-                </motion.p>
-                <motion.h1
-                    variants={heroItemVariants}
-                    className="display-title text-4xl font-extrabold leading-tight md:text-6xl"
-                >
-                    {copy.hero.title}{" "}
-                    <span className="text-transparent bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] bg-clip-text">
-                        {copy.hero.highlight}
-                    </span>
-                </motion.h1>
-                <motion.p
-                    variants={heroItemVariants}
-                    className="max-w-xl text-lg text-white/80"
-                >
-                    {copy.hero.subhead}
-                </motion.p>
-                <motion.div variants={heroItemVariants} className="flex flex-wrap gap-4">
-                    <a
-                        href="#destinations"
-                        className="cta-luxe rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-8 py-3 text-sm font-bold"
+                {/* Semi-transparent background box for text content */}
+                <div className="backdrop-blur-md bg-black/30 rounded-3xl px-8 py-10 md:px-12 md:py-14 border border-white/10 shadow-2xl">
+                    <motion.p
+                        variants={heroItemVariants}
+                        className="text-xs font-bold uppercase tracking-[0.4em] text-white/70"
                     >
-                        {copy.hero.primaryCta}
-                    </a>
-                    <a
-                        href="#itinerary"
-                        className="rounded-full border border-white/60 px-8 py-3 text-sm font-semibold"
+                        {copy.hero.label}
+                    </motion.p>
+                    <motion.h1
+                        variants={heroItemVariants}
+                        className="display-title text-4xl font-extrabold leading-tight md:text-6xl mt-4"
                     >
-                        {copy.hero.secondaryCta}
-                    </a>
-                </motion.div>
+                        {copy.hero.title}{" "}
+                        <span className="text-transparent bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] bg-clip-text">
+                            {copy.hero.highlight}
+                        </span>
+                    </motion.h1>
+                    <motion.p
+                        variants={heroItemVariants}
+                        className="max-w-xl text-lg text-white/90 mt-6"
+                    >
+                        {copy.hero.subhead}
+                    </motion.p>
+                    <motion.div variants={heroItemVariants} className="flex flex-wrap gap-4 mt-8">
+                        <a
+                            href="#destinations"
+                            className="cta-luxe rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-8 py-3 text-sm font-bold"
+                        >
+                            {copy.hero.primaryCta}
+                        </a>
+                        <a
+                            href="/packages"
+                            className="rounded-full border border-white/60 px-8 py-3 text-sm font-semibold hover:bg-white/10 transition-colors"
+                        >
+                            {copy.hero.secondaryCta}
+                        </a>
+                    </motion.div>
+                </div>
+
                 <motion.div
                     variants={heroItemVariants}
-                    className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/70"
+                    className="mt-6 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/70"
                 >
                     {copy.hero.scroll}
                     <span className="material-symbols-outlined text-base animate-bounce">
