@@ -603,6 +603,16 @@ export default function Home() {
         <OffersSection copy={copy} offersCards={offersCards} motionEnabled={motionEnabled} />
         <div className="fade-band" aria-hidden="true" />
 
+        <NewsletterSection
+          copy={copy}
+          newsletterEmail={newsletterEmail}
+          setNewsletterEmail={setNewsletterEmail}
+          newsletterStatus={newsletterStatus}
+          onSubmit={handleNewsletterSubmit}
+          motionEnabled={motionEnabled}
+        />
+        <div className="fade-band" aria-hidden="true" />
+
         <DestinationsSection
           copy={copy}
           packages={packagesState}
@@ -638,15 +648,6 @@ export default function Home() {
           language={language}
         />
         <div className="fade-band" aria-hidden="true" />
-
-        <NewsletterSection
-          copy={copy}
-          newsletterEmail={newsletterEmail}
-          setNewsletterEmail={setNewsletterEmail}
-          newsletterStatus={newsletterStatus}
-          onSubmit={handleNewsletterSubmit}
-          motionEnabled={motionEnabled}
-        />
       </main>
 
       <Footer

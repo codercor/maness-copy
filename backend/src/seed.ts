@@ -362,6 +362,8 @@ const initialHeroSlides = [
         imageUrl: "/05.jpg",
         order: 0,
         transitionDuration: 5000,
+        transitionType: 'crossfade',
+        textTransitionType: 'fade',
         isActive: true,
         translations: {
             en: {
@@ -394,6 +396,8 @@ const initialHeroSlides = [
         imageUrl: "/best.jpg",
         order: 1,
         transitionDuration: 5000,
+        transitionType: 'zoom-in',
+        textTransitionType: 'slide-left',
         isActive: true,
         translations: {
             en: {
@@ -426,6 +430,8 @@ const initialHeroSlides = [
         imageUrl: "/resort-life.jpg",
         order: 2,
         transitionDuration: 5000,
+        transitionType: 'slide-left',
+        textTransitionType: 'blur',
         isActive: true,
         translations: {
             en: {

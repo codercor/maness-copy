@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { HeroSlide, HeroSlideTranslatedContent, SupportedLanguage } from "@/types/hero";
 import { SUPPORTED_LANGUAGES, LANGUAGE_NAMES } from "@/types";
+import { TRANSITION_OPTIONS } from "@/types/hero";
 import { api, UPLOADS_URL } from "@/config/api";
 import { HeroSection } from "@/components/sections/HeroSection";
 
@@ -24,7 +25,6 @@ export default function HeroCarouselAdmin() {
     const [saving, setSaving] = useState(false);
     const [saveStatus, setSaveStatus] = useState("");
     const [uploading, setUploading] = useState(false);
-    const [showAddModal, setShowAddModal] = useState(false);
     const [showPreview, setShowPreview] = useState(true);
     const [draggedSlide, setDraggedSlide] = useState<HeroSlide | null>(null);
 
@@ -89,11 +89,20 @@ export default function HeroCarouselAdmin() {
         setSaveStatus("");
 
         try {
-            const url = editingSlide._id
-                ? api.heroCarousel.update(editingSlide._id)
-                : api.heroCarousel.create;
+            const isNewSlide = !editingSlide._id || editingSlide._id.startsWith('temp-');
+            const url = isNewSlide
+                ? api.heroCarousel.create
+                : api.heroCarousel.update(editingSlide._id!);
 
-            const method = editingSlide._id ? "PUT" : "POST";
+            const method = isNewSlide ? "POST" : "PUT";
+
+            console.log('Saving slide:', { method, url, isNewSlide });
+
+            // Prepare slide data (remove _id for new slides)
+            const slideData = { ...editingSlide };
+            if (isNewSlide) {
+                delete slideData._id;
+            }
 
             const response = await fetch(url, {
                 method,
@@ -101,19 +110,35 @@ export default function HeroCarouselAdmin() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${adminToken}`,
                 },
-                body: JSON.stringify(editingSlide),
+                body: JSON.stringify(slideData),
             });
 
             if (!response.ok) {
+                const errorData = await response.text();
+                console.error('Save failed:', errorData);
                 throw new Error("Save failed");
             }
 
+            const savedSlide = await response.json();
+            console.log('Saved successfully:', savedSlide);
+
             setSaveStatus("Saved successfully!");
-            await loadSlides();
-            if (showAddModal) {
-                setShowAddModal(false);
+
+            // Remove temp slides from the list before reloading
+            if (isNewSlide) {
+                setSlides(slides.filter(s => !s._id?.startsWith('temp-')));
             }
+
+            // Reload the full list
+            await loadSlides();
+
+            // Select the saved slide (whether new or updated)
+            setEditingSlide(savedSlide);
+
+            // Clear status after 3 seconds
+            setTimeout(() => setSaveStatus(""), 3000);
         } catch (error) {
+            console.error('Save error:', error);
             setSaveStatus("Save failed. Please try again.");
         } finally {
             setSaving(false);
@@ -209,23 +234,31 @@ export default function HeroCarouselAdmin() {
 
     const handleAddNew = () => {
         const newSlide: HeroSlide = {
+            _id: `temp-${Date.now()}`, // Temporary ID
             imageUrl: "/05.jpg",
             order: slides.length + 1,
             transitionDuration: 5000,
+            transitionType: 'crossfade',
+            textTransitionType: 'fade',
             isActive: true,
             translations: {
                 en: {
                     label: "New Slide",
-                    title: "Title",
-                    highlight: "Highlight",
-                    subhead: "Subheading text",
+                    title: "New Slide (Unsaved)",
+                    highlight: "Click Save",
+                    subhead: "Edit this slide and click Save Changes to create it",
                     primaryCta: "Primary CTA",
                     secondaryCta: "Secondary CTA",
                 },
             },
         };
+
+        // Add the temp slide to the list immediately for visual feedback
+        setSlides([...slides, newSlide]);
         setEditingSlide(newSlide);
-        setShowAddModal(true);
+
+        // Scroll to top of form
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleLogout = () => {
@@ -484,6 +517,56 @@ export default function HeroCarouselAdmin() {
                                             </p>
                                         </div>
 
+                                        <div>
+                                            <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                                Transition Effect
+                                            </label>
+                                            <select
+                                                className="lux-field w-full px-3 py-2 text-sm"
+                                                value={editingSlide.transitionType}
+                                                onChange={(e) =>
+                                                    setEditingSlide({
+                                                        ...editingSlide,
+                                                        transitionType: e.target.value as any,
+                                                    })
+                                                }
+                                            >
+                                                {TRANSITION_OPTIONS.map(option => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <p className="text-xs text-slate-400 mt-1">
+                                                Visual effect when changing to next slide
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-semibold text-slate-500 mb-1">
+                                                Text Animation Effect
+                                            </label>
+                                            <select
+                                                className="lux-field w-full px-3 py-2 text-sm"
+                                                value={editingSlide.textTransitionType}
+                                                onChange={(e) =>
+                                                    setEditingSlide({
+                                                        ...editingSlide,
+                                                        textTransitionType: e.target.value as any,
+                                                    })
+                                                }
+                                            >
+                                                {TRANSITION_OPTIONS.map(option => (
+                                                    <option key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <p className="text-xs text-slate-400 mt-1">
+                                                Animation effect for text content
+                                            </p>
+                                        </div>
+
                                         <div className="sm:col-span-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input
@@ -688,7 +771,7 @@ export default function HeroCarouselAdmin() {
                                         <HeroSection
                                             slides={editingSlide ? [editingSlide] : []}
                                             language={previewLanguage}
-                                            motionEnabled={false}
+                                            motionEnabled={showPreview}
                                             heroBgRef={heroBgRef}
                                         />
                                     </div>

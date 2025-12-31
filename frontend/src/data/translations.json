@@ -174,10 +174,15 @@
                 "email": "Email Address",
                 "message": "Message",
                 "submit": "Send Message",
-                "success": "Message sent successfully!"
+                "success": "Message sent successfully!",
+                "thankYou": "Thank you",
+                "sendAnother": "Send another message",
+                "sending": "Sending..."
             },
             "info": {
-                "email": "contact@menescape.com"
+                "email": "contact@menescape.com",
+                "title": "Contact Information",
+                "emailLabel": "Email"
             }
         },
         "legal": {
@@ -403,10 +408,15 @@
                 "email": "E-Mail-Adresse",
                 "message": "Nachricht",
                 "submit": "Nachricht senden",
-                "success": "Nachricht erfolgreich gesendet!"
+                "success": "Nachricht erfolgreich gesendet!",
+                "thankYou": "Vielen Dank",
+                "sendAnother": "Weitere Nachricht senden",
+                "sending": "Wird gesendet..."
             },
             "info": {
-                "email": "contact@menescape.com"
+                "email": "contact@menescape.com",
+                "title": "Kontaktinformationen",
+                "emailLabel": "E-Mail"
             }
         },
         "legal": {
@@ -632,10 +642,15 @@
                 "email": "Email",
                 "message": "Μήνυμα",
                 "submit": "Αποστολή",
-                "success": "Το μήνυμα στάλθηκε επιτυχώς!"
+                "success": "Το μήνυμα στάλθηκε επιτυχώς!",
+                "thankYou": "Ευχαριστούμε",
+                "sendAnother": "Στείλτε άλλο μήνυμα",
+                "sending": "Αποστολή..."
             },
             "info": {
-                "email": "contact@menescape.com"
+                "email": "contact@menescape.com",
+                "title": "Πληροφορίες επικοινωνίας",
+                "emailLabel": "Email"
             }
         },
         "legal": {

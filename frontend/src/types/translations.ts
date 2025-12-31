@@ -175,9 +175,14 @@ export interface ContactTranslations {
         message: string;
         submit: string;
         success: string;
+        thankYou: string;
+        sendAnother: string;
+        sending: string;
     };
     info: {
         email: string;
+        title: string;
+        emailLabel: string;
     };
 }
 

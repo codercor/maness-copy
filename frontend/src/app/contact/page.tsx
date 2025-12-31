@@ -46,12 +46,12 @@ export default function ContactPage() {
                             className="space-y-12"
                         >
                             <div className="p-8 rounded-3xl bg-white shadow-xl border border-black/5">
-                                <h3 className="text-xl font-bold text-[var(--navy)] mb-6">Contact Information</h3>
+                                <h3 className="text-xl font-bold text-[var(--navy)] mb-6">{t.contact.info.title}</h3>
                                 <div className="space-y-6">
                                     <div className="flex items-start gap-4">
                                         <span className="material-symbols-outlined text-[var(--gold)]">mail</span>
                                         <div>
-                                            <p className="text-xs uppercase tracking-widest text-slate-400">Email</p>
+                                            <p className="text-xs uppercase tracking-widest text-slate-400">{t.contact.info.emailLabel}</p>
                                             <a href={`mailto:${t.contact.info.email}`} className="text-lg font-medium text-[var(--navy)] hover:text-[var(--gold)] transition-colors">
                                                 {t.contact.info.email}
                                             </a>
@@ -85,13 +85,13 @@ export default function ContactPage() {
                                     <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600 mb-6">
                                         <span className="material-symbols-outlined text-3xl">check</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-[var(--navy)] mb-2">Thank you</h3>
+                                    <h3 className="text-2xl font-bold text-[var(--navy)] mb-2">{t.contact.form.thankYou}</h3>
                                     <p className="text-slate-500">{t.contact.form.success}</p>
                                     <button
                                         onClick={() => setSubmitted(false)}
                                         className="mt-8 text-sm font-bold text-[var(--navy)] underline opacity-50 hover:opacity-100"
                                     >
-                                        Send another message
+                                        {t.contact.form.sendAnother}
                                     </button>
                                 </motion.div>
                             ) : (
@@ -134,7 +134,7 @@ export default function ContactPage() {
                                         {loading ? (
                                             <span className="flex items-center justify-center gap-2">
                                                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                                                Sending...
+                                                {t.contact.form.sending}
                                             </span>
                                         ) : (
                                             t.contact.form.submit

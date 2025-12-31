@@ -11,10 +11,26 @@ export interface HeroSlideTranslatedContent {
 }
 
 export interface HeroSlideTranslations {
-    en: HeroSlideTranslatedContent;
-    de?: HeroSlideTranslatedContent;
-    el?: HeroSlideTranslatedContent;
+    en: HeroSlideTranslatedContent;  // English (required)
+    de?: HeroSlideTranslatedContent; // German (optional)
+    el?: HeroSlideTranslatedContent; // Greek (optional)
 }
+
+// Transition types
+export type TransitionType = 'fade' | 'crossfade' | 'slide-left' | 'slide-right' | 'slide-up' | 'slide-down' | 'zoom-in' | 'zoom-out' | 'blur' | 'typing';
+
+export const TRANSITION_OPTIONS: { value: TransitionType; label: string }[] = [
+    { value: 'fade', label: 'Fade' },
+    { value: 'crossfade', label: 'Crossfade (Default)' },
+    { value: 'slide-up', label: 'Slide Up' },
+    { value: 'slide-down', label: 'Slide Down' },
+    { value: 'slide-left', label: 'Slide Left' },
+    { value: 'slide-right', label: 'Slide Right' },
+    { value: 'zoom-in', label: 'Zoom In' },
+    { value: 'zoom-out', label: 'Zoom Out' },
+    { value: 'blur', label: 'Blur Transition' },
+    { value: 'typing', label: 'Typing Animation' },
+];
 
 export interface HeroSlide {
     _id?: string;
@@ -22,6 +38,8 @@ export interface HeroSlide {
     translations: HeroSlideTranslations;
     order: number;
     transitionDuration: number;
+    transitionType: TransitionType;
+    textTransitionType: TransitionType;
     isActive: boolean;
     createdAt?: string;
     updatedAt?: string;

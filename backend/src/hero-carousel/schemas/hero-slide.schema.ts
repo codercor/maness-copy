@@ -47,6 +47,10 @@ export class HeroSlideTranslations {
 
 export const HeroSlideTranslationsSchema = SchemaFactory.createForClass(HeroSlideTranslations);
 
+// Available transition types
+export type TransitionType = 'fade' | 'crossfade' | 'slide-left' | 'slide-right' | 'slide-up' | 'slide-down' | 'zoom-in' | 'zoom-out' | 'blur' | 'typing';
+export const TRANSITION_TYPES: TransitionType[] = ['fade', 'crossfade', 'slide-left', 'slide-right', 'slide-up', 'slide-down', 'zoom-in', 'zoom-out', 'blur', 'typing'];
+
 @Schema({ timestamps: true })
 export class HeroSlide {
     @Prop({ required: true })
@@ -60,6 +64,12 @@ export class HeroSlide {
 
     @Prop({ default: 5000 })
     transitionDuration: number; // Duration in milliseconds
+
+    @Prop({ default: 'crossfade' })
+    transitionType: TransitionType; // Type of transition effect for image
+
+    @Prop({ default: 'fade' })
+    textTransitionType: TransitionType; // Type of transition effect for text
 
     @Prop({ default: true })
     isActive: boolean; // Whether this slide is active/visible
