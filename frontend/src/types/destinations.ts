@@ -1,13 +1,8 @@
-// Supported languages
-export type SupportedLanguage = 'en' | 'de' | 'el';
-export const SUPPORTED_LANGUAGES: SupportedLanguage[] = ['en', 'de', 'el'];
-export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
+import { Language } from './translations';
 
-export const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
-    en: 'English',
-    de: 'Deutsch',
-    el: 'Ελληνικά',
-};
+// Supported languages
+export type SupportedLanguage = Language;
+export const DEFAULT_LANGUAGE: SupportedLanguage = 'en';
 
 // Translated content for each language
 export interface TranslatedContent {
