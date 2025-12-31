@@ -36,6 +36,7 @@ import type {
   DestinationContentTranslation,
   GalleryContentTranslation,
 } from "@/types";
+import type { HeroSlide } from "@/types/hero";
 
 // API Config
 import { api } from "@/config/api";
@@ -108,6 +109,7 @@ export default function Home() {
   const [packagesState, setPackagesState] = useState<PackageDetails>({});
   const [galleryState, setGalleryState] = useState<GalleryItem[]>([]);
   const [testimonialsState, setTestimonialsState] = useState<Testimonial[]>([]);
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("experience");
   const [showMiniSummary, setShowMiniSummary] = useState(false);
@@ -337,11 +339,12 @@ export default function Home() {
     const loadData = async () => {
       setDataLoading(true);
       try {
-        // Load packages, gallery, and testimonials in parallel
-        const [packagesRes, galleryRes, testimonialsRes] = await Promise.all([
+        // Load packages, gallery, testimonials, and hero carousel in parallel
+        const [packagesRes, galleryRes, testimonialsRes, heroCarouselRes] = await Promise.all([
           fetch(api.packages.list, { cache: "no-store" }),
           fetch(api.gallery.list, { cache: "no-store" }),
           fetch(api.testimonials.list, { cache: "no-store" }),
+          fetch(api.heroCarousel.list, { cache: "no-store" }),
         ]);
 
         if (!active) return;
@@ -376,6 +379,14 @@ export default function Home() {
           const testimonialsData = (await testimonialsRes.json()) as Testimonial[];
           if (testimonialsData && testimonialsData.length > 0) {
             setTestimonialsState(testimonialsData);
+          }
+        }
+
+        // Process hero carousel
+        if (heroCarouselRes.ok) {
+          const heroCarouselData = (await heroCarouselRes.json()) as HeroSlide[];
+          if (heroCarouselData && heroCarouselData.length > 0) {
+            setHeroSlides(heroCarouselData);
           }
         }
       } catch (error) {
@@ -586,7 +597,7 @@ export default function Home() {
           />
         </div>
 
-        <HeroSection copy={copy} motionEnabled={motionEnabled} heroBgRef={heroBgRef} />
+        <HeroSection slides={heroSlides} language={language} motionEnabled={motionEnabled} heroBgRef={heroBgRef} />
         <div className="fade-band" aria-hidden="true" />
 
         <OffersSection copy={copy} offersCards={offersCards} motionEnabled={motionEnabled} />

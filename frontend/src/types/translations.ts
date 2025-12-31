@@ -1,5 +1,15 @@
 export type Language = 'en' | 'de' | 'el';
 
+// Supported languages for hero carousel
+export const SUPPORTED_LANGUAGES: Language[] = ['en', 'de', 'el'];
+
+// Language display names
+export const LANGUAGE_NAMES: Record<Language, string> = {
+    en: 'EN',
+    de: 'DE',
+    el: 'EL',
+};
+
 export interface LanguageOption {
     id: Language;
     label: string;

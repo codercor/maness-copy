@@ -1,6 +1,6 @@
 // API configuration
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
-export const UPLOADS_URL = process.env.NEXT_PUBLIC_API_URL?.replace('.com/api', '.com') || 'http://localhost:3001';
+export const UPLOADS_URL = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:3001';
 
 export const api = {
     // Auth endpoints
@@ -44,6 +44,15 @@ export const api = {
     // Upload endpoints
     upload: {
         image: `${API_URL}/upload/image`,
+    },
+    // Hero Carousel endpoints
+    heroCarousel: {
+        list: `${API_URL}/hero-carousel`, // Public endpoint
+        admin: `${API_URL}/hero-carousel/admin`, // Admin - get all including inactive
+        create: `${API_URL}/hero-carousel`,
+        update: (id: string) => `${API_URL}/hero-carousel/${id}`,
+        delete: (id: string) => `${API_URL}/hero-carousel/${id}`,
+        reorder: `${API_URL}/hero-carousel/reorder/bulk`,
     },
 };
 

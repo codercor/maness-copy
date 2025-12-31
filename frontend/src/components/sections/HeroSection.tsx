@@ -2,19 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion, type Variants } from "framer-motion";
-import type { Translations } from "@/types";
+import type { HeroSlide, HeroSlideTranslatedContent } from "@/types/hero";
 
 interface HeroSectionProps {
-    copy: Translations;
+    slides: HeroSlide[]; // Carousel slides from API
+    language: string; // Current language
     motionEnabled: boolean;
     heroBgRef: React.RefObject<HTMLDivElement | null>;
 }
-
-const HERO_IMAGES = [
-    "/05.jpg",
-    "/best.jpg",
-    "/resort-life.jpg"
-];
 
 const motionEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -45,16 +40,29 @@ const heroBgVariants: Variants = {
     },
 };
 
-export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps) {
-    const [activeImageIndex, setActiveImageIndex] = useState(0);
+export function HeroSection({ slides, language, motionEnabled, heroBgRef }: HeroSectionProps) {
+    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+    // Get current slide and its content
+    const currentSlide = slides[activeSlideIndex] || slides[0];
+    const currentContent: HeroSlideTranslatedContent = currentSlide?.translations[language as 'en' | 'de' | 'el'] || currentSlide?.translations.en;
+    const currentDuration = currentSlide?.transitionDuration || 5000;
 
     useEffect(() => {
+        if (!slides || slides.length === 0) return;
+
         const interval = setInterval(() => {
-            setActiveImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-        }, 5000); // Change image every 5 seconds
+            setActiveSlideIndex((prev) => (prev + 1) % slides.length);
+        }, currentDuration);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [slides, currentDuration]);
+
+    // Handle empty slides gracefully
+    if (!slides || slides.length === 0 || !currentSlide || !currentContent) {
+        return null;
+    }
+
     return (
         <section
             className="relative flex min-h-[85vh] items-center scroll-mt-24 snap-start"
@@ -67,14 +75,14 @@ export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps
                     ? { initial: "hidden", animate: "show", variants: heroBgVariants }
                     : { initial: false })}
             >
-                {HERO_IMAGES.map((src, index) => (
+                {slides.map((slide, index) => (
                     <div
-                        key={src}
+                        key={slide._id || index}
                         className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out"
                         style={{
-                            backgroundImage: `url('${src}')`,
-                            opacity: activeImageIndex === index ? 1 : 0,
-                            zIndex: activeImageIndex === index ? 1 : 0
+                            backgroundImage: `url('${slide.imageUrl}')`,
+                            opacity: activeSlideIndex === index ? 1 : 0,
+                            zIndex: activeSlideIndex === index ? 1 : 0
                         }}
                     />
                 ))}
@@ -93,35 +101,35 @@ export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps
                         variants={heroItemVariants}
                         className="text-xs font-bold uppercase tracking-[0.4em] text-white/70"
                     >
-                        {copy.hero.label}
+                        {currentContent.label}
                     </motion.p>
                     <motion.h1
                         variants={heroItemVariants}
                         className="display-title text-4xl font-extrabold leading-tight md:text-6xl mt-4"
                     >
-                        {copy.hero.title}{" "}
+                        {currentContent.title}{" "}
                         <span className="text-transparent bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] bg-clip-text">
-                            {copy.hero.highlight}
+                            {currentContent.highlight}
                         </span>
                     </motion.h1>
                     <motion.p
                         variants={heroItemVariants}
                         className="max-w-xl text-lg text-white/90 mt-6"
                     >
-                        {copy.hero.subhead}
+                        {currentContent.subhead}
                     </motion.p>
                     <motion.div variants={heroItemVariants} className="flex flex-wrap gap-4 mt-8">
                         <a
                             href="#destinations"
                             className="cta-luxe rounded-full bg-[linear-gradient(135deg,_#ec4899,_#3b82f6)] px-8 py-3 text-sm font-bold"
                         >
-                            {copy.hero.primaryCta}
+                            {currentContent.primaryCta}
                         </a>
                         <a
                             href="/packages"
                             className="rounded-full border border-white/60 px-8 py-3 text-sm font-semibold hover:bg-white/10 transition-colors"
                         >
-                            {copy.hero.secondaryCta}
+                            {currentContent.secondaryCta}
                         </a>
                     </motion.div>
                 </div>
@@ -130,7 +138,7 @@ export function HeroSection({ copy, motionEnabled, heroBgRef }: HeroSectionProps
                     variants={heroItemVariants}
                     className="mt-6 flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/70"
                 >
-                    {copy.hero.scroll}
+                    Scroll
                     <span className="material-symbols-outlined text-base animate-bounce">
                         expand_more
                     </span>

@@ -80,9 +80,34 @@ const TestimonialSchema = new mongoose.Schema({
     author: String,
 }, { timestamps: true });
 
+// Hero Slide Schema
+const HeroSlideTranslatedContentSchema = new mongoose.Schema({
+    label: String,
+    title: String,
+    highlight: String,
+    subhead: String,
+    primaryCta: String,
+    secondaryCta: String,
+}, { _id: false });
+
+const HeroSlideTranslationsSchema = new mongoose.Schema({
+    en: { type: HeroSlideTranslatedContentSchema, required: true },
+    de: HeroSlideTranslatedContentSchema,
+    el: HeroSlideTranslatedContentSchema,
+}, { _id: false });
+
+const HeroSlideSchema = new mongoose.Schema({
+    imageUrl: { type: String, required: true },
+    translations: { type: HeroSlideTranslationsSchema, required: true },
+    order: { type: Number, required: true, default: 0 },
+    transitionDuration: { type: Number, default: 5000 },
+    isActive: { type: Boolean, default: true },
+}, { timestamps: true });
+
 const Package = mongoose.model('Package', PackageSchema);
 const GalleryItem = mongoose.model('GalleryItem', GalleryItemSchema);
 const Testimonial = mongoose.model('Testimonial', TestimonialSchema);
+const HeroSlide = mongoose.model('HeroSlide', HeroSlideSchema);
 
 // ========================================
 // PACKAGES - 4 main travel packages
@@ -330,6 +355,108 @@ const initialGallery = Object.values(initialPackages).map(pkg => ({
 }));
 
 // ========================================
+// HERO CAROUSEL - Homepage hero slides
+// ========================================
+const initialHeroSlides = [
+    {
+        imageUrl: "/05.jpg",
+        order: 0,
+        transitionDuration: 5000,
+        isActive: true,
+        translations: {
+            en: {
+                label: "MenEscape — The Gateway",
+                title: "Your body. Your rules.",
+                highlight: "Your getaway.",
+                subhead: "We create spaces for a liberating, exciting, and pleasurable getaway.",
+                primaryCta: "Explore Destinations",
+                secondaryCta: "View Packages"
+            },
+            de: {
+                label: "MenEscape — Das Tor",
+                title: "Dein Körper. Deine Regeln.",
+                highlight: "Dein Rückzug.",
+                subhead: "Wir schaffen Räume für einen befreienden, aufregenden und genussvollen Urlaub.",
+                primaryCta: "Reiseziele entdecken",
+                secondaryCta: "Pakete ansehen"
+            },
+            el: {
+                label: "MenEscape — Η Πύλη",
+                title: "Το σώμα σου. Οι κανόνες σου.",
+                highlight: "Η απόδρασή σου.",
+                subhead: "Δημιουργούμε χώρους για μια απελευθερωτική, συναρπαστική και απολαυστική απόδραση.",
+                primaryCta: "Εξερεύνησε Προορισμούς",
+                secondaryCta: "Δες τα Πακέτα"
+            }
+        }
+    },
+    {
+        imageUrl: "/best.jpg",
+        order: 1,
+        transitionDuration: 5000,
+        isActive: true,
+        translations: {
+            en: {
+                label: "MenEscape — Experience Freedom",
+                title: "Unforgettable moments.",
+                highlight: "Unmatched experiences.",
+                subhead: "Join a community of like-minded travelers seeking authentic connections and ultimate freedom.",
+                primaryCta: "Explore Destinations",
+                secondaryCta: "View Packages"
+            },
+            de: {
+                label: "MenEscape — Erlebe Freiheit",
+                title: "Unvergessliche Momente.",
+                highlight: "Unvergleichliche Erlebnisse.",
+                subhead: "Werde Teil einer Gemeinschaft Gleichgesinnter auf der Suche nach echten Verbindungen und ultimativer Freiheit.",
+                primaryCta: "Reiseziele entdecken",
+                secondaryCta: "Pakete ansehen"
+            },
+            el: {
+                label: "MenEscape — Βίωσε την Ελευθερία",
+                title: "Αξέχαστες στιγμές.",
+                highlight: "Ασύγκριτες εμπειρίες.",
+                subhead: "Γίνε μέλος μιας κοινότητας ομοϊδεατών ταξιδιωτών που αναζητούν αυθεντικές συνδέσεις και απόλυτη ελευθερία.",
+                primaryCta: "Εξερεύνησε Προορισμούς",
+                secondaryCta: "Δες τα Πακέτα"
+            }
+        }
+    },
+    {
+        imageUrl: "/resort-life.jpg",
+        order: 2,
+        transitionDuration: 5000,
+        isActive: true,
+        translations: {
+            en: {
+                label: "MenEscape — Luxury Awaits",
+                title: "Paradise found.",
+                highlight: "Your escape begins.",
+                subhead: "Discover hidden gems and exclusive destinations designed for connection and adventure.",
+                primaryCta: "Explore Destinations",
+                secondaryCta: "View Packages"
+            },
+            de: {
+                label: "MenEscape — Luxus erwartet dich",
+                title: "Paradies gefunden.",
+                highlight: "Deine Flucht beginnt.",
+                subhead: "Entdecke verborgene Schätze und exklusive Ziele für Verbindung und Abenteuer.",
+                primaryCta: "Reiseziele entdecken",
+                secondaryCta: "Pakete ansehen"
+            },
+            el: {
+                label: "MenEscape — Πολυτέλεια σε περιμένει",
+                title: "Παράδεισος βρέθηκε.",
+                highlight: "Η απόδρασή σου ξεκινά.",
+                subhead: "Ανακάλυψε κρυμμένους θησαυρούς και αποκλειστικούς προορισμούς για σύνδεση και περιπέτεια.",
+                primaryCta: "Εξερεύνησε Προορισμούς",
+                secondaryCta: "Δες τα Πακέτα"
+            }
+        }
+    }
+];
+
+// ========================================
 // TESTIMONIALS
 // ========================================
 const initialTestimonials = [
@@ -354,7 +481,8 @@ async function seed() {
     await Package.deleteMany({});
     await GalleryItem.deleteMany({});
     await Testimonial.deleteMany({});
-    console.log('   ✅ Cleared packages, gallery items, and testimonials');
+    await HeroSlide.deleteMany({});
+    console.log('   ✅ Cleared packages, gallery items, testimonials, and hero slides');
 
     // Seed packages
     console.log('🌱 Seeding packages...');
@@ -367,6 +495,11 @@ async function seed() {
     console.log('🌱 Seeding destinations with translations...');
     await GalleryItem.insertMany(initialGallery);
     console.log(`   ✅ Created ${initialGallery.length} destinations`);
+
+    // Seed hero carousel
+    console.log('🌱 Seeding hero carousel slides...');
+    await HeroSlide.insertMany(initialHeroSlides);
+    console.log(`   ✅ Created ${initialHeroSlides.length} hero slides`);
 
     // Seed testimonials
     console.log('🌱 Seeding testimonials...');

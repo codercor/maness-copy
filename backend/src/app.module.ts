@@ -8,6 +8,7 @@ import { GalleryModule } from './gallery/gallery.module';
 import { TestimonialsModule } from './testimonials/testimonials.module';
 import { UploadModule } from './upload/upload.module';
 import { UsersModule } from './users/users.module';
+import { HeroCarouselModule } from './hero-carousel/hero-carousel.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UsersModule } from './users/users.module';
     TestimonialsModule,
     UploadModule,
     UsersModule,
+    HeroCarouselModule,
   ],
 })
 export class AppModule { }

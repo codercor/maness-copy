@@ -49,7 +49,7 @@ __decorate([
             callback(null, true);
         },
         limits: {
-            fileSize: 5 * 1024 * 1024,
+            fileSize: 50 * 1024 * 1024,
         },
     })),
     __param(0, (0, common_1.UploadedFile)()),

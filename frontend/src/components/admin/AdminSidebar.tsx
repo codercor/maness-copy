@@ -14,6 +14,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     const links = [
         { href: "/admin", label: "Packages", icon: "inventory_2" },
         { href: "/admin/gallery", label: "Gallery", icon: "collections" },
+        { href: "/admin/hero-carousel", label: "Hero Carousel", icon: "image" },
         { href: "/admin/users", label: "Users", icon: "group" },
         { href: "/admin/settings", label: "Settings", icon: "settings" },
     ];

@@ -588,11 +588,28 @@ export default function AdminPage() {
         <div className="bg-[var(--bg)] min-h-full">
             {/* Main Content - Two Column Layout */}
             <div className="mx-auto max-w-[1400px]">
-                <div className="mb-6">
-                    <h1 className="text-3xl font-bold text-[var(--navy)]">Edit Packages</h1>
-                    <p className="mt-2 text-slate-500">
-                        Manage packages, translations, destinations, and itineraries
-                    </p>
+                <div className="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold text-[var(--navy)]">Edit Packages</h1>
+                        <p className="mt-2 text-slate-500">
+                            Manage packages, translations, destinations, and itineraries
+                        </p>
+                    </div>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={() => router.push('/admin/hero-carousel')}
+                            className="rounded-full border border-[var(--navy)] bg-white px-4 py-2.5 text-sm font-semibold text-[var(--navy)] hover:bg-slate-50 transition-colors flex items-center gap-2"
+                        >
+                            <span className="material-symbols-outlined text-lg">image</span>
+                            Hero Carousel
+                        </button>
+                        <button
+                            onClick={handleLogout}
+                            className="rounded-full border border-red-200 px-4 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-6">
